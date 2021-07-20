@@ -2,10 +2,18 @@
 
 # Steps
 
-## First: Create A DataBase Structure 
+## First: 
+```php 
+Create A DataBase Structure 
+```
 
-## Second: Create A CRUD SYSTEM TO USERS & RESOURCES (PRODUCTS)
+## Second: 
+```php
+Create A CRUD SYSTEM TO USERS & RESOURCES (PRODUCTS)
+```
 
-## Third: Authentication Login & Registeration 
-
+## Third:
+```php
+Authentication Login & Registeration 
+```
 .... open for more additions until to complete our project 
