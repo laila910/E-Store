@@ -2,10 +2,10 @@
 
 # Steps
 
-## Create A DataBase Structure 
+## First: Create A DataBase Structure 
 
-## Create A CRUD SYSTEM TO USERS & RESOURCES (PRODUCTS)
+## Second: Create A CRUD SYSTEM TO USERS & RESOURCES (PRODUCTS)
 
-## Authentication Login & Registeration 
+## Third: Authentication Login & Registeration 
 
 .... open for more additions until to complete our project 
