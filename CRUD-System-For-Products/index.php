@@ -2,7 +2,12 @@
 session_start(); //to return the result of the deletion from delete.php
 
 require "../dbconnection.php";
-$sql = "SELECT * FROM product;";
+$sql = "SELECT * FROM product
+LEFT JOIN productdetails ON product.details_id = productdetails.id
+UNION
+SELECT * FROM product
+RIGHT JOIN productdetails ON product.details_id = productdetails.id;";
+
 $op = mysqli_query($conn,$sql);
 
 
@@ -50,10 +55,23 @@ $op = mysqli_query($conn,$sql);
         <table class="table table-striped">
            <thead>
              <tr>
-               <th scope="col">Id</th>
+               <th scope="col">Product Id</th>
+               <th scope="col">Details Id</th>
                <th scope="col">Product Name</th>
                <th scope="col">Category Id</th>
                <th scope="col">Brand Id </th>
+               <th scope="col">Product Status </th>
+               <th scope="col">Featured </th>
+               <th scope="col">Product price </th>
+               <th scope="col">Product Quantity </th>
+               <th scope="col">Product Description </th>
+               <th scope="col">Product Specifiction </th>
+               <th scope="col">Review Id  </th>
+               <th scope="col">Units In Stock  </th>
+               <th scope="col">Discount  </th>
+               <th scope="col">Product Availablity  </th>
+               <th scope="col">Discount Availablity  </th>
+               <th scope="col">Product Made Date   </th>
                <th scope="col">Action</th>
 
             </tr>
@@ -64,12 +82,25 @@ $op = mysqli_query($conn,$sql);
             ?>
          <tr>
              <td><?php echo $data['product_id'];?></td>
+             <td><?php echo $data['details_id'];?></td>
              <td><?php echo $data['productname'];?></td>
              <td><?php echo $data['product_cat_id'];?></td>
              <td><?php echo $data['product_brand_id'];?></td>
+             <td><?php echo $data['product_status'];?></td>
+             <td><?php echo $data['featured'];?></td>
+             <td><?php echo $data['productPrice'];?></td>
+             <td><?php echo $data['productQuntity'];?></td>
+             <td><?php echo $data['product_Description'];?></td>
+             <td><?php echo $data['product_Specification'];?></td>
+             <td><?php echo $data['Review_id'];?></td>
+             <td><?php echo $data['unitsInStock'];?></td>
+             <td><?php echo $data['Discount'];?></td>
+             <td><?php echo $data['productAvailablity'];?></td>
+             <td><?php echo $data['discountAvailablity'];?></td>
+             <td><?php echo $data['productMadeDate'];?></td>
              <td>
-                 <a class="btn btn-danger  m-r-1em  m-b-1em " href="delete.php?id=<?php echo $data['id']; ?>" role="button">Delete</a>
-                 <a class="btn btn-primary m-r-1em" href="edit.php?id=<?php echo $data['id']; ?>" role="button">Edit</a>
+                 <a class="btn btn-danger  m-r-1em  m-b-1em " href="delete.php?id=<?php echo $data['product_Id']; ?>" role="button">Delete</a>
+                 <a class="btn btn-primary m-r-1em" href="edit.php?id=<?php echo $data['product_Id']; ?>" role="button">Edit</a>
              </td>
          </tr>
           <?php } ?>

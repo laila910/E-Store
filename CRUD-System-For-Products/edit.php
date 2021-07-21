@@ -20,6 +20,18 @@ function CleanInputs($input)
      $ProductName=CleanInputs($_POST["productname"]);  
      $CategoryId=CleanInputs($_POST["product_cat_id"]);  
      $BrandId =CleanInputs($_POST["product_brand_id"]);  
+     $ProductStatus=CleanInputs($_POST["product_status"]);  
+     $featured=CleanInputs($_POST["featured"]);  
+     $ProductPrice=CleanInputs($_POST["productPrice"]);  
+     $ProductQuantity=CleanInputs($_POST["productQuntity"]);  
+     $ProductDescription=CleanInputs($_POST["product_Description"]);  
+     $ProductSpecification=CleanInputs($_POST["product_Specification"]);  
+     $ReviewId=CleanInputs($_POST["Review_id"]);  
+     $UnitsInStock =CleanInputs($_POST["unitsInStock"]);  
+     $Discount=CleanInputs($_POST["Discount"]);  
+     $productAvailablity =CleanInputs($_POST["productAvailablity"]);  
+     $discountAvailablity =CleanInputs($_POST["discountAvailablity"]);  
+     $productMadeDate =CleanInputs($_POST["productMadeDate"]);  
     
 
     
@@ -38,9 +50,17 @@ function CleanInputs($input)
      
      if(count($errorMessages) == 0){
        
-        $sql = "UPDATE product SET productname='$ProductName',product_cat_id='$CategoryId',product_brand_id='$BrandId' where id=".$id;
-        $op = mysqli_query($conn,$sql);
-        if($op){
+        $sql1 = "UPDATE product SET productname='$ProductName',product_cat_id='$CategoryId',product_brand_id='$BrandId',product_status='$ProductStatus',featured='$featured' where product_id=".$id;
+        $op1 = mysqli_query($conn,$sql1);
+        if($op1){
+              echo"the row is updated ";
+               header("Location: index.php");
+        }else{
+            echo"Error in Update please Try again";
+        }
+        $sql2="UPDATE productdetails SET productPrice='$ProductPrice',productQuantity='$ProductQuantity',product_Description='$ProductDescription',product_Specification='$ProductSpecification',Review_id='$ReviewId',unitsInStock='$UnitsInStock',Discount='$Discount',productAvailablity='$productAvailablity',discountAvailablity='$discountAvailablity',productMadeDate='$productMadeDate' where id=".$id;
+         $op2 = mysqli_query($conn,$sql2);
+        if($op2){
               echo"the row is updated ";
                header("Location: index.php");
         }else{
@@ -102,6 +122,51 @@ function CleanInputs($input)
                      <label for="exampleInputEmail1">Enter Your Brand Id </label>
                      <input type="text" name="product_brand_id"   value="<?php echo $data['product_brand_id'];?> " id=" exampleInputName" aria-describedby="">
                  </div>
+                        <div class="form-group">
+                     <label for="exampleInputEmail1">Enter product status  </label>
+                     <input type="text" name="product_status"   value="<?php echo $data['product_status'];?> " id=" exampleInputName" aria-describedby="">
+                 </div>
+                 <div class="form-group">
+                     <label for="exampleInputEmail1">Enter featured product or not  </label>
+                     <input type="text" name="featured"   value="<?php echo $data['featured'];?> " id=" exampleInputName" aria-describedby="">
+                 </div>
+                 <div class="form-group">
+                     <label for="exampleInputEmail1">Enter Product Price </label>
+                     <input type="text" name="productPrice"   value="<?php echo $data['productPrice'];?> " id=" exampleInputName" aria-describedby="">
+                 </div>
+                 <div class="form-group">
+                     <label for="exampleInputEmail1">Enter Product Quantity</label>
+                     <input type="text" name="productQuntity"   value="<?php echo $data['productQuntity'];?> " id=" exampleInputName" aria-describedby="">
+                 </div>
+                 <div class="form-group">
+                     <label for="exampleInputEmail1">Enter Product Description</label>
+                     <input type="text" name="product_Description"   value="<?php echo $data['product_Description'];?> " id=" exampleInputName" aria-describedby="">
+                 </div>
+                 <div class="form-group">
+                     <label for="exampleInputEmail1">Enter Product Specification </label>
+                     <input type="text" name="product_Specification"   value="<?php echo $data['product_Specification'];?> " id=" exampleInputName" aria-describedby="">
+                 </div>
+                 <div class="form-group">
+                     <label for="exampleInputEmail1">Enter Product Units Of Stock</label>
+                     <input type="text" name="unitsInStock"   value="<?php echo $data['unitsInStock'];?> " id=" exampleInputName" aria-describedby="">
+                 </div>
+                 <div class="form-group">
+                     <label for="exampleInputEmail1">Enter Product Discount</label>
+                     <input type="text" name="Discount"   value="<?php echo $data['Discount'];?> " id=" exampleInputName" aria-describedby="">
+                 </div>
+                 <div class="form-group">
+                     <label for="exampleInputEmail1">Enter Product Availablity</label>
+                     <input type="text" name="productAvailablity"   value="<?php echo $data['productAvailablity'];?> " id=" exampleInputName" aria-describedby="">
+                 </div>
+                 <div class="form-group">
+                     <label for="exampleInputEmail1">Enter Discount Availablity</label>
+                     <input type="text" name="discountAvailablity"   value="<?php echo $data['discountAvailablity'];?> " id=" exampleInputName" aria-describedby="">
+                 </div>
+                 <div class="form-group">
+                     <label for="exampleInputEmail1">Enter Product Made Date</label>
+                     <input type="text" name="productMadeDate"   value="<?php echo $data['productMadeDate'];?> " id=" exampleInputName" aria-describedby="">
+                 </div>
+
 
                  <button type="submit" class="btn btn-primary">Update</button>
              </form>

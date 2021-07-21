@@ -20,7 +20,9 @@ function CleanInputs($input)
      $FirstName =CleanInputs($_POST["firstName"]);  
      $LastName =CleanInputs($_POST["lastName"]);  
      $Email =CleanInputs($_POST["email"]);  
+     $MobileNo =CleanInputs($_POST["mobileNo"]);  
      $Password =CleanInputs($_POST["password"]);  
+     
      $GroupId =CleanInputs($_POST["group_id"]);  
    
     
@@ -54,6 +56,19 @@ function CleanInputs($input)
         }else{
                   $errorMessages['email'] = 'error Email Required!';
             }
+    //check the MobileNo
+       if(!empty($MobileNo)){
+        
+            if(!filter_var($MobileNo, FILTER_VALIDATE_INT)){
+               
+                        $errorMessages['mobileNo'] = 'error your MobileNo is not valid! ';
+              
+                    }
+        
+             }
+        }else{
+                  $errorMessages['mobileNo'] = 'error MobileNo Required!';
+            }
     // Password Validation ... 
         if(!empty($Password)){
             if(strlen($Password) < 6){
@@ -66,14 +81,27 @@ function CleanInputs($input)
           $errorMessages['Password'] = " your Password Required";
 
         }
-     
+      //check the GroupId
+       if(!empty($GroupId)){
+        
+            if(!filter_var($GroupId, FILTER_VALIDATE_INT)){
+               
+                        $errorMessages['group_id'] = 'error your group ID is not valid! ';
+              
+                    }
+        
+             }
+        }else{
+                  $errorMessages['group_id'] = 'error group ID Required!';
+            }
+ 
  
     
      //print the result 
      
      if(count($errorMessages) == 0){
       
-        $sql = "UPDATE users SET firstName='$FirstName',lastName='$LastName',email='$Email',password='$password',group_id='$GroupId' where id=".$id;
+        $sql = "UPDATE users SET firstName='$FirstName',lastName='$LastName',email='$Email',mobileNo= $MobileNo,password='$password',group_id='$GroupId' where id=".$id;
         $op = mysqli_query($conn,$sql);
         if($op){
               echo"the row is updated ";
@@ -135,7 +163,13 @@ function CleanInputs($input)
                      <input type="email" name="email"  value="<?php echo $data['email']; ?>"class="form-control" id="exampleInputEmail1"
                          aria-describedby="emailHelp" placeholder="Enter email">
                  </div>
-                  
+
+                  <div class="form-group">
+                     <label for="exampleInputPassword1">Enter your Mobile No</label>
+                     <input type="text" name="mobileNo" value="<?php echo $data['mobileNo']; ?>" class="form-control" id="exampleInputPassword1"
+                         placeholder="mobile No">
+                 </div>
+
                   <div class="form-group">
                      <label for="exampleInputPassword1">Enter your Password</label>
                      <input type="password" name="password" value="<?php echo $data['password']; ?>" class="form-control" id="exampleInputPassword1"

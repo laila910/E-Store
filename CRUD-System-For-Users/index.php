@@ -2,7 +2,11 @@
 session_start(); //to return the result of the deletion from delete.php
 
 require "../dbconnection.php";
-$sql = "SELECT * FROM users;";
+$sql = "SELECT * FROM users
+LEFT JOIN usersgroup ON users.group_id = usersgroup.id
+UNION
+SELECT * FROM users
+RIGHT JOIN usersgroup  ON users.group_id = usersgroup.id;";
 $op = mysqli_query($conn,$sql);
 
 
@@ -50,12 +54,14 @@ $op = mysqli_query($conn,$sql);
         <table class="table table-striped">
            <thead>
              <tr>
-               <th scope="col">Id</th>
+               <th scope="col"> Users Id</th>
                <th scope="col">First Name </th>
                <th scope="col">Last Name </th>
                <th scope="col">E-mail</th>
+               <th scope="col">Mobile No </th>
                <th scope="col">Password</th>
-               <th scope="col">Group-Id</th>
+               <th scope="col">Group_Id</th>
+               <th scope="col">Group</th>
                <th scope="col">Action</th>
 
             </tr>
@@ -69,8 +75,10 @@ $op = mysqli_query($conn,$sql);
              <td><?php echo $data['firstName'];?></td>
              <td><?php echo $data['lastName'];?></td>
              <td><?php echo $data['email'];?></td>
+             <td><?php echo $data['mobileNo'];?></td>
              <td><?php echo $data['Password'];?></td>
-             <td><?php echo $data['Group-Id'];?></td>
+             <td><?php echo $data['group_id'];?></td>
+             <td><?php echo $data['Group'];?></td>
              <td>
                  <a class="btn btn-danger  m-r-1em  m-b-1em " href="delete.php?id=<?php echo $data['id']; ?>" role="button">Delete</a>
                  <a class="btn btn-primary m-r-1em" href="edit.php?id=<?php echo $data['id']; ?>" role="button">Edit</a>

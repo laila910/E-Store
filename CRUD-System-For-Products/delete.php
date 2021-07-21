@@ -11,11 +11,20 @@ $message ='';
 
 if(filter_var($id,FILTER_VALIDATE_INT)){
    require "../dbconnection.php";
-   $sql = "DELETE from product where id=".$id;
-   $op = mysqli_query($conn,$sql);
+   $sql1 = "DELETE from product where product_Id=".$id;
+   $op1 = mysqli_query($conn,$sql);
    
-   if($op){
+   if($op1){
        $message = "Success to delete the product of id=".$id;
+
+   }else{
+       $message = "Error in delete this query";
+   }
+    $sql2 = "DELETE from productdetails where id=".$id;
+   $op2 = mysqli_query($conn,$sql);
+   
+   if($op2){
+       $message = "Success to delete the productdetails of id=".$id;
 
    }else{
        $message = "Error in delete this query";
