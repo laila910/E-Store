@@ -1,4 +1,5 @@
 # E-Store
+# Note : With help from my previous Repositories : https://github.com/laila910/PDO-PHP-CRUD-System-  & https://github.com/laila910/Login_System
 
 # Steps
 
