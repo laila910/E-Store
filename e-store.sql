@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 21, 2021 at 04:13 PM
+-- Generation Time: Jul 21, 2021 at 06:13 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -119,6 +119,7 @@ CREATE TABLE `customers` (
 
 CREATE TABLE `manager` (
   `id_manager` int(11) NOT NULL,
+  `supplierid` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `noofproducts` int(11) NOT NULL COMMENT 'indicate the no of product to order from the suppliers ',
   `lackOfProducts` bit(1) NOT NULL COMMENT 'there is lack of no of products yes or no',
@@ -336,8 +337,7 @@ CREATE TABLE `suppliers` (
   `notes` text NOT NULL,
   `discountavailable` bit(1) NOT NULL,
   `logoimage` varchar(250) NOT NULL,
-  `currentorder` text NOT NULL,
-  `managerid` int(11) NOT NULL
+  `currentorder` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -386,6 +386,21 @@ CREATE TABLE `whishlist` (
 --
 
 --
+-- Indexes for table `addtocard`
+--
+ALTER TABLE `addtocard`
+  ADD KEY `customerId` (`customerId`),
+  ADD KEY `carditem` (`carditem`),
+  ADD KEY `orderid` (`orderid`);
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD KEY `usersid` (`usersid`),
+  ADD KEY `productid` (`productid`);
+
+--
 -- Indexes for table `brand`
 --
 ALTER TABLE `brand`
@@ -410,7 +425,8 @@ ALTER TABLE `customers`
 ALTER TABLE `manager`
   ADD PRIMARY KEY (`id_manager`),
   ADD KEY `userid` (`userid`),
-  ADD KEY `product_id` (`product_id`);
+  ADD KEY `product_id` (`product_id`),
+  ADD KEY `supplierid` (`supplierid`);
 
 --
 -- Indexes for table `orderdetailes`
@@ -418,6 +434,13 @@ ALTER TABLE `manager`
 ALTER TABLE `orderdetailes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `ordernumber` (`ordernumber`);
+
+--
+-- Indexes for table `orderproducts`
+--
+ALTER TABLE `orderproducts`
+  ADD KEY `orderdetails_id` (`orderdetails_id`),
+  ADD KEY `productdetails_id` (`productdetails_id`);
 
 --
 -- Indexes for table `orders`
@@ -445,13 +468,22 @@ ALTER TABLE `paymentmethod`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`product_Id`),
-  ADD KEY `productdetails_id` (`details_id`);
+  ADD KEY `productdetails_id` (`details_id`),
+  ADD KEY `product_cat_id` (`product_cat_id`),
+  ADD KEY `product_brand_id` (`product_brand_id`);
 
 --
 -- Indexes for table `productcolor`
 --
 ALTER TABLE `productcolor`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `productcolorcheck`
+--
+ALTER TABLE `productcolorcheck`
+  ADD KEY `productcolor_id` (`productcolor_id`),
+  ADD KEY `productdetails_id` (`productdetails_id`);
 
 --
 -- Indexes for table `productdetails`
@@ -461,10 +493,36 @@ ALTER TABLE `productdetails`
   ADD KEY `Review_id` (`Review_id`);
 
 --
+-- Indexes for table `productimges`
+--
+ALTER TABLE `productimges`
+  ADD KEY `product_id` (`product_id`);
+
+--
 -- Indexes for table `productreview`
 --
 ALTER TABLE `productreview`
   ADD PRIMARY KEY (`id_review`);
+
+--
+-- Indexes for table `productsizecheck`
+--
+ALTER TABLE `productsizecheck`
+  ADD KEY `size_id` (`size_id`),
+  ADD KEY `productdetails_id` (`productdetails_id`);
+
+--
+-- Indexes for table `productsizes`
+--
+ALTER TABLE `productsizes`
+  ADD PRIMARY KEY (`id_size`);
+
+--
+-- Indexes for table `suppliers`
+--
+ALTER TABLE `suppliers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `userid` (`userid`);
 
 --
 -- Indexes for table `users`
@@ -564,6 +622,18 @@ ALTER TABLE `productreview`
   MODIFY `id_review` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `productsizes`
+--
+ALTER TABLE `productsizes`
+  MODIFY `id_size` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `suppliers`
+--
+ALTER TABLE `suppliers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
@@ -586,6 +656,21 @@ ALTER TABLE `whishlist`
 --
 
 --
+-- Constraints for table `addtocard`
+--
+ALTER TABLE `addtocard`
+  ADD CONSTRAINT `customer relationss` FOREIGN KEY (`customerId`) REFERENCES `customers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `order relationsss` FOREIGN KEY (`orderid`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `productss Relationsss` FOREIGN KEY (`carditem`) REFERENCES `productdetails` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `admin`
+--
+ALTER TABLE `admin`
+  ADD CONSTRAINT `product sss relation` FOREIGN KEY (`productid`) REFERENCES `product` (`product_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `users relationss` FOREIGN KEY (`usersid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `customers`
 --
 ALTER TABLE `customers`
@@ -596,6 +681,7 @@ ALTER TABLE `customers`
 --
 ALTER TABLE `manager`
   ADD CONSTRAINT `product Relationsss` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `shipper relationss` FOREIGN KEY (`supplierid`) REFERENCES `suppliers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `users types relation` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -603,6 +689,13 @@ ALTER TABLE `manager`
 --
 ALTER TABLE `orderdetailes`
   ADD CONSTRAINT `order relation` FOREIGN KEY (`ordernumber`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `orderproducts`
+--
+ALTER TABLE `orderproducts`
+  ADD CONSTRAINT `orderdetails relations` FOREIGN KEY (`orderdetails_id`) REFERENCES `orderdetailes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `productdetails Relationssss` FOREIGN KEY (`productdetails_id`) REFERENCES `productdetails` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orders`
@@ -621,13 +714,35 @@ ALTER TABLE `ordershipper`
 -- Constraints for table `product`
 --
 ALTER TABLE `product`
+  ADD CONSTRAINT `brand category` FOREIGN KEY (`product_brand_id`) REFERENCES `brand` (`brand_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `category relation` FOREIGN KEY (`product_cat_id`) REFERENCES `categoreis` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `product Detailss Relation` FOREIGN KEY (`details_id`) REFERENCES `productdetails` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `productcolorcheck`
+--
+ALTER TABLE `productcolorcheck`
+  ADD CONSTRAINT `product color relations` FOREIGN KEY (`productcolor_id`) REFERENCES `productcolor` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `productdetailssss Relationss` FOREIGN KEY (`productdetails_id`) REFERENCES `productdetails` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `productdetails`
 --
 ALTER TABLE `productdetails`
   ADD CONSTRAINT `Review Relation` FOREIGN KEY (`Review_id`) REFERENCES `productreview` (`id_review`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `productimges`
+--
+ALTER TABLE `productimges`
+  ADD CONSTRAINT `productss relation` FOREIGN KEY (`product_id`) REFERENCES `productdetails` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `productsizecheck`
+--
+ALTER TABLE `productsizecheck`
+  ADD CONSTRAINT `productdetailsdd Relation` FOREIGN KEY (`productdetails_id`) REFERENCES `productdetails` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `size relation` FOREIGN KEY (`size_id`) REFERENCES `productsizes` (`id_size`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`
