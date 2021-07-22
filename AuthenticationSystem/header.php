@@ -27,8 +27,9 @@ session_start();
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 </head>
-<haader>
+
 <body>
+    <haader>
     <!-- Top bar Start -->
     <div class="top-bar">
         <div class="container-fluid">
@@ -65,7 +66,7 @@ session_start();
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
                             <div class="dropdown-menu">
                                 <a href="wishlist.html" class="dropdown-item">Wishlist</a>
-                                <a href="login.html" class="dropdown-item">Login & Register</a>
+                                <a href="index.php" class="dropdown-item">Login & Register</a>
                                 <a href="contact.html" class="dropdown-item">Contact Us</a>
                             </div>
                         </div>
@@ -74,8 +75,8 @@ session_start();
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
                             <div class="dropdown-menu">
-                                <a href="#" class="dropdown-item">Login</a>
-                                <a href="#" class="dropdown-item">Register</a>
+                                <a href="index.php" class="dropdown-item">Login</a>
+                                <a href="signup.php" class="dropdown-item">Register</a>
                             </div>
                         </div>
                     </div>
@@ -117,62 +118,7 @@ session_start();
         </div>
     </div>
     <!-- Bottom Bar End -->
-  <!-- Login Start -->
-  <?php
-  if(!isset($_SESSION['userId'])){
-      echo'
-       <div class="login">
-            <div class="container-fluid">
-                <div class="row">
-                  <div class="col-lg-12">
-                        <div class="login-form" method="post" action="includes/login.inc.php" enctype="multipart/form-data" >
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>E-mail </label>
-                                    <input class="form-control" type="text" name="email" placeholder="E-Mail">
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Password</label>
-                                    <input class="form-control" type="text" name="password" placeholder="Password">
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="newaccount">
-                                        <label class="custom-control-label" for="newaccount">Keep me signed in</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <button class="btn" name="login-submit" value="submit">Login</button>
-                                </div>
-                            </div>
-                        </div>
-                         <a style="border:1px solid #FF6F61;border-radius:3px;padding:8px;" href="signup.php">Sign-Up</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        ';}else{
-            echo'
-           <div class="login">
-            <div class="container-fluid">
-                <div class="row">
-                  <div class="col-lg-12">
-                        <div class="login-form" method="post" action="includes/logout.inc.php" enctype="multipart/form-data" >
-                            <div class="row">
-                              <div class="col-md-12">
-                                    <button class="btn" name="logout-submit" value="submit">LogOut</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>';
-        }
-        ?>
-        <!-- Login End -->
-                  
+        
          
          </header>
     
