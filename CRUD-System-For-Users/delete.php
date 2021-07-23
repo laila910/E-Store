@@ -11,7 +11,7 @@ $message ='';
 
 if(filter_var($id,FILTER_VALIDATE_INT)){
    require "../dbconnection.php";
-   $sql = "DELETE from users where id=".$id;
+   $sql = "DELETE from users where userid=".$id;
    $op = mysqli_query($conn,$sql);
    
    if($op){

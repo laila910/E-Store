@@ -71,17 +71,17 @@ $op = mysqli_query($conn,$sql);
               while($data = mysqli_fetch_assoc($op)){
             ?>
          <tr>
-             <td><?php echo $data['id'];?></td>
+             <td><?php echo $data['userid'];?></td>
              <td><?php echo $data['firstName'];?></td>
              <td><?php echo $data['lastName'];?></td>
              <td><?php echo $data['email'];?></td>
              <td><?php echo $data['mobileNo'];?></td>
-             <td><?php echo $data['Password'];?></td>
+             <td><?php echo $data['password'];?></td>
              <td><?php echo $data['group_id'];?></td>
              <td><?php echo $data['Group'];?></td>
              <td>
-                 <a class="btn btn-danger  m-r-1em  m-b-1em " href="delete.php?id=<?php echo $data['id']; ?>" role="button">Delete</a>
-                 <a class="btn btn-primary m-r-1em" href="edit.php?id=<?php echo $data['id']; ?>" role="button">Edit</a>
+                 <a class="btn btn-danger  m-r-1em  m-b-1em " href="delete.php?id=<?php echo $data['userid']; ?>" role="button">Delete</a>
+                 <a class="btn btn-primary m-r-1em" href="edit.php?id=<?php echo $data['userid']; ?>" role="button">Edit</a>
              </td>
          </tr>
           <?php } ?>

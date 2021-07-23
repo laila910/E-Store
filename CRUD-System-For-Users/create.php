@@ -57,14 +57,14 @@ function CleanInputs($input)
      //check the MobileNo
        if(!empty($MobileNo)){
         
-            if(!filter_var($MobileNo, FILTER_VALIDATE_INT)){
+            if(!filter_var($MobileNo,FILTER_VALIDATE_INT)){
                
                         $errorMessages['mobileNo'] = 'error your MobileNo is not valid! ';
               
                     }
         
              }
-        }else{
+        else{
                   $errorMessages['mobileNo'] = 'error MobileNo Required!';
             }
     // Password Validation ... 
@@ -88,17 +88,17 @@ function CleanInputs($input)
               
                     }
         
-             }
-        }else{
+             }else{
                   $errorMessages['group_id'] = 'error group ID Required!';
             }
+        
  
     
      //print the result 
      
      if(count($errorMessages) == 0){
        
-        $sql = "INSERT INTO users(firstName,lastName,email,password,group_id) VALUES ('$FirstName','$LastName','$Email',mobileNo= $MobileNo,'$Password','$GroupId');";
+        $sql = "INSERT INTO users(firstName,lastName,email,mobileNo,password,group_id) VALUES ('$FirstName','$LastName','$Email','$MobileNo','$Password','$GroupId');";
         $op = mysqli_query($conn,$sql);
         if($op){
               echo'Data Inserted';
@@ -116,6 +116,7 @@ function CleanInputs($input)
 
     }
 }
+
         
     
                     
@@ -141,37 +142,37 @@ function CleanInputs($input)
 
                   <div class="form-group">
                      <label for="exampleInputEmail1">Enter Your First Name</label>
-                     <input type="text" name="firstName"  value="<?php echo $data['firstName']; ?>"class="form-control" id="exampleInputName" aria-describedby=""
+                     <input type="text" name="firstName" class="form-control" id="exampleInputName" aria-describedby=""
                          placeholder="Enter your first name ">
                  </div>
 
                  <div class="form-group">
                      <label for="exampleInputEmail1">Enter Your Last Name</label>
-                     <input type="text" name="lastName"  value="<?php echo $data['lastName']; ?>"class="form-control" id="exampleInputName" aria-describedby=""
+                     <input type="text" name="lastName" class="form-control" id="exampleInputName" aria-describedby=""
                          placeholder="Enter your last name ">
                   </div>
 
                   <div class="form-group">
                      <label for="exampleInputEmail1">Enter your Email</label>
-                     <input type="email" name="email" value="<?php echo $data['email']; ?>" class="form-control" id="exampleInputEmail1"
+                     <input type="email" name="email" class="form-control" id="exampleInputEmail1"
                          aria-describedby="emailHelp" placeholder="Enter email">
                  </div>
                   
                   <div class="form-group">
                      <label for="exampleInputPassword1">Enter your Mobile No</label>
-                     <input type="text" name="mobileNo" value="<?php echo $data['mobileNo']; ?>" class="form-control" id="exampleInputPassword1"
+                     <input type="number" name="mobileNo" class="form-control" id="exampleInputPassword1"
                          placeholder="mobile No">
                  </div>
 
                   <div class="form-group">
                      <label for="exampleInputPassword1">Enter your Password</label>
-                     <input type="password" name="password"  value="<?php echo $data['password']; ?>" class="form-control" id="exampleInputPassword1"
+                     <input type="password" name="password"  class="form-control" id="exampleInputPassword1"
                          placeholder="Password">
                  </div>
                  
                      <div class="form-group">
                      <label for="exampleInputEmail1">Enter Your Group ID </label>
-                     <input type="text" name="group-id"  value="<?php echo $data['group_id']; ?>"class="form-control" id="exampleInputName" aria-describedby=""
+                     <input type="number" name="group_id" class="form-control" id="exampleInputName" aria-describedby=""
                          placeholder="Enter your group id ">
                   </div>
 

@@ -81,7 +81,7 @@ $op = mysqli_query($conn,$sql);
               while($data = mysqli_fetch_assoc($op)){
             ?>
          <tr>
-             <td><?php echo $data['product_id'];?></td>
+             <td><?php echo $data['product_Id'];?></td>
              <td><?php echo $data['details_id'];?></td>
              <td><?php echo $data['productname'];?></td>
              <td><?php echo $data['product_cat_id'];?></td>
@@ -91,7 +91,7 @@ $op = mysqli_query($conn,$sql);
              <td><?php echo $data['productPrice'];?></td>
              <td><?php echo $data['productQuntity'];?></td>
              <td><?php echo $data['product_Description'];?></td>
-             <td><?php echo $data['product_Specification'];?></td>
+             <td><?php echo $data['product_Specificaton'];?></td>
              <td><?php echo $data['Review_id'];?></td>
              <td><?php echo $data['unitsInStock'];?></td>
              <td><?php echo $data['Discount'];?></td>

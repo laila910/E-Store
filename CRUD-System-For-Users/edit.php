@@ -25,6 +25,8 @@ function CleanInputs($input)
      
      $GroupId =CleanInputs($_POST["group_id"]);  
    
+     $Group =CleanInputs($_POST["Group"]);  
+   
     
      // Name Validation ...
         if(!empty($FirstName)){
@@ -58,27 +60,23 @@ function CleanInputs($input)
             }
     //check the MobileNo
        if(!empty($MobileNo)){
-        
-            if(!filter_var($MobileNo, FILTER_VALIDATE_INT)){
-               
-                        $errorMessages['mobileNo'] = 'error your MobileNo is not valid! ';
-              
-                    }
-        
-             }
-        }else{
+         if(!filter_var($MobileNo, FILTER_VALIDATE_INT)){
+                $errorMessages['mobileNo'] = 'error your MobileNo is not valid! ';
+               }
+       }
+        else{
                   $errorMessages['mobileNo'] = 'error MobileNo Required!';
             }
     // Password Validation ... 
         if(!empty($Password)){
             if(strlen($Password) < 6){
 
-               $errorMessages['Password'] = "Password Length must be > 5 "; 
+               $errorMessages['password'] = "Password Length must be > 5 "; 
             }
 
         }else{
 
-          $errorMessages['Password'] = " your Password Required";
+          $errorMessages['password'] = " your Password Required";
 
         }
       //check the GroupId
@@ -88,10 +86,7 @@ function CleanInputs($input)
                
                         $errorMessages['group_id'] = 'error your group ID is not valid! ';
               
-                    }
-        
-             }
-        }else{
+                   } }else{
                   $errorMessages['group_id'] = 'error group ID Required!';
             }
  
@@ -101,14 +96,23 @@ function CleanInputs($input)
      
      if(count($errorMessages) == 0){
       
-        $sql = "UPDATE users SET firstName='$FirstName',lastName='$LastName',email='$Email',mobileNo= $MobileNo,password='$password',group_id='$GroupId' where id=".$id;
-        $op = mysqli_query($conn,$sql);
-        if($op){
+        $sql1= "UPDATE users SET firstName='$FirstName',lastName='$LastName',email='$Email',mobileNo= $MobileNo,password='$Password',group_id='$GroupId' where userid=".$id;
+        $op1 = mysqli_query($conn,$sql1);
+        if($op1){
               echo"the row is updated ";
                header("Location: index.php");
         }else{
             echo"Error in Update please Try again";
         }
+         $sql2 = "UPDATE usersgroup SET Group='$Group' where id=".$id;
+        $op2 = mysqli_query($conn,$sql2);
+        if($op2){
+              echo"the row is updated ";
+               header("Location: index.php");
+        }else{
+            echo"Error in Update please Try again";
+        }
+        
      }else{
 
      // print error messages 
@@ -119,12 +123,18 @@ function CleanInputs($input)
 
 
     }
+
 }
-        
  //select the row to edit 
-  $sql = "SELECT * FROM users where id= $id";
-  $op = mysqli_query($conn,$sql);
-  $data = mysqli_fetch_assoc($op);   
+  $sql1 = "SELECT * FROM users where userid= $id";
+  $op1 = mysqli_query($conn,$sql1);
+  $data1 = mysqli_fetch_assoc($op1);   
+
+  $sql2 = "SELECT * FROM usersgroup where id= $id";
+  $op2= mysqli_query($conn,$sql2);
+  $data2 = mysqli_fetch_assoc($op2);   
+   
+
                     
   ?>
  <!DOCTYPE html>
@@ -143,43 +153,48 @@ function CleanInputs($input)
 
          <div class="container">
             
-             <form method="post" action="edit.php?id=<?php echo $data['id'];?>"
+             <form method="post" action="edit.php?id=<?php echo $data1['userid'];?>"
                  enctype="multipart/form-data">
 
                  <div class="form-group">
                      <label for="exampleInputEmail1">Enter Your First Name</label>
-                     <input type="text" name="firstName"  value="<?php echo $data['firstName']; ?>"class="form-control" id="exampleInputName" aria-describedby=""
+                     <input type="text" name="firstName"  value="<?php echo $data1['firstName']; ?>"class="form-control" id="exampleInputName" aria-describedby=""
                          placeholder="Enter your first name ">
                  </div>
 
                  <div class="form-group">
                      <label for="exampleInputEmail1">Enter Your Last Name</label>
-                     <input type="text" name="lastName"  value="<?php echo $data['lastName']; ?>"class="form-control" id="exampleInputName" aria-describedby=""
+                     <input type="text" name="lastName"  value="<?php echo $data1['lastName']; ?>"class="form-control" id="exampleInputName" aria-describedby=""
                          placeholder="Enter your last name ">
                   </div>
 
                   <div class="form-group">
                      <label for="exampleInputEmail1">Enter your Email</label>
-                     <input type="email" name="email"  value="<?php echo $data['email']; ?>"class="form-control" id="exampleInputEmail1"
+                     <input type="email" name="email"  value="<?php echo $data1['email']; ?>"class="form-control" id="exampleInputEmail1"
                          aria-describedby="emailHelp" placeholder="Enter email">
                  </div>
 
                   <div class="form-group">
-                     <label for="exampleInputPassword1">Enter your Mobile No</label>
-                     <input type="text" name="mobileNo" value="<?php echo $data['mobileNo']; ?>" class="form-control" id="exampleInputPassword1"
+                     <label >Enter your Mobile No</label>
+                     <input type="number" name="mobileNo" value="<?php echo $data1['mobileNo']; ?>" class="form-control" 
                          placeholder="mobile No">
                  </div>
 
                   <div class="form-group">
                      <label for="exampleInputPassword1">Enter your Password</label>
-                     <input type="password" name="password" value="<?php echo $data['password']; ?>" class="form-control" id="exampleInputPassword1"
+                     <input type="password" name="password" value="<?php echo $data1['password']; ?>" class="form-control" id="exampleInputPassword1"
                          placeholder="Password">
                  </div>
 
                      <div class="form-group">
                      <label for="exampleInputEmail1">Enter Your Group ID </label>
-                     <input type="text" name="group-id"  value="<?php echo $data['group_id']; ?>"class="form-control" id="exampleInputName" aria-describedby=""
+                     <input type="number" name="group_id"  value="<?php echo $data1['group_id']; ?>"class="form-control" id="exampleInputName" aria-describedby=""
                          placeholder="Enter your group id ">
+                  </div>
+                     <div class="form-group">
+                     <label for="exampleInputEmail1">Enter Your Group </label>
+                     <input type="text" name="Group"  value="<?php echo $data2['Group']; ?>"class="form-control" id="exampleInputName" aria-describedby=""
+                         placeholder="Enter your group ">
                   </div>
 
                 

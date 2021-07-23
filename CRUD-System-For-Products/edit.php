@@ -24,8 +24,8 @@ function CleanInputs($input)
      $featured=CleanInputs($_POST["featured"]);  
      $ProductPrice=CleanInputs($_POST["productPrice"]);  
      $ProductQuantity=CleanInputs($_POST["productQuntity"]);  
-     $ProductDescription=CleanInputs($_POST["product_Description"]);  
-     $ProductSpecification=CleanInputs($_POST["product_Specification"]);  
+     $ProductDescription=$_POST["product_Description"];  
+     $ProductSpecification= $_POST["product_Description"];  
      $ReviewId=CleanInputs($_POST["Review_id"]);  
      $UnitsInStock =CleanInputs($_POST["unitsInStock"]);  
      $Discount=CleanInputs($_POST["Discount"]);  
@@ -50,7 +50,7 @@ function CleanInputs($input)
      
      if(count($errorMessages) == 0){
        
-        $sql1 = "UPDATE product SET productname='$ProductName',product_cat_id='$CategoryId',product_brand_id='$BrandId',product_status='$ProductStatus',featured='$featured' where product_id=".$id;
+        $sql1 = "UPDATE product SET productname='$ProductName',product_cat_id='$CategoryId',product_brand_id='$BrandId',product_status='$ProductStatus',featured='$featured' where product_Id=".$id;
         $op1 = mysqli_query($conn,$sql1);
         if($op1){
               echo"the row is updated ";
@@ -58,7 +58,7 @@ function CleanInputs($input)
         }else{
             echo"Error in Update please Try again";
         }
-        $sql2="UPDATE productdetails SET productPrice='$ProductPrice',productQuantity='$ProductQuantity',product_Description='$ProductDescription',product_Specification='$ProductSpecification',Review_id='$ReviewId',unitsInStock='$UnitsInStock',Discount='$Discount',productAvailablity='$productAvailablity',discountAvailablity='$discountAvailablity',productMadeDate='$productMadeDate' where id=".$id;
+        $sql2="UPDATE productdetails SET productPrice='$ProductPrice',productQuantity='$ProductQuantity',product_Description='$ProductDescription',product_Specificaton='$ProductSpecification',Review_id='$ReviewId',unitsInStock='$UnitsInStock',Discount='$Discount',productAvailablity='$productAvailablity',discountAvailablity='$discountAvailablity',productMadeDate='$productMadeDate' where id=".$id;
          $op2 = mysqli_query($conn,$sql2);
         if($op2){
               echo"the row is updated ";
@@ -79,10 +79,13 @@ function CleanInputs($input)
 }
         
  //select the row to edit 
-  $sql = "SELECT * FROM product where id= $id";
-  $op = mysqli_query($conn,$sql);
-  $data = mysqli_fetch_assoc($op);   
-                    
+  $sql1= "SELECT * FROM product where product_Id= $id";
+  $op1 = mysqli_query($conn,$sql1);
+  $data1 = mysqli_fetch_assoc($op1);   
+
+  $sql2= "SELECT * FROM productdetails where id= $id";
+  $op2 = mysqli_query($conn,$sql2);
+  $data2 = mysqli_fetch_assoc($op2);   
   ?>
  <!DOCTYPE html>
  <html lang="en">
@@ -100,19 +103,19 @@ function CleanInputs($input)
 
          <div class="container">
            
-             <form method="post" action="edit.php?id=<?php echo $data['id'];?>"
+             <form method="post" action="edit.php?id=<?php echo $data1['product_Id'];?>"
                  enctype="multipart/form-data">
 
                  <div class="form-group">
                      <label for="exampleInputEmail1">Enter The Product Name</label>
-                     <input type="text" name="productname"  value="<?php echo $data['productname']; ?>"class="form-control" id="exampleInputName" aria-describedby=""
+                     <input type="text" name="productname"  value="<?php echo $data1['productname']; ?>"class="form-control" id="exampleInputName" aria-describedby=""
                          placeholder="Enter The product name ">
                  </div>
 
 
                  <div class="form-group">
                      <label for="exampleInputEmail1">Enter your Category Id </label>
-                     <input type="text" name="product_cat_id"  value="<?php echo $data['product_cat_id']; ?>" class="form-control" id="exampleInputEmail1"
+                     <input type="text" name="product_cat_id"  value="<?php echo $data1['product_cat_id']; ?>" class="form-control" id="exampleInputEmail1"
                          placeholder="Enter your category Id">
                  </div>
 
@@ -120,55 +123,55 @@ function CleanInputs($input)
                  
                  <div class="form-group">
                      <label for="exampleInputEmail1">Enter Your Brand Id </label>
-                     <input type="text" name="product_brand_id"   value="<?php echo $data['product_brand_id'];?> " id=" exampleInputName" aria-describedby="">
+                     <input type="text" name="product_brand_id"   value="<?php echo $data1['product_brand_id'];?> " id=" exampleInputName" aria-describedby="">
                  </div>
                         <div class="form-group">
                      <label for="exampleInputEmail1">Enter product status  </label>
-                     <input type="text" name="product_status"   value="<?php echo $data['product_status'];?> " id=" exampleInputName" aria-describedby="">
+                     <input type="text" name="product_status"   value="<?php echo $data1['product_status'];?> " id=" exampleInputName" aria-describedby="">
                  </div>
                  <div class="form-group">
                      <label for="exampleInputEmail1">Enter featured product or not  </label>
-                     <input type="text" name="featured"   value="<?php echo $data['featured'];?> " id=" exampleInputName" aria-describedby="">
+                     <input type="text" name="featured"   value="<?php echo $data1['featured'];?> " id=" exampleInputName" aria-describedby="">
                  </div>
                  <div class="form-group">
                      <label for="exampleInputEmail1">Enter Product Price </label>
-                     <input type="text" name="productPrice"   value="<?php echo $data['productPrice'];?> " id=" exampleInputName" aria-describedby="">
+                     <input type="text" name="productPrice"   value="<?php echo $data2['productPrice'];?> " id=" exampleInputName" aria-describedby="">
                  </div>
                  <div class="form-group">
                      <label for="exampleInputEmail1">Enter Product Quantity</label>
-                     <input type="text" name="productQuntity"   value="<?php echo $data['productQuntity'];?> " id=" exampleInputName" aria-describedby="">
+                     <input type="text" name="productQuntity"   value="<?php echo $data2['productQuntity'];?> " id=" exampleInputName" aria-describedby="">
                  </div>
                  <div class="form-group">
                      <label for="exampleInputEmail1">Enter Product Description</label>
-                     <input type="text" name="product_Description"   value="<?php echo $data['product_Description'];?> " id=" exampleInputName" aria-describedby="">
+                     <input type="text" name="product_Description"   value="<?php echo $data2['product_Description'];?>" id=" exampleInputName" aria-describedby="">
                  </div>
                  <div class="form-group">
                      <label for="exampleInputEmail1">Enter Product Specification </label>
-                     <input type="text" name="product_Specification"   value="<?php echo $data['product_Specification'];?> " id=" exampleInputName" aria-describedby="">
+                     <input type="text" name="product_Specificaton"   value="<?php echo $data2['product_Specificaton'];?> " id=" exampleInputName" aria-describedby="">
                  </div>
                  <div class="form-group">
                      <label for="exampleInputEmail1">Enter Product Units Of Stock</label>
-                     <input type="text" name="unitsInStock"   value="<?php echo $data['unitsInStock'];?> " id=" exampleInputName" aria-describedby="">
+                     <input type="text" name="unitsInStock"   value="<?php echo $data2['unitsInStock'];?> " id=" exampleInputName" aria-describedby="">
                  </div>
                  <div class="form-group">
                      <label for="exampleInputEmail1">Enter Product Discount</label>
-                     <input type="text" name="Discount"   value="<?php echo $data['Discount'];?> " id=" exampleInputName" aria-describedby="">
+                     <input type="text" name="Discount"   value="<?php echo $data2['Discount'];?> " id=" exampleInputName" aria-describedby="">
                  </div>
                  <div class="form-group">
                      <label for="exampleInputEmail1">Enter Product Availablity</label>
-                     <input type="text" name="productAvailablity"   value="<?php echo $data['productAvailablity'];?> " id=" exampleInputName" aria-describedby="">
+                     <input type="text" name="productAvailablity"   value="<?php echo $data2['productAvailablity'];?> " id=" exampleInputName" aria-describedby="">
                  </div>
                  <div class="form-group">
                      <label for="exampleInputEmail1">Enter Discount Availablity</label>
-                     <input type="text" name="discountAvailablity"   value="<?php echo $data['discountAvailablity'];?> " id=" exampleInputName" aria-describedby="">
+                     <input type="text" name="discountAvailablity"   value="<?php echo $data2['discountAvailablity'];?> " id=" exampleInputName" aria-describedby="">
                  </div>
                  <div class="form-group">
                      <label for="exampleInputEmail1">Enter Product Made Date</label>
-                     <input type="text" name="productMadeDate"   value="<?php echo $data['productMadeDate'];?> " id=" exampleInputName" aria-describedby="">
+                     <input type="text" name="productMadeDate"   value="<?php echo $data2['productMadeDate'];?> " id=" exampleInputName" aria-describedby="">
                  </div>
 
 
-                 <button type="submit" class="btn btn-primary">Update</button>
+                 <button role="button" type="submit" class="btn btn-primary">Update</button>
              </form>
          </div>
 
