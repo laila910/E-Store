@@ -85,7 +85,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
       $op2  = mysqli_query($conn,$sql2);
       echo mysqli_error($conn);
-    if($op){
+    if($op2){
 
         $errorMessages['Result'] = "Data inserted.";
        
