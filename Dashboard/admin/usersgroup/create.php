@@ -16,6 +16,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $errorMessages['GroupLength'] = "Group length must be > 4 ";
 
   }
+  
  if(count($errorMessages) == 0){
        $sql = "INSERT INTO `usersgroup`( `Group`) VALUES ('$Group')";
 

@@ -18,7 +18,7 @@
       }else{
 
         // DB Opretaion ... 
-        $sql = "DELETE FROM users where userid =".$id;
+        $sql = "DELETE FROM users where id =".$id;
 
         $op = mysqli_query($conn,$sql);
 

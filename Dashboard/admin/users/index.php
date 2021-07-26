@@ -2,8 +2,9 @@
  include '../helpers/functions.php';
   include '../helpers/dbconnection.php';
 
-  $sql = "select * from users";
+  $sql = "SELECT users.* , usersgroup.Group from users join usersgroup on users.group_id = usersgroup.id";
   $op  = mysqli_query($conn,$sql); 
+
 include '../header.php';
 ?>
 
@@ -62,7 +63,7 @@ include '../sidNave.php';
                                                 <th>Email</th>
                                                 <th>Mobile No.</th>
                                                 <th>Password</th>
-                                                <th>Group Id </th>
+                                                <th>Group  </th>
                                                 <th>Action</th>
                                           
                                             </tr>
@@ -72,22 +73,22 @@ include '../sidNave.php';
                                         <tbody>
                                        
                              <?php 
-                             
+                          
                                 while($data = mysqli_fetch_assoc($op)){
                              
                              ?>           
                                         <tr>
-                                                <td><?php echo $data['userid'];?></td>
+                                                <td><?php echo $data['id'];?></td>
                                                 <td><?php echo $data['firstName'];?></td>
                                                 <td><?php echo $data['lastName'];?></td>
                                                 <td><?php echo $data['email'];?></td>
                                                 <td><?php echo $data['mobileNo'];?></td>
                                                 <td><?php echo $data['password'];?></td>
-                                                <td><?php echo $data['group_id'];?></td>
+                                                <td><?php echo $data['Group'];?></td>
                                                 <td>
 
-                                                <a href='delete.php?id=<?php echo $data['userid'];?>' class='btn btn-danger m-r-1em'>Delete</a>
-                                                <a href='edit.php?id=<?php echo $data['userid'];?>' class='btn btn-primary m-r-1em'>Edit</a>  
+                                                <a href='delete.php?id=<?php echo $data['id'];?>' class='btn btn-danger m-r-1em'>Delete</a>
+                                                <a href='edit.php?id=<?php echo $data['id'];?>' class='btn btn-primary m-r-1em'>Edit</a>  
                                                 </td>
                                   
                                         </tr>

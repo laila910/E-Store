@@ -42,7 +42,14 @@ function Validator($input,$flag,$length=3){
                 $status = false;
             }    
             break;
+        //  case 5:
 
+        //     $allowedExtension = ['png','jpg'];    
+
+        //     if(!(in_array($input,$allowedExtension))){
+        //        $status = false;
+        //     }
+        //     break;
     }
 
     return $status;
@@ -60,7 +67,9 @@ function Sanitize($input,$flag){
               
          $sanitize_var = filter_var($sanitize_var,FILTER_SANITIZE_NUMBER_INT);
             break;
-        
+        case 2: 
+            $sanitize_var = filter_var($sanitize_var,FILTER_SANITIZE_STRING);     
+           break;
     }
 
     return $sanitize_var;

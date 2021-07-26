@@ -144,7 +144,7 @@
                              }else{
                         ?>
                         
-                        <li class="breadcrumb-item active">Add Group Type</li>
+                        <li class="breadcrumb-item active">Group Type</li>
                         <?php } ?>
                         
                         

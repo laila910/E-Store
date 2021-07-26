@@ -20,36 +20,33 @@
 
     }
 
-
-
-
-
-
-
    if($_SERVER['REQUEST_METHOD'] == "POST"){
        
        $FirstName =CleanInputs($_POST["firstName"]);  
-     $LastName =CleanInputs($_POST["lastName"]);  
-     $Email =CleanInputs($_POST["email"]); 
+      $LastName =CleanInputs($_POST["lastName"]);  
+      $Email =CleanInputs($_POST["email"]); 
       $MobileNo =CleanInputs($_POST["mobileNo"]);   
-     $Password =CleanInputs($_POST["password"]);  
-      $GroupId =CleanInputs($_POST["group_id"]);  
-        $id    = Sanitize($_POST['userid'],1);
+      $Password =$_POST["password"];  
+      $GroupId =Sanitize($_POST["group_id"],1);  
+       $id  = Sanitize($_POST['id'],1);
 
-
-        //validate id 
+       $errorMessages=array();
+    //validate id 
+    if(!Validator($id,1)){
+      $errorMessages['id']="id  field Required";
+   }
       if(!Validator($id,3)){
           $errorMessages['id'] = "Invalid id";
       }
    
 
-  $errorMessages=array();
+
   //validate first Name
    if(!Validator($FirstName,1)){
       $errorMessages['firstName']="First Name field Required";
    }
     
-  if(!Validator($FirstName,2,4)){
+  if(!Validator($FirstName,2,2)){
     $errorMessages['firstNameLength'] = "First Name length must be > 4 ";
 
   }
@@ -58,7 +55,7 @@
       $errorMessages['lastName']="last Name field Required";
    }
     
-  if(!Validator($LastName,2,4)){
+  if(!Validator($LastName,2,2)){
     $errorMessages['lastNameLength'] = "Last Name length must be > 4 ";
 
   }
@@ -108,48 +105,38 @@
 
      if(count($errorMessages) == 0){
        
-         $sql = "UPDATE users SET firstName='$FirstName',lastName='$LastName',email='$Email',mobileNo= $MobileNo,password='$Password',group_id='$GroupId' where userid=".$id;
+      
+         $sql="UPDATE `users` SET `firstName`='$FirstName',`lastName`='$LastName',`email`='$Email',`mobileNo`='$MobileNo',`password`='$Password',`group_id`='$GroupId' WHERE id= $id";
 
-         $op  = mysqli_query($conn,$sql);
+         $op = mysqli_query($conn,$sql);
 
-     if($op){
+       if($op){
 
-           $errorMessages['Result'] = "Data updated.";
+            $errorMessages['Result'] = "Data updated.";
        
-    }else{
-         $errorMessages['Result']  = "Error Try Again.";
+       }else{
+            $errorMessages['Result']  = "Error Try Again.";
      
-     }
+         }
         $_SESSION['errors'] = $errorMessages;
        
         header('Location: index.php');
 
-     }
+     }else{
 
-             
-    }else{
-
-   $_SESSION['errors'] = $errorMessages;
+       $_SESSION['errors'] = $errorMessages;
    }
 
+  }
 
-
-
-
-   # Fetch Data to id . 
-   $sql  ="SELECT * FROM users WHERE userid= $id";
+   # Fetch users
+   $sql  ="SELECT * FROM users WHERE id= $id";
    $op   = mysqli_query($conn,$sql);
    $FData = mysqli_fetch_assoc($op);
-   echo mysqli_error($conn);
 
-
-
-
-
-
-
-
-
+   //fetch usersgroup
+   $sql = "SELECT * FROM usersgroup";
+   $op  = mysqli_query($conn,$sql);
 
     include '../header.php';
 ?>
@@ -168,9 +155,6 @@
 <?php 
     include '../sidNave.php';
 ?>  
-
-
-
 
 
             <div id="layoutSidenav_content">
@@ -203,12 +187,12 @@
 
                       
 
- <div class="container">
+<div class="container">
 
- <form  method="post"  action="edit.php?id=<?php echo $FData['userid'];?>"  enctype ="multipart/form-data">
+ <form  method="post"  action="edit.php?id=<?php echo $FData['id'];?>"  enctype ="multipart/form-data">
   
  
-         <div class="form-group">
+               <div class="form-group">
                      <label for="exampleInputEmail1">Enter Your First Name</label>
                      <input type="text" name="firstName"  value="<?php echo $FData['firstName']; ?>"class="form-control" id="exampleInputName" aria-describedby=""
                          placeholder="Enter your first name ">
@@ -239,25 +223,27 @@
                  </div>
 
                      <div class="form-group">
-                     <label for="exampleInputEmail1">Enter Your Group ID </label>
-                     <input type="number" name="group_id"  value="<?php echo $FData['group_id']; ?>"class="form-control" id="exampleInputName" aria-describedby=""
-                         placeholder="Enter your group id ">
-                  </div>
-                    <input type="hidden" name="id" value="<?php echo $FData['userid'];?>">
+                            <label for="exampleInput"> Group  </label>
+                            <select name="group_id" class="form-control"> 
+                                 <?php 
+                                     while($data = mysqli_fetch_assoc($op)){
+                                  ?>
+                              <option value="<?php echo $data['id'];?>"    <?php if($data['id'] == $FData['group_id'] ){ echo 'selected';}?>    >
+                              <?php echo $data['Group'];?></option>
+                                   <?php } ?>
+                            </select>  
+                      </div>
+ 
+                      <input type="hidden" name="id" value="<?php echo $FData['id'];?>">
 
                 
   
-                   <button type="submit"  name="submit"class="btn btn-primary">Submit</button>
+                     <button type="submit"  name="submit"class="btn btn-primary">Submit</button>
 </form>
 </div>
 
-
-                       
-                </div>
-                </main>
-               
-    
-                
-<?php 
-    include '../footer.php';
-?>  
+              </div>
+              </main>   
+ <?php
+include '../footer.php';
+ ?>

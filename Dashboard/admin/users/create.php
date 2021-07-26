@@ -3,15 +3,17 @@ include '../header.php';
 include '../helpers/functions.php';
 include '../helpers/dbconnection.php';
 
+ $sql1 = "SELECT * FROM usersgroup";
+  $op1  = mysqli_query($conn,$sql1);
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
 
-    $FirstName =CleanInputs($_POST["firstName"]);  
-     $LastName =CleanInputs($_POST["lastName"]);  
-     $Email =CleanInputs($_POST["email"]); 
+      $FirstName =CleanInputs(Sanitize($_POST["firstName"],2));  
+      $LastName =CleanInputs(Sanitize($_POST["lastName"],2));  
+      $Email =CleanInputs($_POST["email"]); 
       $MobileNo =CleanInputs($_POST["mobileNo"]);   
-     $Password =CleanInputs($_POST["password"]);  
-      $GroupId =CleanInputs($_POST["group_id"]);  
+      $Password =$_POST["password"];  
+      $GroupId =CleanInputs(Sanitize($_POST["group_id"],1));  
 
   $errorMessages=array();
   //validate first Name
@@ -78,19 +80,19 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
 
  if(count($errorMessages) == 0){
-       $sql =  "INSERT INTO users(firstName,lastName,email,mobileNo,password,group_id) VALUES ('$FirstName','$LastName','$Email','$MobileNo','$Password','$GroupId')";
+     $Password = sha1($Password);
+       $sql2 =  "INSERT INTO users(firstName,lastName,email,mobileNo,password,group_id) VALUES ('$FirstName','$LastName','$Email','$MobileNo','$Password','$GroupId')";
 
-      $op  = mysqli_query($conn,$sql);
+      $op2  = mysqli_query($conn,$sql2);
       echo mysqli_error($conn);
     if($op){
 
         $errorMessages['Result'] = "Data inserted.";
-        $_SESSION['errors'] = $errorMessages;
+       
     }else{
         $errorMessages['Result']  = "Error Try Again.";
      
-        $_SESSION['errors'] = $errorMessages;
-
+       
 
      }
    
@@ -99,6 +101,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
       
 
    $_SESSION['errors']=$errorMessages;
+      header('Location: index.php');
 
      }
 
@@ -140,9 +143,9 @@ include '../sidNave.php';
                                             
                                        }  unset($_SESSION['errors']);
                                      }else{
-                                          echo mysqli_error($conn);
+                                          // echo mysqli_error($conn);
                             ?>
-                       <li class="breadcrumb-item active"> Add New Group</li>
+                       <li class="breadcrumb-item active"> Add New user</li>
                                     <?php  }?>
                     </ol>
                 <div class="container">
@@ -181,11 +184,15 @@ include '../sidNave.php';
                  </div>
                  
                      <div class="form-group">
-                     <label for="exampleInputEmail1">Enter Your Group ID </label>
-                     <input type="number" name="group_id" class="form-control" id="exampleInputName" aria-describedby=""
-                         placeholder="Enter your group id ">
-                  </div>
-
+                         <label for="exampleInput"> Group Type </label>
+                          <select name="group_id" class="form-control"> 
+                                 <?php 
+                                    while($data = mysqli_fetch_assoc($op1)){
+                                 ?>
+                           <option value="<?php echo $data['id'];?>"><?php echo $data['Group'];?></option>
+                              <?php } ?>
+                        </select>  
+                    </div>
 
                  <button type="submit" class="btn btn-primary">Create User</button>
                </form>
