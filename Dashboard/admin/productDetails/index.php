@@ -66,7 +66,8 @@ include '../sidNave.php';
                                                 <th>Product Price</th>
                                                 <th>Product Quantity</th>
                                                 <th>Product Description</th>
-                                                <th>product_Specificaton </th>
+                                                <th>product Specificaton </th>
+                                                
                                                 <th>Reviewer Name</th>
                                                 <th>unitsInStock</th>
                                                 <th>Discount</th>
