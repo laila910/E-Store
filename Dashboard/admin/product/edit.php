@@ -213,7 +213,7 @@
                                  <?php 
                                      while($data2 = mysqli_fetch_assoc($op2)){
                                   ?>
-                              <option value="<?php echo $data2['brand_Id'];?>"    <?php if($data2['brand_Id'] == $FData['product_brand_id'] ){ echo 'selected';}?>    >
+                              <option value="<?php echo $data2['brand_Id'];?>" <?php if($data2['brand_Id'] == $FData['product_brand_id'] ){ echo 'selected';}?>    >
                               <?php echo $data2['brandName'];?></option>
                                    <?php } ?>
                             </select>  
