@@ -6,7 +6,7 @@
 
  if($_SERVER['REQUEST_METHOD'] == "GET"){
 
-   
+   // LOGIC .... 
      $errorMessages = [];
      $id  = Sanitize($_GET['id'],1);
     
@@ -18,7 +18,7 @@
       }else{
 
         // DB Opretaion ... 
-        $sql = "DELETE FROM `productcolorcheck` where `id` =".$id;
+        $sql = "DELETE FROM `whishlist` where `id` =".$id;
 
         $op = mysqli_query($conn,$sql);
 

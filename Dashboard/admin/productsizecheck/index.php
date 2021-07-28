@@ -87,7 +87,8 @@ include '../sidNave.php';
                                               
                                                 <td>
 
-                                                <a href='delete.php?id=<?php echo $result['id'];?>' class='btn btn-danger m-r-1em'>Delete</a>
+                                                <a href='../productSizes/delete.php' class='btn btn-danger m-r-1em'>Delete</a>
+                                                <a href='../productSizes/edit.php' class='btn btn-danger m-r-1em'>Edit</a>
                                              
                                                 </td>
                                   

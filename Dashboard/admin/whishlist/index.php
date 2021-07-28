@@ -3,10 +3,11 @@
   include '../helpers/dbconnection.php';
 
 
-  $sql="SELECT `admin`.*,``.`id` as `product_id`,`brand`.`brandName`, `categoreis`.categoryname  FROM `product` join `categoreis` on `product`.`product_cat_id` = `categoreis`.`id` join `brand` on `product`.`product_brand_id`=`brand`.`brand_Id` ";
+  $sql="SELECT `whishlist`.*,`product`.`productname`,`users`.`firstName`, `users`.`lastName`  FROM `whishlist` join `productdetails` on `whishlist`.`productid` = `productdetails`.`id` join `product` on `product`.`id`=`productdetails`.`product_Id` join `customers` on `whishlist`.`customerid` =`customers`.`id` join `users` on `customers`.`usersid` =`users`.`id` ";
  
   $op  = mysqli_query($conn,$sql); 
- 
+//  echo mysqli_error($conn);
+//  exit();
 
 
 include '../header.php';
@@ -44,7 +45,7 @@ include '../sidNave.php';
                     ?>
                     
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Product Data</li>
+                            <li class="breadcrumb-item active">Whishlist Data</li>
                     <?php } ?>
                
                         
@@ -54,7 +55,7 @@ include '../sidNave.php';
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
-                                Product Table
+                                Whishlist Table
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -63,10 +64,10 @@ include '../sidNave.php';
                                             <tr>
                                                 <th>#</th>
                                                 <th>Product Name </th>
-                                                <th>Category </th>
-                                                <th>Brand</th>
-                                                <th>Product Status</th>
-                                                <th>Featured </th>
+                                                <th>Quantity </th>
+                                                <th>Customer Name</th>
+                                                <th>Add To Card</th>
+                                              
                                               
                                                 <th>Action</th>
                                           
@@ -83,17 +84,17 @@ include '../sidNave.php';
                              
                              ?>           
                                         <tr>
-                                                <td><?php echo $result['product_id'];?></td>
+                                                <td><?php echo $result['id'];?></td>
                                                 <td><?php echo $result['productname'];?></td>
-                                                <td><?php echo $result['categoryname'];?></td>
-                                                <td><?php echo $result['brandName'];?></td>
-                                                <td><?php echo $result['product_status'];?></td>
-                                                <td><?php echo $result['featured'];?></td>
+                                                <td><?php echo $result['quantity'];?></td>
+                                                <td><?php echo $result['firstName'].' '.$result['lastName'];?></td>
+                                                <td><?php echo $result['addtocard'];?></td>
+                                               
                                               
                                                 <td>
 
-                                                <a href='delete.php?id=<?php echo $result['product_id'];?>' class='btn btn-danger m-r-1em'>Delete</a>
-                                                <a href='edit.php?id=<?php echo $result['product_id'];?>' class='btn btn-primary m-r-1em'>Edit</a>  
+                                                <a href='delete.php?id=<?php echo $result['id'];?>' class='btn btn-danger m-r-1em'>Delete</a>
+                                                <a href='edit.php?id=<?php echo $result['id'];?>' class='btn btn-primary m-r-1em'>Edit</a>  
                                                 </td>
                                   
                                         </tr>
