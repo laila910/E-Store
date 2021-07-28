@@ -1,22 +1,16 @@
 <?php
-
 require "header.php";
+  
+  include 'helpers/dbconnection.php';
+
 
 
 ?>
 <main style="margin-bottom:10px">
-   <?php
-   if(isset($_SESSION['userId'])){
-       echo '<p">You are Logged in!</p>';
-   }else{
-       echo '<p style="text-align:center;font-weight:bolder">You are Logged out!</p>';
-       
-   }
- 
-?>
+
 <!-- Login Start -->
-  <?php
-  if(!isset($_SESSION['userId'])){
+  <?php 
+  if(!isset($_SESSION['useremail'])){
       echo'
        <div class="login">
             <div class="container-fluid">
@@ -39,7 +33,8 @@ require "header.php";
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <button class="btn" name="login-submit" value="submit">Login</button>
+                                   <input class="btn btn-primary"  name="login-submit" type="submit" value="login" >
+                                    
                                 </div>
                             </div>
                         </div>
@@ -54,10 +49,10 @@ require "header.php";
             <div class="container-fluid">
                 <div class="row">
                   <div class="col-lg-12">
-                        <div class="login-form" method="post" action="includes/logout.inc.php" enctype="multipart/form-data" >
+                        <div class="login-form" method="post" action="includes/logout.php" enctype="multipart/form-data" >
                             <div class="row">
                               <div class="col-md-12">
-                                    <button class="btn " name="logout-submit" value="submit">LogOut</button>
+                                    <button type="button" class="btn " name="logout-submit" >LogOut</button>
                                 </div>
                             </div>
                         </div>
@@ -69,6 +64,15 @@ require "header.php";
         }
         ?>
     <!-- Login End -->
+       <?php
+   if(isset($_SESSION['useremail'])){
+       echo '<p">You are Logged in!</p>';
+   }else{
+       echo '<p style="text-align:center;font-weight:bolder">You are Logged out!</p>';
+       
+   }
+ 
+?>
     
 </main>
 
