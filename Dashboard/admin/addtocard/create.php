@@ -6,9 +6,7 @@ include '../helpers/dbconnection.php';
 //fetch customers
   $sql2 = "SELECT `customers`.* ,`users`.`firstName` FROM `customers` join `users` on `customers`.`usersid`=`users`.`id`";
   $op2  = mysqli_query($conn,$sql2);
-//fetch orders
-  $sql3 = "SELECT `orders`.* ,`ordershipper`.`companyname` FROM `orders` join `ordershipper`on `orders`.`shipperId`=`ordershipper`.`id`";
-  $op3  = mysqli_query($conn,$sql3);
+
 //productdetails
  $sql5 = "SELECT `productdetails`.*,`product`.`productname` FROM `productdetails` join `product` on `productdetails`.`product_Id` =`product`.`id`";
   $op5  = mysqli_query($conn,$sql5);
@@ -21,7 +19,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
       $customerId=CleanInputs(Sanitize($_POST["customerId"],1));  
       $carditem =CleanInputs(Sanitize($_POST["carditem"],1));  
        $quantity=CleanInputs(Sanitize($_POST["quantity"],1));  
-      $orderid =CleanInputs(Sanitize($_POST["orderid"],1));
+    
          $session =CleanInputs(Sanitize($_POST["session"],2));    
     
     
@@ -58,19 +56,12 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
    if(!Validator($quantity,3)){
       $errorMessages['quantity']="quantity must be Integer Number";
    }
-//Validate order Id 
-   if(!Validator($orderid,1)){
-      $errorMessages['orderId']="order Id  field Required";
-   }
-   if(!Validator($orderid,3)){
-      $errorMessages['orderId']="order Id  must be Integer Number";
-   }
- 
+
  if(count($errorMessages) > 0){
     $_SESSION['errors']=$errorMessages;
 
  }else{
-       $sql4 =  "INSERT INTO `addtocard`( `customerId`, `carditem`, `quantity`, `session`, `orderid`) VALUES ('$customerId','$carditem','$quantity','$session','$orderid')";
+       $sql4 =  "INSERT INTO `addtocard`( `customerId`, `carditem`, `quantity`, `session`) VALUES ('$customerId','$carditem','$quantity','$session','$orderid')";
 
 
       $op4 = mysqli_query($conn,$sql4);
@@ -175,16 +166,7 @@ include '../sidNave.php';
                         </select>  
                     </div>
                 
-                    <div class="form-group">
-                         <label for="exampleInput"> order shipper </label>
-                          <select name="orderid" class="form-control"> 
-                                 <?php 
-                                    while($data = mysqli_fetch_assoc($op3)){
-                                 ?>
-                           <option value="<?php echo $data['id'];?>"><?php echo $data['companyname'];?></option>
-                              <?php } ?>
-                        </select>  
-                    </div>
+                 
                 
 
                  <button type="submit" class="btn btn-primary">Create Product</button>

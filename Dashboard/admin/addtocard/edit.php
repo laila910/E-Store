@@ -25,7 +25,7 @@
         $customerId=CleanInputs(Sanitize($_POST["customerId"],1));  
       $carditem =CleanInputs(Sanitize($_POST["carditem"],1));  
        $quantity=CleanInputs(Sanitize($_POST["quantity"],1));  
-      $orderid =CleanInputs(Sanitize($_POST["orderid"],1));
+     
          $session =CleanInputs(Sanitize($_POST["session"],2));    
        $id  = CleanInputs(Sanitize($_POST['id'],1));
       
@@ -62,13 +62,7 @@
    if(!Validator($quantity,3)){
       $errorMessages['quantity']="quantity must be Integer Number";
    }
-//Validate order Id 
-   if(!Validator($orderid,1)){
-      $errorMessages['orderId']="order Id  field Required";
-   }
-   if(!Validator($orderid,3)){
-      $errorMessages['orderId']="order Id  must be Integer Number";
-   }
+
 //Validate  Id 
    if(!Validator($id,1)){
       $errorMessages['id']="id  field Required";
@@ -81,7 +75,7 @@
      if(count($errorMessages) == 0){
        
       
-         $sql="UPDATE `addtocard` SET `customerId`='$customerId',`carditem`='$carditem',`quantity`='$quantity',`session`='$session',`orderid`='$orderid' WHERE `id`=$id";
+         $sql="UPDATE `addtocard` SET `customerId`='$customerId',`carditem`='$carditem',`quantity`='$quantity',`session`='$session', WHERE `id`=$id";
 
          $op = mysqli_query($conn,$sql);
         //  echo mysqli_error($conn);
@@ -119,11 +113,7 @@
    $sql2 = "SELECT `customers`.*,`users`.`firstName` FROM `customers` join `users` on `customers`.`usersid`=`users`.`id`";
    $op2 = mysqli_query($conn,$sql2);
 
-   //fetch orders for shipdate
-   $sql3 = "SELECT `orders`.* ,`ordershipper`.`companyname` FROM `orders` join `ordershipper` on `orders`.`shipperId` = `ordershipper`.`id`";
-   $op3= mysqli_query($conn,$sql3);
-   // echo mysqli_error($conn);
-   // exit();
+  
    
 
     include '../header.php';
@@ -215,17 +205,6 @@
                             </select>  
                       </div>
 
-                       <div class="form-group">
-                            <label for="exampleInput">ordershipper</label>
-                            <select name="orderid" class="form-control"> 
-                                 <?php 
-                                     while($data3 = mysqli_fetch_assoc($op3)){
-                                  ?>
-                              <option value="<?php echo $data3['id'];?>" <?php if($data3['id'] == $FData['orderid'] ){ echo 'selected';}?>    >
-                              <?php echo $data3['companyname'];?></option>
-                                   <?php } ?>
-                            </select>  
-                      </div>
  
  
                       <input type="hidden" name="id" value="<?php echo $FData['id'];?>">

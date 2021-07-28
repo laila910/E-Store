@@ -3,8 +3,7 @@
   include '../helpers/dbconnection.php';
 
 
-  $sql="SELECT `product`.`productname`,`addtocard`.*,`users`.`firstName`,`orders`.`orderdate` ,`ordershipper`.`companyname` FROM `addtocard` join `productdetails` on `addtocard`.`carditem` = `productdetails`.`id` join `product` on `productdetails`.`product_Id`=`product`.`id`join `customers` on `addtocard`.`customerid` =`customers`.`id` join `users` on `customers`.`usersid`=`users`.`id` join `orders` on `addtocard`.`orderid`=`orders`.`id`
-  join `ordershipper`on `orders`.`shipperId`=`ordershipper`.`id` ";
+  $sql="SELECT `product`.`productname`,`addtocard`.*,`users`.`firstName` FROM `addtocard` join `productdetails` on `addtocard`.`carditem` = `productdetails`.`id` join `product` on `productdetails`.`product_Id`=`product`.`id`join `customers` on `addtocard`.`customerid` =`customers`.`id` join `users` on `customers`.`usersid`=`users`.`id` ";
  
   $op  = mysqli_query($conn,$sql); 
  
@@ -68,7 +67,7 @@ include '../sidNave.php';
                                                 <th>customer Name </th>
                                                 <th>order</th>
                                                 <th>quantity</th>
-                                                <th>ordershipper</th>
+                                                
                                                
                                               
                                                 <th>Action</th>
@@ -91,7 +90,6 @@ include '../sidNave.php';
                                                 <td><?php echo $result['firstName'];?></td>
                                                 <td><?php echo $result['session'];?></td>
                                                 <td><?php echo $result['quantity'];?></td>
-                                                <td><?php echo $result['companyname'];?></td>
                                               
                                                 <td>
 
