@@ -18,7 +18,7 @@
       }else{
 
         // DB Opretaion ... 
-        $sql = "DELETE FROM `product` where `id` =".$id;
+        $sql = "DELETE FROM `addtocard` where `id` =".$id;
 
         $op = mysqli_query($conn,$sql);
 

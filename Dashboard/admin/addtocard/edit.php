@@ -22,71 +22,66 @@
 
    if($_SERVER['REQUEST_METHOD'] == "POST"){
        
-      $productname =CleanInputs(Sanitize($_POST["productname"],2));  
-      $productCat=CleanInputs(Sanitize($_POST["product_cat_id"],1));  
-      $productBrand =CleanInputs(Sanitize($_POST["product_brand_id"],1));  
-      $productStatus =CleanInputs(Sanitize($_POST["product_status"],2));
-      $Featured=CleanInputs(Sanitize($_POST["featured"],2));  
+        $customerId=CleanInputs(Sanitize($_POST["customerId"],1));  
+      $carditem =CleanInputs(Sanitize($_POST["carditem"],1));  
+       $quantity=CleanInputs(Sanitize($_POST["quantity"],1));  
+      $orderid =CleanInputs(Sanitize($_POST["orderid"],1));
+         $session =CleanInputs(Sanitize($_POST["session"],2));    
        $id  = CleanInputs(Sanitize($_POST['id'],1));
       
 
        $errorMessages=array();
-    //validate Product Name
-   if(!Validator($productname,1)){
-      $errorMessages['productname']="product Name field Required";
+   //validate Session
+   if(!Validator($session,1)){
+      $errorMessages['session']="session field Required";
    }
     
-  if(!Validator($productname,2,4)){
-    $errorMessages['productnameLength'] = "product Name length must be > 4 ";
+  if(!Validator($session,2,1)){
+    $errorMessages['sessionLength'] = "session length must be > 1";
 
   }
-  //validate Product Status
-    if(!Validator($productStatus,1)){
-      $errorMessages['productstatus']="product status field Required";
+ 
+  //Validate Customer Id 
+   if(!Validator($customerId,1)){
+      $errorMessages['customerId']="customer Id  field Required";
    }
-    
-  if(!Validator($productStatus,2,0)){
-    $errorMessages['productstatusLength'] = "product status length must be > 0";
-
-  }
-
-  
-
-
-  //Validate product Category Id 
-   if(!Validator($productCat,1)){
-      $errorMessages['productCatId']="product Category Id  field Required";
+   if(!Validator($customerId,3)){
+      $errorMessages['customerId']="customer Id  must be Integer Number";
    }
-   if(!Validator($productCat,3)){
-      $errorMessages['productCatId']="product Category Id  must be Integer Number";
+ //Validate cardItem Id 
+   if(!Validator($carditem,1)){
+      $errorMessages['carditemId']="cardItem Id  field Required";
    }
- //Validate product Brand Id 
-   if(!Validator($productBrand,1)){
-      $errorMessages['productBrandId']="product Brand Id  field Required";
+   if(!Validator($carditem,3)){
+      $errorMessages['carditemId']="cardItem Id  must be Integer Number";
    }
-   if(!Validator($productBrand,3)){
-      $errorMessages['productBrandId']="product Brand Id  must be Integer Number";
+//Validate quantity
+   if(!Validator($quantity,1)){
+      $errorMessages['quantity']="quantity  field Required";
    }
-//validate featured
-   if(!Validator($Featured,1)){
-      $errorMessages['featured']="featured  field Required";
+   if(!Validator($quantity,3)){
+      $errorMessages['quantity']="quantity must be Integer Number";
    }
-    if(!Validator($Featured,2,4)){
-      $errorMessages['featured']="featured  field must be  > 4";
+//Validate order Id 
+   if(!Validator($orderid,1)){
+      $errorMessages['orderId']="order Id  field Required";
    }
- //Validate product  Id 
-  if(!Validator($id,1)){
-      $errorMessages['productid']="id  field Required";
+   if(!Validator($orderid,3)){
+      $errorMessages['orderId']="order Id  must be Integer Number";
    }
-      if(!Validator($id,3)){
-          $errorMessages['productid'] = " id must be integer number ";
-      }
-   
+//Validate  Id 
+   if(!Validator($id,1)){
+      $errorMessages['id']="id  field Required";
+   }
+   if(!Validator($id,3)){
+      $errorMessages['id']="id  must be Integer Number";
+   }
+ 
 
      if(count($errorMessages) == 0){
        
       
-         $sql="UPDATE `product` SET `productname`='$productname',`product_cat_id`='$productCat',`product_brand_id`='$productBrand',`product_status`='$productStatus',`featured`='$Featured' WHERE `id`=". $id;
+         $sql="UPDATE `addtocard` SET `customerId`='$customerId',`carditem`='$carditem',`quantity`='$quantity',`session`='$session',`orderid`='$orderid' WHERE `id`=$id";
 
          $op = mysqli_query($conn,$sql);
         //  echo mysqli_error($conn);
@@ -112,17 +107,24 @@
   }
 
    # Fetch product
-   $sql  ="SELECT * FROM `product` WHERE `id`= $id";
+   $sql  ="SELECT * FROM `addtocard` WHERE `id`= $id";
    $op   = mysqli_query($conn,$sql);
    $FData = mysqli_fetch_assoc($op);
 
-   //fetch categoreis
-   $sql1 = "SELECT * FROM categoreis";
+   //fetch product name
+   $sql1 = "SELECT `productdetails`.*,`product`.`productname` FROM `productdetails` join `product` on `productdetails`.`product_Id`=`product`.`id`";
    $op1  = mysqli_query($conn,$sql1);
 
-   //fetch Brands
-   $sql2 = "SELECT * FROM brand";
+   //fetch firstname
+   $sql2 = "SELECT `customers`.*,`users`.`firstName` FROM `customers` join `users` on `customers`.`usersid`=`users`.`id`";
    $op2 = mysqli_query($conn,$sql2);
+
+   //fetch orders for shipdate
+   $sql3 = "SELECT `orders`.* ,`ordershipper`.`companyname` FROM `orders` join `ordershipper` on `orders`.`shipperId` = `ordershipper`.`id`";
+   $op3= mysqli_query($conn,$sql3);
+   // echo mysqli_error($conn);
+   // exit();
+   
 
     include '../header.php';
 ?>
@@ -164,7 +166,7 @@
                              }else{
                         ?>
                         
-                        <li class="breadcrumb-item active">Add product </li>
+                        <li class="breadcrumb-item active">Edit card </li>
                         <?php } ?>
                         
                         
@@ -179,45 +181,52 @@
   
  
                <div class="form-group">
-                     <label for="exampleInputEmail1">Enter Product Name</label>
-                     <input type="text" name="productname"  value="<?php echo $FData['productname']; ?>"class="form-control" id="exampleInputName" aria-describedby=""
-                         placeholder="Enter product name ">
+                     <label for="exampleInputEmail1">Enter session to order </label>
+                     <input type="text" name="session"  value="<?php echo $FData['session']; ?>"class="form-control" id="exampleInputName" aria-describedby=""
+                         placeholder="Enter session ">
                  </div>
 
                  <div class="form-group">
-                     <label for="exampleInputEmail1">Enter Product Status</label>
-                     <input type="text" name="product_status"  value="<?php echo $FData['product_status']; ?>"class="form-control" id="exampleInputName" aria-describedby=""
-                         placeholder="Enter Product Status">
+                     <label for="exampleInputEmail1">Enter Product quantity</label>
+                     <input type="text" name="quantity"  value="<?php echo $FData['quantity']; ?>"class="form-control" id="exampleInputName" aria-describedby=""
+                         placeholder="Enter Product quantity">
                   </div>
 
-                  <div class="form-group">
-                     <label for="exampleInputEmail1">Enter Product Featured Or Not </label>
-                     <input type="text" name="featured"  value="<?php echo $FData['featured']; ?>"class="form-control" id="exampleInputEmail1"
-                         aria-describedby="emailHelp" placeholder="Enter featured or not ">
-                 </div>
-
                      <div class="form-group">
-                            <label for="exampleInput"> Product Category</label>
-                            <select name="product_cat_id" class="form-control"> 
+                            <label for="exampleInput"> Product Name</label>
+                            <select name="carditem" class="form-control"> 
                                  <?php 
                                      while($data1 = mysqli_fetch_assoc($op1)){
                                   ?>
-                              <option value="<?php echo $data1['id'];?>"    <?php if($data1['id'] == $FData['product_cat_id'] ){ echo 'selected';}?>    >
-                              <?php echo $data1['categoryname'];?></option>
+                              <option value="<?php echo $data1['id'];?>"    <?php if($data1['id'] == $FData['carditem'] ){ echo 'selected';}?>    >
+                              <?php echo $data1['productname'];?></option>
                                    <?php } ?>
                             </select>  
                       </div>
                         <div class="form-group">
-                            <label for="exampleInput"> Product Brand</label>
-                            <select name="product_brand_id" class="form-control"> 
+                            <label for="exampleInput">Customer Id</label>
+                            <select name="customerId" class="form-control"> 
                                  <?php 
                                      while($data2 = mysqli_fetch_assoc($op2)){
                                   ?>
-                              <option value="<?php echo $data2['brand_Id'];?>" <?php if($data2['brand_Id'] == $FData['product_brand_id'] ){ echo 'selected';}?>    >
-                              <?php echo $data2['brandName'];?></option>
+                              <option value="<?php echo $data2['id'];?>" <?php if($data2['id'] == $FData['customerId'] ){ echo 'selected';}?>    >
+                              <?php echo $data2['firstName'];?></option>
                                    <?php } ?>
                             </select>  
                       </div>
+
+                       <div class="form-group">
+                            <label for="exampleInput">ordershipper</label>
+                            <select name="orderid" class="form-control"> 
+                                 <?php 
+                                     while($data3 = mysqli_fetch_assoc($op3)){
+                                  ?>
+                              <option value="<?php echo $data3['id'];?>" <?php if($data3['id'] == $FData['orderid'] ){ echo 'selected';}?>    >
+                              <?php echo $data3['companyname'];?></option>
+                                   <?php } ?>
+                            </select>  
+                      </div>
+ 
  
                       <input type="hidden" name="id" value="<?php echo $FData['id'];?>">
 

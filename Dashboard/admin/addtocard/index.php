@@ -3,11 +3,13 @@
   include '../helpers/dbconnection.php';
 
 
-  $sql="SELECT `product`.*,`product`.`id` as `product_id`,`brand`.`brandName`, `categoreis`.categoryname  FROM `product` join `categoreis` on `product`.`product_cat_id` = `categoreis`.`id` join `brand` on `product`.`product_brand_id`=`brand`.`brand_Id` ";
+  $sql="SELECT `product`.`productname`,`addtocard`.*,`users`.`firstName`,`orders`.`orderdate` ,`ordershipper`.`companyname` FROM `addtocard` join `productdetails` on `addtocard`.`carditem` = `productdetails`.`id` join `product` on `productdetails`.`product_Id`=`product`.`id`join `customers` on `addtocard`.`customerid` =`customers`.`id` join `users` on `customers`.`usersid`=`users`.`id` join `orders` on `addtocard`.`orderid`=`orders`.`id`
+  join `ordershipper`on `orders`.`shipperId`=`ordershipper`.`id` ";
  
   $op  = mysqli_query($conn,$sql); 
  
-
+// echo mysqli_error($conn);
+// exit();
 
 include '../header.php';
 ?>
@@ -44,7 +46,7 @@ include '../sidNave.php';
                     ?>
                     
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Product Data</li>
+                            <li class="breadcrumb-item active">Card Data</li>
                     <?php } ?>
                
                         
@@ -63,10 +65,11 @@ include '../sidNave.php';
                                             <tr>
                                                 <th>#</th>
                                                 <th>Product Name </th>
-                                                <th>Category </th>
-                                                <th>Brand</th>
-                                                <th>Product Status</th>
-                                                <th>Featured </th>
+                                                <th>customer Name </th>
+                                                <th>order</th>
+                                                <th>quantity</th>
+                                                <th>ordershipper</th>
+                                               
                                               
                                                 <th>Action</th>
                                           
@@ -83,17 +86,17 @@ include '../sidNave.php';
                              
                              ?>           
                                         <tr>
-                                                <td><?php echo $result['product_id'];?></td>
+                                                <td><?php echo $result['id'];?></td>
                                                 <td><?php echo $result['productname'];?></td>
-                                                <td><?php echo $result['categoryname'];?></td>
-                                                <td><?php echo $result['brandName'];?></td>
-                                                <td><?php echo $result['product_status'];?></td>
-                                                <td><?php echo $result['featured'];?></td>
+                                                <td><?php echo $result['firstName'];?></td>
+                                                <td><?php echo $result['session'];?></td>
+                                                <td><?php echo $result['quantity'];?></td>
+                                                <td><?php echo $result['companyname'];?></td>
                                               
                                                 <td>
 
-                                                <a href='delete.php?id=<?php echo $result['product_id'];?>' class='btn btn-danger m-r-1em'>Delete</a>
-                                                <a href='edit.php?id=<?php echo $result['product_id'];?>' class='btn btn-primary m-r-1em'>Edit</a>  
+                                                <a href='delete.php?id=<?php echo $result['id'];?>' class='btn btn-danger m-r-1em'>Delete</a>
+                                                <a href='edit.php?id=<?php echo $result['id'];?>' class='btn btn-primary m-r-1em'>Edit</a>  
                                                 </td>
                                   
                                         </tr>

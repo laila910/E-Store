@@ -93,7 +93,8 @@ include '../sidNave.php';
                                                 <td>
 
                                                 <a href='delete.php?id=<?php echo $result['product_id'];?>' class='btn btn-danger m-r-1em'>Delete</a>
-                                                <a href='edit.php?id=<?php echo $result['product_id'];?>' class='btn btn-primary m-r-1em'>Edit</a>  
+                                                <a href='edit.php?id=<?php echo $result['product_id'];?>' class='btn btn-primary m-r-1em'>Edit</a> 
+                                               
                                                 </td>
                                   
                                         </tr>
