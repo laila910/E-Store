@@ -1,7 +1,9 @@
 <?php
 
 include 'helpers/functions.php';
+
 include 'helpers/checkLogin.php';
+include 'helpers/dbconnection.php';
 
 include 'header.php';
 ?>
@@ -14,7 +16,7 @@ include 'header.php';
                     <nav class="navbar bg-light">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-home"></i>Home</a>
+                                <a class="nav-link" href=""><i class="fa fa-home"></i>Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#"><i class="fa fa-shopping-bag"></i>Best Selling</a>

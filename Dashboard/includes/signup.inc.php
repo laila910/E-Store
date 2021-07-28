@@ -1,5 +1,7 @@
 <?php
 session_start();
+ 
+  include './helpers/dbconnection.php';
 function CleanInputs($input)
 { 
     $input=trim($input);
@@ -51,7 +53,7 @@ if(isset($_POST['signup-submit'])){
                    header("Location: ../signup.php?error=usertaken&firstName".$firstName."&lastName=".$lastName."&mobileNo=".$mobileNo);
                    exit();
               }else{
-                  $sql = "INSERT INTO users (firstName,lastName,mobileNo,email,password) VALUES (?,?,?,?,?); ";
+                  $sql = "INSERT INTO users (firstName,lastName,email,mobileNo,password) VALUES (?,?,?,?,?); ";
                     $stmt=mysqli_stmt_init($conn); //if the connection to the database is opened
                     if(! mysqli_stmt_prepare($stmt,$sql)){ //check if the connection is  open between my query sql statment and the database
                          header("Location: ../signup.php?error=sqlerror");
