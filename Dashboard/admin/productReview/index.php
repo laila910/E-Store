@@ -1,8 +1,11 @@
 <?php
- include '../helpers/functions.php';
- include '../helpers/checkLogin.php';
+include '../helpers/functions.php';
+include '../helpers/checkLogin.php';
 include '../helpers/checkPrem.php';
-  include '../helpers/dbconnection.php';
+include '../helpers/dbconnection.php';
+
+
+
 
 
   $sql="SELECT `id_review`, `ranking_review`, `reviewerName`, `reviewerEmail`, `reviewerComment`, `review_Made_Date` FROM `productreview`  ";

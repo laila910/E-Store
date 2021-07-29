@@ -1,8 +1,10 @@
 <?php
  include '../helpers/functions.php';
- include '../helpers/checkLogin.php';
+include '../helpers/checkLogin.php';
 include '../helpers/checkPrem.php';
-  include '../helpers/dbconnection.php';
+include '../helpers/dbconnection.php';
+
+
 
 
   $sql="SELECT `product`.`productname`,`addtocard`.*,`users`.`firstName` FROM `addtocard` join `productdetails` on `addtocard`.`carditem` = `productdetails`.`id` join `product` on `productdetails`.`product_Id`=`product`.`id`join `customers` on `addtocard`.`customerid` =`customers`.`id` join `users` on `customers`.`usersid`=`users`.`id` ";

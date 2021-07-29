@@ -1,8 +1,10 @@
 <?php
- include '../helpers/functions.php';
- include '../helpers/checkLogin.php';
+include '../helpers/functions.php';
+include '../helpers/checkLogin.php';
 include '../helpers/checkPrem.php';
-  include '../helpers/dbconnection.php';
+include '../helpers/dbconnection.php';
+
+
 
 
   $sql="SELECT *, `orders`.`id` as `order_id` FROM `orders` join `orderdetailes` on `orderdetailes`.`ordernumber` = `orders`.`id`";

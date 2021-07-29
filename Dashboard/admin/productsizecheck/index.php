@@ -1,8 +1,10 @@
 <?php
- include '../helpers/functions.php';
- include '../helpers/checkLogin.php';
+include '../helpers/functions.php';
+include '../helpers/checkLogin.php';
 include '../helpers/checkPrem.php';
-  include '../helpers/dbconnection.php';
+include '../helpers/dbconnection.php';
+
+
 
 
   $sql="SELECT  `productsizes`.`S`,`productsizes`.`M`,`productsizes`.`L`,`productsizes`.`XL`,`product`.`productname`,`productsizecheck`.* FROM `productsizecheck` join `productsizes` on `productsizecheck`.`size_id` = `productsizes`.`id_size` join `productdetails` on `productsizecheck`.`productdetails_id` = `productdetails`.`id` join `product` on `product`.`id`=`productdetails`.`product_Id` ";

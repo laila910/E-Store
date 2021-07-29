@@ -1,8 +1,11 @@
 <?php
  include '../helpers/functions.php';
- include '../helpers/checkLogin.php';
+include '../helpers/checkLogin.php';
 include '../helpers/checkPrem.php';
-  include '../helpers/dbconnection.php';
+include '../helpers/dbconnection.php';
+
+
+
 
 
   $sql="SELECT `id_size`, `S`, `M`, `L`, `XL` FROM `productsizes` ";

@@ -1,8 +1,11 @@
 <?php
- include '../helpers/functions.php';
- include '../helpers/checkLogin.php';
+include '../helpers/functions.php';
+include '../helpers/checkLogin.php';
 include '../helpers/checkPrem.php';
-  include '../helpers/dbconnection.php';
+include '../helpers/dbconnection.php';
+
+
+
 
   $sql = "SELECT users.* , usersgroup.Group from users join usersgroup on users.group_id = usersgroup.id";
   $op  = mysqli_query($conn,$sql); 

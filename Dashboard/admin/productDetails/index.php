@@ -1,8 +1,9 @@
 <?php
- include '../helpers/functions.php';
- include '../helpers/checkLogin.php';
+include '../helpers/functions.php';
+include '../helpers/checkLogin.php';
 include '../helpers/checkPrem.php';
-  include '../helpers/dbconnection.php';
+include '../helpers/dbconnection.php';
+
 
 
   $sql="SELECT `product`.`productname`,`productdetails`.* ,`productreview`.`reviewerName`  FROM `productdetails` join `product` on `productdetails`.`product_Id` = `product`.`id` join `productreview` on `productdetails`.`Review_id`=`productreview`.`id_review` ";

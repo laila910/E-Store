@@ -1,8 +1,10 @@
 <?php
- include '../helpers/functions.php';
- include '../helpers/checkLogin.php';
+include '../helpers/functions.php';
+include '../helpers/checkLogin.php';
 include '../helpers/checkPrem.php';
-  include '../helpers/dbconnection.php';
+include '../helpers/dbconnection.php';
+
+
 
 
   $sql="SELECT `productimges`.`id`, `productimges`.`product_id`,`productimges`.`firstimage`, `productimges`.`secondimage`, `productimges`.`thirdimage`,`product`.`productname`  FROM `productimges` join `productdetails` on `productimges`.`product_id` =`productdetails`.`id` join `product` on `productdetails`.`product_Id` =`product`.`id`  ";

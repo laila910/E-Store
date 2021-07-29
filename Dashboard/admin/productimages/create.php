@@ -1,9 +1,11 @@
 <?php
-include '../header.php';
 include '../helpers/functions.php';
 include '../helpers/checkLogin.php';
 include '../helpers/checkPrem.php';
 include '../helpers/dbconnection.php';
+include '../header.php';
+
+
 
 $sql1 = "SELECT `product`.`productname`,`product`.`id` as `productid`,`productdetails`.* from `productdetails` join `product` on `productdetails`.`product_Id` = `product`.`id`";
 

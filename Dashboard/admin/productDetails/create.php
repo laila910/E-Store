@@ -1,10 +1,10 @@
 <?php
-include '../header.php';
 include '../helpers/functions.php';
 include '../helpers/checkLogin.php';
 include '../helpers/checkPrem.php';
 include '../helpers/dbconnection.php';
 
+include '../header.php';
 //fetch product
   $sql2 = "SELECT * FROM product";
   $op2  = mysqli_query($conn,$sql2);

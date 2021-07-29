@@ -1,8 +1,10 @@
 <?php
  include '../helpers/functions.php';
- include '../helpers/checkLogin.php';
+include '../helpers/checkLogin.php';
 include '../helpers/checkPrem.php';
-  include '../helpers/dbconnection.php';
+include '../helpers/dbconnection.php';
+
+
 
 
   $sql="SELECT `whishlist`.*,`product`.`productname`,`users`.`firstName`, `users`.`lastName`  FROM `whishlist` join `productdetails` on `whishlist`.`productid` = `productdetails`.`id` join `product` on `product`.`id`=`productdetails`.`product_Id` join `customers` on `whishlist`.`customerid` =`customers`.`id` join `users` on `customers`.`usersid` =`users`.`id` ";

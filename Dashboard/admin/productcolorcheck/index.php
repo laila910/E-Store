@@ -1,8 +1,10 @@
 <?php
  include '../helpers/functions.php';
- include '../helpers/checkLogin.php';
+include '../helpers/checkLogin.php';
 include '../helpers/checkPrem.php';
-  include '../helpers/dbconnection.php';
+include '../helpers/dbconnection.php';
+
+
 
 
   $sql="SELECT  `productcolor`.`firstcolor`,`productcolor`.`secondcolor`,`productcolor`.`thirdcolor`,`product`.`productname`,`productcolorcheck`.* FROM `productcolorcheck` join `productcolor` on `productcolorcheck`.`productcolor_id` = `productcolor`.`id` join `productdetails` on `productcolorcheck`.`productdetails_id` = `productdetails`.`id` join `product` on `product`.`id`=`productdetails`.`product_Id` ";

@@ -1,8 +1,10 @@
 <?php
  include '../helpers/functions.php';
- include '../helpers/checkLogin.php';
+include '../helpers/checkLogin.php';
 include '../helpers/checkPrem.php';
-  include '../helpers/dbconnection.php';
+include '../helpers/dbconnection.php';
+
+
 
 
   $sql="SELECT `orderproducts`.*,`orderdetailes`.`totalprice` ,`product`.`productname` FROM `orderproducts` join `orderdetailes` on `orderproducts`.`orderdetails_id` = `orderdetailes`.`id` join `productdetails` on `orderproducts`.`productdetails_id`=`productdetails`.`id` join `product` on `productdetails`.`product_Id`=`product`.`id` ";
