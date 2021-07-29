@@ -16,28 +16,31 @@ include 'header.php';
                     <nav class="navbar bg-light">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href=""><i class="fa fa-home"></i>Home</a>
+                                <a class="nav-link" href="#"><i class="fa fa-home"></i>Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-shopping-bag"></i>Best Selling</a>
+                                <a class="nav-link" href="bestselling.php"><i class="fa fa-shopping-bag"></i>Best Selling</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-plus-square"></i>New Arrivals</a>
+                                <a class="nav-link" href="newarrivals.php"><i class="fa fa-plus-square"></i>New Arrivals</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-female"></i>Fashion & Beauty</a>
+                                <a class="nav-link" href="footwear.php"><i class="fa fa-female"></i>FootWear</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-child"></i>Kids & Babies Clothes</a>
+                                <a class="nav-link" href="Clothing.php"><i class="fa fa-child"></i>Clothing</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-tshirt"></i>Men & Women Clothes</a>
+                                <a class="nav-link" href="Watches.php"><i class="fa fa-tshirt"></i>Watches</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-mobile-alt"></i>Gadgets & Accessories</a>
+                                <a class="nav-link" href="Jewelry.php"><i class="fa fa-mobile-alt"></i>Jewelry</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-microchip"></i>Electronics & Accessories</a>
+                                <a class="nav-link" href="bagsaccessories.php"><i class="fa fa-microchip"></i>Bags & Accessories</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="Eyewer.php"><i class="fa fa-microchip"></i>Eyewear</a>
                             </li>
                         </ul>
                     </nav>
@@ -222,6 +225,7 @@ include 'header.php';
             <div class="section-header">
                 <h1>Featured Product</h1>
             </div>
+           
             <div class="row align-items-center product-slider product-slider-4">
                 <div class="col-lg-3">
                     <div class="product-item">

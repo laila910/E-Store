@@ -1,5 +1,5 @@
 <?php 
-session_start();
+// session_start();
 
 ?>
 <!DOCTYPE html>
@@ -56,7 +56,7 @@ session_start();
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                        <a href="#" class="nav-item nav-link active">Home</a>
                         <a href="product-list.html" class="nav-item nav-link">Products</a>
                         <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>
                         <a href="cart.html" class="nav-item nav-link">Cart</a>

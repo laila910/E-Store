@@ -1,6 +1,6 @@
 <?php
-  include '../helpers/functions.php';
-  include '../helpers/db.php';
+//   include '../helpers/functions.php';
+//   include '../helpers/db.php';
 
 if(isset($_POST['login-submit'])){
   require "dbh.inc.php";
@@ -34,9 +34,9 @@ if(isset($_POST['login-submit'])){
 
                   exit();
               }elseif($password === $row['password']){
-                 session_start();
-                 $_SESSION['userId']= $row['id'];
-                 $_SESSION['useremail'] = $row['email'];
+                //  session_start();
+                //  $_SESSION['userId']= $row['id'];
+                //  $_SESSION['useremail'] = $row['email'];
   
 
                  header("Location: ../index.php?login=success");

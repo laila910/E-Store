@@ -1,9 +1,9 @@
 <?php 
 
 
-if(!isset($_SESSION['useremail'])){
+// if(!isset($_SESSION['useremail'])){
 
-    header("Location: ".url('login.php'));
-}
+//     header("Location: ".url('login.php'));
+// }
 
 ?>
