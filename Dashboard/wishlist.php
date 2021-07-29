@@ -8,8 +8,16 @@ include 'helpers/dbconnection.php';
 include 'header.php';
 
 include 'navbar.php';
- $sql = "SELECT `whishlist`.* ,`product`.`productname` ,`productdetails`.`productPrice`from `whishlist` join `productdetails` on `whishlist`.`productid` = `productdetails`.`id` join `product` on `productdetails`.`product_Id` =`product`.`id` join `productimges` on `productimges`.`product_id`=`productdetails`.`id`";
+ $sql = "SELECT `whishlist`.* ,`product`.`productname` ,`productdetails`.`productPrice`from `whishlist` left join `productdetails` on `whishlist`.`productid` = `productdetails`.`id` join `product` on `productdetails`.`product_Id` =`product`.`id` join `productimges` on `productimges`.`product_id`=`productdetails`.`id`";
+
+
+
+
   $op  = mysqli_query($conn,$sql); 
+
+  
+
+
 
 ?>
   

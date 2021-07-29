@@ -1,6 +1,7 @@
 <?php
-//   include '../helpers/functions.php';
-//   include '../helpers/db.php';
+  include '../helpers/functions.php';
+  // include '../helpers/checkLogin.php';
+  include '../helpers/dbconnection.php';
 
 if(isset($_POST['login-submit'])){
   require "dbh.inc.php";

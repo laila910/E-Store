@@ -1,5 +1,7 @@
 <?php 
-
+include './functions.php';
+  include './checkLogin.php';
+  include './dbconnection.php';
 
     if($_SESSION['User']['group_id'] == 2){ //login as admin
 
