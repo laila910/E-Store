@@ -1,7 +1,17 @@
 <?php
 session_start();
+include 'helpers/functions.php';
+
+include 'helpers/checkLogin.php';
+include 'helpers/dbconnection.php';
+
+include 'header.php';
+
+include 'navbar.php';
  
-  include './helpers/dbconnection.php';
+    
+ 
+
 function CleanInputs($input)
 { 
     $input=trim($input);
@@ -71,6 +81,30 @@ if(isset($_POST['signup-submit'])){
    }
    mysqli_stmt_close($stmt);
    mysqli_close($conn);
+    if(isset($_GET['error'])){
+        if($_GET['error']=="emptyfields"){
+            echo'<p> Fill in all fields!</p>';
+        }elseif($_GET['error']=="invalidemailfirstNamelastNameMobileNo"){
+            echo'<p>Invalid Entered Data </p>';
+
+        }elseif($_GET['error']=="InvalidfirstNamelastName"){
+            echo'<p>Invalid Names</p>';
+
+        }elseif($_GET['error']=="InvalidEmail"){
+            echo'<p>Invalid E-mail </p>';
+
+        }elseif($_GET['error']=="passwordcheck"){
+            echo'<p>Your Passwords are not match!</p>';
+
+        }elseif($_GET['error']=="usertaken"){
+            echo'<p>Username is already taken! </p>';
+
+        }
+    } elseif(isset($_GET['signup'])){
+          if($_GET['signup']=="success"){
+           echo'<p>You are sign-up! </p>';
+    }}
+
 }
 else{
      header("Location: ../signup.php");
