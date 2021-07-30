@@ -119,7 +119,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
      if(move_uploaded_file($tmp_path1,$disPath1) && move_uploaded_file($tmp_path2,$disPath2) && move_uploaded_file($tmp_path3,$disPath3) )
        {
     
-       $sql =  "INSERT INTO `productimges`(`product_id`, `firstimage`, `secondimage`, `thirdimage`) VALUES ('$productId ','$firstimageName','$secondimageName','$thirdimageName')";
+       $sql =  "INSERT INTO `productimges`(`product_id`, `firstimage`, `secondimage`, `thirdimage`) VALUES ('$productId ','$FinalNameimage1','$FinalNameimage2','$FinalNameimage3')";
 
 
       $op = mysqli_query($conn,$sql);

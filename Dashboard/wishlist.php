@@ -8,12 +8,11 @@ include 'helpers/dbconnection.php';
 include 'header.php';
 
 include 'navbar.php';
- $sql = "SELECT `whishlist`.* ,`product`.`productname` ,`productdetails`.`productPrice`from `whishlist` left join `productdetails` on `whishlist`.`productid` = `productdetails`.`id` join `product` on `productdetails`.`product_Id` =`product`.`id` join `productimges` on `productimges`.`product_id`=`productdetails`.`id`";
 
-
-
+ $sql = "SELECT `whishlist`.* ,`product`.`productname` ,`productdetails`.`productPrice`from `whishlist` join `productdetails` on `whishlist`.`productid` = `productdetails`.`id` join `product` on `productdetails`.`product_Id` =`product`.`id` ";
 
   $op  = mysqli_query($conn,$sql); 
+ 
 
   
 
@@ -47,10 +46,10 @@ include 'navbar.php';
                              
                              ?>     
                                     <tr>
-                                        <td> <?php $data['id'];?></td>
+                                        <td> <?php echo $data['id'];?></td>
                                         <td>
                                             <div class="img">
-                                                <a href="#"><img src="./admin/productimages/uploads/<?php echo $data['firstimage']; ?>" alt="Image"></a>
+                                                <a href="#"><img src="img/product-1.jpg" alt="Image"></a>
                                                 <p><?php echo $data['productname']; ?></p>
                                             </div>
                                         </td>

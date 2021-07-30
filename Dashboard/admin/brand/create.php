@@ -59,7 +59,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
        {
               
   
-       $sql4 =  "INSERT INTO `brand`( `brandName`, `brandImage`) VALUES ('$brandName','$brandImage')";
+       $sql4 =  "INSERT INTO `brand`( `brandName`, `brandImage`) VALUES ('$brandName','$FinalName')";
 
 
       $op4 = mysqli_query($conn,$sql4);

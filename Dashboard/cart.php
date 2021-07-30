@@ -9,6 +9,8 @@ include 'header.php';
 
 include 'navbar.php';
 
+//  echo mysqli_error($conn);
+//  exit();
 ?>
 
    
@@ -31,96 +33,32 @@ include 'navbar.php';
                                     </tr>
                                 </thead>
                                 <tbody class="align-middle">
+                                     <?php 
+                                $sql = "SELECT `productdetails`.* ,`product`.`productname` FROM `productdetails` join `product` on `productdetails`.`product_Id` = `product`.`id` ";
+                       $op  = mysqli_query($conn,$sql); 
+                                while($data = mysqli_fetch_assoc($op)){
+                             
+                             ?>     
                                     <tr>
                                         <td>
                                             <div class="img">
                                                 <a href="#"><img src="img/product-1.jpg" alt="Image"></a>
-                                                <p>Product Name</p>
+                                                <p><?php echo $data['productname'];  ?> </p>
                                             </div>
                                         </td>
-                                        <td>$99</td>
+                                        <td><?php echo $data['productPrice']; ?></td>
                                         <td>
                                             <div class="qty">
                                                 <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
+                                                <input type="text" value="<?php  echo $data['productQuntity']; ?> ">
                                                 <button class="btn-plus"><i class="fa fa-plus"></i></button>
                                             </div>
                                         </td>
-                                        <td>$99</td>
+                                        <td><?php  $total = $data['productPrice'] * $data['productQuntity'];static $subtotal=0; $subtotal+=$total; echo $total.' '.'EGP';?></td>
                                         <td><button><i class="fa fa-trash"></i></button></td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="img">
-                                                <a href="#"><img src="img/product-2.jpg" alt="Image"></a>
-                                                <p>Product Name</p>
-                                            </div>
-                                        </td>
-                                        <td>$99</td>
-                                        <td>
-                                            <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </td>
-                                        <td>$99</td>
-                                        <td><button><i class="fa fa-trash"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="img">
-                                                <a href="#"><img src="img/product-3.jpg" alt="Image"></a>
-                                                <p>Product Name</p>
-                                            </div>
-                                        </td>
-                                        <td>$99</td>
-                                        <td>
-                                            <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </td>
-                                        <td>$99</td>
-                                        <td><button><i class="fa fa-trash"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="img">
-                                                <a href="#"><img src="img/product-4.jpg" alt="Image"></a>
-                                                <p>Product Name</p>
-                                            </div>
-                                        </td>
-                                        <td>$99</td>
-                                        <td>
-                                            <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </td>
-                                        <td>$99</td>
-                                        <td><button><i class="fa fa-trash"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="img">
-                                                <a href="#"><img src="img/product-5.jpg" alt="Image"></a>
-                                                <p>Product Name</p>
-                                            </div>
-                                        </td>
-                                        <td>$99</td>
-                                        <td>
-                                            <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </td>
-                                        <td>$99</td>
-                                        <td><button><i class="fa fa-trash"></i></button></td>
-                                    </tr>
+                                   
+                                     <?php } ?>
                                 </tbody>
                             </table>
                         </div>
@@ -139,9 +77,9 @@ include 'navbar.php';
                                 <div class="cart-summary">
                                     <div class="cart-content">
                                         <h1>Cart Summary</h1>
-                                        <p>Sub Total<span>$99</span></p>
-                                        <p>Shipping Cost<span>$1</span></p>
-                                        <h2>Grand Total<span>$100</span></h2>
+                                        <p>Sub Total<span><?php echo $subtotal.' '.'EGP'; ?></span></p>
+                                        <p>Shipping Cost<span><?php echo '70 EGP' ; ?> </span></p>
+                                        <h2>Grand Total<span><?php $grandTotal= $subtotal + 70; echo $grandTotal; ?> </span></h2>
                                     </div>
                                     <div class="cart-btn">
                                         <button>Update Cart</button>

@@ -7,7 +7,7 @@ include '../helpers/dbconnection.php';
 
 
 
-  $sql="SELECT `productimges`.`id`, `productimges`.`product_id`,`productimges`.`firstimage`, `productimges`.`secondimage`, `productimges`.`thirdimage`,`product`.`productname`  FROM `productimges` join `productdetails` on `productimges`.`product_id` =`productdetails`.`id` join `product` on `productdetails`.`product_Id` =`product`.`id`  ";
+  $sql="SELECT `productimges`.*,`product`.`productname`  FROM `productimges` join `productdetails` on `productimges`.`product_id` =`productdetails`.`id` join `product` on `productdetails`.`product_Id` =`product`.`id`  ";
  
   $op  = mysqli_query($conn,$sql); 
       
@@ -89,9 +89,9 @@ include '../sidNave.php';
                                       <tr>
                                                  <td><?php echo $result['id'];?></td>
                                                  <td><?php echo $result['productname'];?></td>
-                                                <td><img src='uploads/<?php echo $result['firstimage'];?>' width="50px" height="50px"></td>
-                                                <td><img src='uploads/<?php echo $result['secondimage'];?>' width="50px" height="50px"></td>
-                                                <td><img src='uploads/<?php echo $result['thirdimage'];?>' width="50px" height="50px"></td>
+                                                <td><img src='./uploads/<?php echo $result['firstimage'];?>' width="50px" height="50px"></td>
+                                                <td><img src='./uploads/<?php echo $result['secondimage'];?>' width="50px" height="50px"></td>
+                                                <td><img src='./uploads/<?php echo $result['thirdimage'];?>' width="50px" height="50px"></td>
                                              
                                                 <td>
 
