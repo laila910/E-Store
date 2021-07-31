@@ -82,7 +82,7 @@ include 'navbar.php';
                                         <h2>Grand Total<span><?php $grandTotal= $subtotal + 70; echo $grandTotal; ?> </span></h2>
                                     </div>
                                     <div class="cart-btn">
-                                         <a class="btn btn-primary btn-lg" href="updatecard.php?id=<?php echo $result[''] ?>" role="button">Update Card</a>
+                                        <a class="btn btn-primary btn-lg" href="updatecard.php" role="button">Update Card</a>
                                        <a class="btn btn-primary btn-lg" href="checkout.php" role="button">CheckOut</a>
                                     </div>
                                 </div>

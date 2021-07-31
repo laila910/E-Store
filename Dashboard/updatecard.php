@@ -1,45 +1,45 @@
 <?php 
 
-  include '../helpers/functions.php';
-include '../helpers/checkLogin.php';
-include '../helpers/checkPrem.php';
-include '../helpers/dbconnection.php';
+//   include '../helpers/functions.php';
+// include '../helpers/checkLogin.php';
+// include '../helpers/checkPrem.php';
+// include '../helpers/dbconnection.php';
 
 
 
 
- if($_SERVER['REQUEST_METHOD'] == "GET"){
+//  if($_SERVER['REQUEST_METHOD'] == "GET"){
 
-   // LOGIC .... 
-     $errorMessages = [];
-     $id  = Sanitize($_GET['id'],1);
+//    // LOGIC .... 
+//      $errorMessages = [];
+//      $id  = Sanitize($_GET['id'],1);
     
-      if(!Validator($id,3)){
+//       if(!Validator($id,3)){
 
-       $errorMessages['id'] = "Invalid ID";
+//        $errorMessages['id'] = "Invalid ID";
 
     
-      }else{
+//       }else{
 
-        // DB Opretaion ... 
-        $sql = "DELETE FROM `product` where `id` =".$id;
+//         // DB Opretaion ... 
+//         $sql = "DELETE FROM `product` where `id` =".$id;
 
-        $op = mysqli_query($conn,$sql);
+//         $op = mysqli_query($conn,$sql);
 
-        if($op){
-            $errorMessages['Result'] = "deleted done";
-        }else{
+//         if($op){
+//             $errorMessages['Result'] = "deleted done";
+//         }else{
             
-        $errorMessages['Result'] = "error in delete operation";
-        }
+//         $errorMessages['Result'] = "error in delete operation";
+//         }
      
-      }
+//       }
 
-     $_SESSION['errors'] =  $errorMessages;
+//      $_SESSION['errors'] =  $errorMessages;
     
-     header("Location: index.php");
+//      header("Location: index.php");
 
- }
+//  }
 
 
 

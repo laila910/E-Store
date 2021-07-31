@@ -41,7 +41,7 @@
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
                             <div class="dropdown-menu">
                                 <a href="wishlist.php" class="dropdown-item">Wishlist</a>
-                                <a href="login.php" class="dropdown-item">Login & Register</a>
+                                <a href="login.php" class="dropdown-item"><?php if(!isset($_SESSION['User'])){?>Login & Register <?php }?></a>
                                 <a href="contact.php" class="dropdown-item">Contact Us</a>
                             </div>
                         </div>
