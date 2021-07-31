@@ -70,7 +70,7 @@ include 'navbar.php';
                          <?php 
                             mysqli_select_db($conn,'pagination');
                             $results_per_page=6;
-                             $sql = "SELECT `productdetails`.*,`product`.`productname`,`productimges`.`firstimage`,`productimges`.`secondimage`,`productimges`.`thirdimage`,`categoreis`.`categoryname` FROM `productdetails` join `product` on `productdetails`.`product_Id`=`product`.`id` join `productimges` on `productdetails`.`id` =`productimges`.`product_id` join `categoreis` on `product`.`product_cat_id`=`categoreis`.`id` WHERE `categoryname`='FootWear' ";
+                             $sql = "SELECT `productdetails`.*,`product`.`productname`,`productimges`.`firstimage`,`productimges`.`secondimage`,`productimges`.`thirdimage`,`categoreis`.`categoryname` FROM `productdetails` join `product` on `productdetails`.`product_Id`=`product`.`id` join `productimges` on `productdetails`.`id` =`productimges`.`product_id` join `categoreis` on `product`.`product_cat_id`=`categoreis`.`id` WHERE `categoryname`='FootWear' ORDER BY `productdetails`.`productMadeDate` desc ";
                             $op =mysqli_query($conn,$sql);
                             $number_of_results=mysqli_num_rows($op);
                             if(!isset($_GET['page'])){
@@ -79,9 +79,9 @@ include 'navbar.php';
                                 $page =$_GET['page'];
                             }
                             $this_page_first_result = ($page-1)*$results_per_page;
-                             $sql = "SELECT `productdetails`.*,`product`.`productname`,`productimges`.`firstimage`,`productimges`.`secondimage`,`productimges`.`thirdimage`,`categoreis`.`categoryname` FROM `productdetails` join `product` on `productdetails`.`product_Id`=`product`.`id` join `productimges` on `productdetails`.`id` =`productimges`.`product_id` join `categoreis` on `product`.`product_cat_id`=`categoreis`.`id` WHERE `categoryname`='FootWear' LIMIT " .$this_page_first_result.','.$results_per_page;
+                             $sql = "SELECT `productdetails`.*,`product`.`productname`,`productimges`.`firstimage`,`productimges`.`secondimage`,`productimges`.`thirdimage`,`categoreis`.`categoryname` FROM `productdetails` join `product` on `productdetails`.`product_Id`=`product`.`id` join `productimges` on `productdetails`.`id` =`productimges`.`product_id` join `categoreis` on `product`.`product_cat_id`=`categoreis`.`id` WHERE `categoryname`='FootWear' ORDER BY `productdetails`.`productMadeDate` desc LIMIT " .$this_page_first_result.','.$results_per_page;
                                $op =mysqli_query($conn,$sql);
-
+                               
                                 while($data = mysqli_fetch_assoc($op)){
                              
                              ?>     
@@ -121,7 +121,7 @@ include 'navbar.php';
 
 
                     </div>
-                    <?php echo $number_f_pages=ceil($number_of_results/$results_per_page); ?>
+                    <?php  $number_f_pages=ceil($number_of_results/$results_per_page); ?>
                     <!-- Pagination Start -->
                     <div class="col-md-12">
                         <nav aria-label="Page navigation example">
