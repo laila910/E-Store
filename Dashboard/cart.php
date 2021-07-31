@@ -35,7 +35,7 @@ include 'navbar.php';
                                 <tbody class="align-middle">
                                      <?php 
                                 $sql = "SELECT `productdetails`.* ,`product`.`productname` FROM `productdetails` join `product` on `productdetails`.`product_Id` = `product`.`id` ";
-                       $op  = mysqli_query($conn,$sql); 
+                                $op  = mysqli_query($conn,$sql); 
                                 while($data = mysqli_fetch_assoc($op)){
                              
                              ?>     
@@ -82,8 +82,8 @@ include 'navbar.php';
                                         <h2>Grand Total<span><?php $grandTotal= $subtotal + 70; echo $grandTotal; ?> </span></h2>
                                     </div>
                                     <div class="cart-btn">
-                                        <button>Update Cart</button>
-                                        <button>Checkout</button>
+                                         <a class="btn btn-primary btn-lg" href="updatecard.php?id=<?php echo $result[''] ?>" role="button">Update Card</a>
+                                       <a class="btn btn-primary btn-lg" href="checkout.php" role="button">CheckOut</a>
                                     </div>
                                 </div>
                             </div>
