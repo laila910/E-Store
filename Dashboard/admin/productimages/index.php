@@ -100,8 +100,8 @@ include '../sidNave.php';
                                                 </td>
                                   
                                         </tr>
-                            <?php }        echo mysqli_error($conn);
-                                                exit(); ?>             
+                            <?php }     
+                                               ?>             
                                         </tbody>
                                     </table>
                                 </div>

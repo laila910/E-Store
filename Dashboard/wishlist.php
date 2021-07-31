@@ -1,20 +1,13 @@
 <?php
 
-include 'helpers/functions.php';
+include './helpers/functions.php';
 
-include 'helpers/checkLogin.php';
-include 'helpers/dbconnection.php';
+include './helpers/checkLogin.php';
+include './helpers/dbconnection.php';
 
-include 'header.php';
+include './header.php';
 
-include 'navbar.php';
-
- $sql = "SELECT `whishlist`.* ,`product`.`productname` ,`productdetails`.`productPrice`from `whishlist` join `productdetails` on `whishlist`.`productid` = `productdetails`.`id` join `product` on `productdetails`.`product_Id` =`product`.`id` ";
-
-  $op  = mysqli_query($conn,$sql); 
- 
-
-  
+include './navbar.php';
 
 
 
@@ -41,7 +34,10 @@ include 'navbar.php';
                                 </thead>
                                 <tbody class="align-middle">
                                     <?php 
-                             
+                              $sql = "SELECT `whishlist`.* ,`product`.`productname` ,`productdetails`.`productPrice`from `whishlist` join `productdetails` on `whishlist`.`productid` = `productdetails`.`id` join `product` on `productdetails`.`product_Id` =`product`.`id` ";
+
+                             $op  = mysqli_query($conn,$sql); 
+ 
                                 while($data = mysqli_fetch_assoc($op)){
                              
                              ?>     

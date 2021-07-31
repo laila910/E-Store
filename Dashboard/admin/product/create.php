@@ -65,8 +65,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
    if(!Validator($Featured,1)){
       $errorMessages['featured']="featured  field Required";
    }
-    if(!Validator($Featured,2,4)){
-      $errorMessages['featured']="featured  field must be  > 4";
+    if(!Validator($Featured,2,2)){
+      $errorMessages['featured']="featured  field must be  > 2";
    }
   
  if(count($errorMessages) > 0){
