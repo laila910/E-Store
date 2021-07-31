@@ -32,7 +32,11 @@
                         <a href="product-detail.php" class="nav-item nav-link">Product Detail</a>
                         <a href="cart.php" class="nav-item nav-link">Cart</a>
                         <a href="checkout.php" class="nav-item nav-link">Checkout</a>
-                        <a href="my-account.php" class="nav-item nav-link">My Account</a>
+                        <a href="my-account.php" class="nav-item nav-link"> 
+                            <?php  if(isset($_SESSION['User'])){
+
+                                echo 'My Account';
+                                }?></a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
                             <div class="dropdown-menu">
@@ -44,10 +48,17 @@
                     </div>
                     <div class="navbar-nav ml-auto">
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><?php 
+                                if(!isset($_SESSION['User'])){
+
+                                echo "SignIn/Register";
+                                }else{echo $_SESSION['User']['firstName'];} ?>
                             <div class="dropdown-menu">
+                                <?php if(!isset($_SESSION['User'])){?>
                                 <a href="login.php" class="dropdown-item">Login</a>
                                 <a href="signup.php" class="dropdown-item">Register</a>
+                                <?php }else{?>
+                                <a href="logout.php" class="dropdown-item">LogOut</a><?php }?>
                             </div>
                         </div>
                     </div>
@@ -94,9 +105,11 @@
         <div class="breadcrumb-wrap">
             <div class="container-fluid">
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Products</a></li>
-                    <li class="breadcrumb-item active">Login & Register</li>
+                    <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                    <li class="breadcrumb-item"><a href="login.php">Login & Register</a></li>
+                    <li class="breadcrumb-item active"><a href="product-list.php">Products</a></li>
+                   
+                  
                 </ul>
             </div>
         </div>
