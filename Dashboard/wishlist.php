@@ -34,10 +34,10 @@ include './navbar.php';
                                 </thead>
                                 <tbody class="align-middle">
                                     <?php 
-                              $sql = "SELECT `whishlist`.* ,`product`.`productname` ,`productdetails`.`productPrice`from `whishlist` join `productdetails` on `whishlist`.`productid` = `productdetails`.`id` join `product` on `productdetails`.`product_Id` =`product`.`id` ";
+                              $sql = "SELECT `whishlist`.* ,`product`.`productname` ,`productdetails`.`productPrice` ,`productimges`.`firstimage` from `whishlist` join `productdetails` on `whishlist`.`productid` = `productdetails`.`id` join `product` on `productdetails`.`product_Id` =`product`.`id` join `productimges` on `productdetails`.`id` = `productimges`.`product_id` ";
 
                              $op  = mysqli_query($conn,$sql); 
- 
+                            
                                 while($data = mysqli_fetch_assoc($op)){
                              
                              ?>     
@@ -45,7 +45,7 @@ include './navbar.php';
                                         <td> <?php echo $data['id'];?></td>
                                         <td>
                                             <div class="img">
-                                                <a href="#"><img src="img/product-1.jpg" alt="Image"></a>
+                                                <a href="#"><img src="admin/productimages/uploads/<?php echo $data['firstimage']; ?>" alt="Image"></a>
                                                 <p><?php echo $data['productname']; ?></p>
                                             </div>
                                         </td>
