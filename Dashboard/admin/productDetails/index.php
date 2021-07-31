@@ -6,7 +6,7 @@ include '../helpers/dbconnection.php';
 
 
 
-  $sql="SELECT `product`.`productname`,`productdetails`.* ,`productreview`.`reviewerName`  FROM `productdetails` join `product` on `productdetails`.`product_Id` = `product`.`id` join `productreview` on `productdetails`.`Review_id`=`productreview`.`id_review` ";
+  $sql="SELECT `product`.`productname`,`productdetails`.* ,`productreview`.`reviewerName` ,`productcolor`.`firstcolor`,`productcolor`.`secondcolor`,`productcolor`.`thirdcolor`,`productsizes`.`S`,`productsizes`.`M`,`productsizes`.`L`,`productsizes`.`XL` FROM `productdetails` join `product` on `productdetails`.`product_Id` = `product`.`id` join `productreview` on `productdetails`.`Review_id`=`productreview`.`id_review` join `productcolor` on `productdetails`.`color_id` =`productcolor`.`id`join `productsizes` on `productdetails`.`size_id`=`productsizes`.`id_size` ";
  
   $op  = mysqli_query($conn,$sql); 
  
@@ -66,6 +66,8 @@ include '../sidNave.php';
                                             <tr>
                                                 <th>#</th>
                                                 <th>Product Name </th>
+                                                <th>Product Color </th>
+                                                <th>Product Size </th>
                                                 <th>Product Price</th>
                                                 <th>Product Quantity</th>
                                                 <th>Product Description</th>
@@ -96,6 +98,8 @@ include '../sidNave.php';
                                         <tr>
                                                  <td><?php echo $result['id'];?></td>
                                                 <td><?php echo $result['productname'];?></td>
+                                                <td><?php echo $result['firstcolor'].','.$result['secondcolor'].','.$result['thirdcolor'];?></td>
+                                                <td><?php echo $result['S'].','.$result['M'].','.$result['L'].','.$result['XL'];?></td>
                                                 <td><?php echo $result['productPrice'];?></td>
                                                 <td><?php echo $result['productQuntity'];?></td>
                                                 <td><?php echo $result['product_Description'];?></td>

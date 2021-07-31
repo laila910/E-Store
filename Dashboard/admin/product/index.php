@@ -72,6 +72,10 @@ include '../sidNave.php';
                                                 <th>Brand</th>
                                                 <th>Product Status</th>
                                                 <th>Featured </th>
+                                                <th>Product Details </th>
+                                                <th> Product Images </th>
+                                                <th> Product Colors </th>
+                                                <th> Product Sizes </th>
                                               
                                                 <th>Action</th>
                                           
@@ -94,11 +98,19 @@ include '../sidNave.php';
                                                 <td><?php echo $result['brandName'];?></td>
                                                 <td><?php echo $result['product_status'];?></td>
                                                 <td><?php echo $result['featured'];?></td>
+                                                <td>  <a href='../productdetails/index.php' class='btn btn-primary m-r-1em'>Details</a> </td>
+                                                <td>  <a href='../productimages/index.php' class='btn btn-primary m-r-1em'>Images</a> </td>
+                                              
+                                                <td>     <a href='../productcolor/index.php' class='btn btn-primary m-r-1em'>Colors</a></td>
+                                              
+                                               <td> <a href='../productSizes/index.php' class='btn btn-primary m-r-1em'>Sizes</a> </td>
                                               
                                                 <td>
 
                                                 <a href='delete.php?id=<?php echo $result['product_id'];?>' class='btn btn-danger m-r-1em'>Delete</a>
                                                 <a href='edit.php?id=<?php echo $result['product_id'];?>' class='btn btn-primary m-r-1em'>Edit</a> 
+                                              
+                                             
                                                
                                                 </td>
                                   

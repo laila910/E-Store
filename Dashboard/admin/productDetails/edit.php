@@ -31,7 +31,7 @@ include '../helpers/dbconnection.php';
       $productQuntity=CleanInputs(Sanitize($_POST["productQuntity"],1));  
       $product_Description =CleanInputs(Sanitize($_POST["product_Description"],2));  
       $product_Specificaton=CleanInputs(Sanitize($_POST["product_Specificaton"],2));  
-      $Review_id =CleanInputs(Sanitize($_POST["Review_id"],1));  
+    
       $unitsInStock =CleanInputs(Sanitize($_POST["unitsInStock"],1));  
       $Discount =CleanInputs(Sanitize($_POST["Discount"],1));  
       $productAvailablity =CleanInputs(Sanitize($_POST["productAvailablity"],2));
@@ -98,13 +98,7 @@ include '../helpers/dbconnection.php';
    if(!Validator($productQuntity,3)){
       $errorMessages['productQuantity']="product Quantity   must be Integer Number";
    }
-//Validate Review Id 
-   if(!Validator($Review_id,1)){
-      $errorMessages['ReviewId']="Review Id  field Required";
-   }
-   if(!Validator($Review_id,3)){
-      $errorMessages['ReviewId']="Review Id   must be Integer Number";
-   }
+
 //Validate units Of Stock
    if(!Validator($unitsInStock,1)){
       $errorMessages['unitsofstock']="units of stock  field Required";
@@ -131,7 +125,7 @@ include '../helpers/dbconnection.php';
      if(count($errorMessages) == 0){
        
       
-         $sql="UPDATE `productdetails` SET `product_Id`='$productId',`productPrice`='$productPrice',`productQuntity`='$productQuntity',`product_Description`='$product_Description',`product_Specificaton`='$product_Specificaton',`Review_id`='$Review_id',`unitsInStock`='$Review_id',`Discount`='$Discount',`productAvailablity`='$productAvailablity',`discountAvailablity`='$discountAvailablity',`productMadeDate`='$productMadeDate' WHERE id=". $id;
+         $sql="UPDATE `productdetails` SET `product_Id`='$productId',`productPrice`='$productPrice',`productQuntity`='$productQuntity',`product_Description`='$product_Description',`product_Specificaton`='$product_Specificaton',`unitsInStock`='$unitsInStock',`Discount`='$Discount',`productAvailablity`='$productAvailablity',`discountAvailablity`='$discountAvailablity',`productMadeDate`='$productMadeDate' WHERE id=". $id;
 
          $op = mysqli_query($conn,$sql);
         //  echo mysqli_error($conn);
@@ -258,16 +252,7 @@ include '../helpers/dbconnection.php';
                          placeholder="Enter product Specificaton">
                   </div>
                   
-                 <div class="form-group">
-                         <label for="exampleInput"> Enter Reviewer Name </label>
-                          <select name="Review_id" class="form-control"> 
-                                 <?php 
-                                    while($data2= mysqli_fetch_assoc($op2)){
-                                 ?>
-                           <option value="<?php echo $data2['id_review'];?>"  <?php if($data2['id_review'] == $FData['Review_id'] ){ echo 'selected';}?>  ><?php echo $data2['reviewerName'];?></option>
-                              <?php } ?>
-                        </select>  
-                </div>
+                 
 
                   <div class="form-group">
                      <label for="exampleInputEmail1">Enter unitsInStock </label>

@@ -8,7 +8,7 @@ include '../helpers/dbconnection.php';
 
 
 
-  $sql="SELECT `brand_Id`, `brandName`, `brandImage` FROM `brand` ";
+  $sql="SELECT * FROM `brand` ";
  
   $op  = mysqli_query($conn,$sql); 
  

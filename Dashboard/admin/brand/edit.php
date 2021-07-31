@@ -30,7 +30,7 @@ include '../helpers/dbconnection.php';
        
       $brandName =CleanInputs(Sanitize($_POST["brandName"],2));  
     //    $brandImage     = $_FILES['brandImage']['name'];  
-     $image   = $_POST['OldImage'];
+     $image = $_POST['OldImage'];
      $finalImage = $image;
        $id = CleanInputs(Sanitize($_POST['brand_Id'],1));
       
@@ -107,7 +107,7 @@ include '../helpers/dbconnection.php';
 
       }
       
-         $sql="UPDATE `brand` SET`brandName`='$brandName',`brandImage`='$imageName' WHERE `brand_Id`=". $id;
+         $sql="UPDATE `brand` SET`brandName`='$brandName',`brandImage`='$finalImage' WHERE `brand_Id`=". $id;
 
          $op = mysqli_query($conn,$sql);
         
@@ -119,20 +119,20 @@ include '../helpers/dbconnection.php';
             $errorMessages['Result']  = "Error Try Again.";
      
          }
-        $_SESSION['errors'] = $errorMessages;
-       
-        header('Location: index.php');
+             $_SESSION['errors'] = $errorMessages;
+               header('Location: index.php');
 
+      
      }else{
 
          $_SESSION['errors'] = $errorMessages;
-    
+            header('Location: index.php');
 
    }
 
   }
 
-   # Fetch product
+   # Fetch brand
    $sql  ="SELECT * FROM `brand` WHERE `brand_Id`= $id";
    $op   = mysqli_query($conn,$sql);
    $FData = mysqli_fetch_assoc($op);

@@ -7,7 +7,7 @@ include '../header.php';
 
 
 
-$sql1 = "SELECT `product`.`productname`,`product`.`id` as `productid`,`productdetails`.* from `productdetails` join `product` on `productdetails`.`product_Id` = `product`.`id`";
+$sql1 = "SELECT `product`.`productname` ,`productdetails`.* from `productdetails` join `product` on `productdetails`.`product_Id` = `product`.`id`";
 
   $op1  = mysqli_query($conn,$sql1);
 
@@ -15,10 +15,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
      
         $productId = CleanInputs(Sanitize($_POST["product_id"],1)); 
-         $firstimageName     = $_FILES['firstimage']['name'];
-         $secondimageName     = $_FILES['secondimage']['name'];
-         $thirdimageName     = $_FILES['thirdimage']['name'];
-         
+        $count = count($_FILES['uploadedFile']['name']);
      
     
 
@@ -31,55 +28,44 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
    if(!Validator($productId,3)){
       $errorMessages['productId']="product Id  must be Integer Number";
    }
-//Validate firstimage
-  $nameArray = explode('.',$firstimageName);
-  $FileExtensionimage1 = strtolower($nameArray[1]);
-   
-     if(!Validator($firstimageName,1)){
-      
-      $errorMessages['firstimage'] = "first image Field Required";
+// validation Image 
+ if($count > 0 ){
+   $FinalName =array();
+   for ($i=0; $i < $count ; $i++) { 
+      $tmp_path = $_FILES['uploadedFile']['tmp_name'][$i];
+      $name     = $_FILES['uploadedFile']['name'][$i];
+       $nameArray = explode('.',$name);
+       $FileExtension = strtolower($nameArray[1]);
 
+     $FinalName[$i] = rand().time().'.'.$FileExtension;
+
+      $allowedExtension = ['png','jpg','jpeg'];    
+
+
+       if(in_array($FileExtension,$allowedExtension)){
+        // code ....
+      
+        $disFolder = './uploads/';
+        
+        $disPath  = $disFolder.$FinalName[$i];
+
+         if(!move_uploaded_file($tmp_path,$disPath))
+           {
+               $errorMessages['error'] =  'Error In upload try again';
+           }
+
+       }else{
+        $errorMessages['error'] =  ' extension not allowed';
+       }
+
+    
+      }
+       
+
+    }else{
+      $errorMessages['error'] =  '  please  Upload Product Images';
     }
 
-
-    if(!Validator($FileExtensionimage1,5)){
-      
-      $errorMessages['Extensionimage1'] = "Invalid Image1 Extension";
-
-    }
-//validate second image
-
-  $nameArray = explode('.',$secondimageName);
-  $FileExtensionimage2 = strtolower($nameArray[1]);
-   
-     if(!Validator($secondimageName,1)){
-      
-      $errorMessages['secondimage'] = "second image Field Required";
-
-    }
-
-
-    if(!Validator($FileExtensionimage2,5)){
-      
-      $errorMessages['Extensionimage2'] = "Invalid Image2 Extension";
-
-    }
-//Validate third image
-  $nameArray = explode('.',$thirdimageName);
-  $FileExtensionimage3 = strtolower($nameArray[1]);
-   
-     if(!Validator($thirdimageName,1)){
-      
-      $errorMessages['thirdimage'] = "third image Field Required";
-
-    }
-
-
-    if(!Validator($FileExtensionimage3,5)){
-      
-      $errorMessages['Extensionimage3'] = "Invalid Image3 Extension";
-
-    }
 
 //end of validations
 
@@ -88,38 +74,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
  }else{
 
-     //add image1 to include folder
-     $tmp_path1= $_FILES['firstimage']['tmp_name'];
-       $FinalNameimage1 = rand().time().'.'.$FileExtensionimage1;
  
-       $disFolder = './uploads/';
-         
-       $disPath1 = $disFolder.$FinalNameimage1;
-
-
-     //add image2 to include folder
-      $tmp_path2= $_FILES['secondimage']['tmp_name'];
-       $FinalNameimage2 = rand().time().'.'.$FileExtensionimage2;
- 
-       $disFolder = './uploads/';
-         
-       $disPath2 = $disFolder.$FinalNameimage2;
-
-
-    //add image3 to include folder
-      $tmp_path3= $_FILES['thirdimage']['tmp_name'];
-       $FinalNameimage3 = rand().time().'.'.$FileExtensionimage3;
- 
-       $disFolder = './uploads/';
-         
-       $disPath2 = $disFolder.$FinalNameimage3;
- 
- 
- 
-     if(move_uploaded_file($tmp_path1,$disPath1) && move_uploaded_file($tmp_path2,$disPath2) && move_uploaded_file($tmp_path3,$disPath3) )
-       {
     
-       $sql =  "INSERT INTO `productimges`(`product_id`, `firstimage`, `secondimage`, `thirdimage`) VALUES ('$productId ','$FinalNameimage1','$FinalNameimage2','$FinalNameimage3')";
+    
+       $sql =  "INSERT INTO `productimges`(`product_id`, `firstimage`, `secondimage`, `thirdimage`) VALUES ('$productId ','$FinalName[0]','$FinalName[1]','$FinalName[2]')";
 
 
       $op = mysqli_query($conn,$sql);
@@ -135,12 +93,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
        
 
      }
-    }else{
-      
-               $errorMessages['Result'] = "Error In Uploading";
-           
- 
-    }
+    
       
     
 
@@ -209,24 +162,11 @@ include '../sidNave.php';
                     </div>
 
 
-                  <div class="form-group">
-                     <label for="exampleInputEmail1">Enter First Image</label>
-                     <input type="file" name="firstimage" class="form-control" id="exampleInputName" aria-describedby=""
-                         placeholder="Enter First image ">
-                 </div>
-
                  <div class="form-group">
-                     <label for="exampleInputEmail1">Enter Second image</label>
-                     <input type="file" name="secondimage" class="form-control" id="exampleInputName" aria-describedby=""
-                         placeholder="Enter Second image">
-                  </div>
-
-                  <div class="form-group">
-                     <label for="exampleInputEmail1">Enter Third image</label>
-                     <input type="file" name="thirdimage" class="form-control" id="exampleInputName" aria-describedby=""
-                         placeholder="Enter Third image">
-                  </div>
-
+                      <label for="exampleInputPassword1"> Uploade Images</label>
+                      <input type="file"  name="uploadedFile[]"  multiple="multiple">
+                 </div>
+ 
                 
 
                  <button type="submit" class="btn btn-primary">Add Images</button>

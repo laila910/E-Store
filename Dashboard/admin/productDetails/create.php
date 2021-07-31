@@ -11,15 +11,23 @@ include '../header.php';
 //fetch reviews table
   $sql3 = "SELECT * FROM productreview";
   $op3  = mysqli_query($conn,$sql3);
+// fetch product color
+$sql5= "SELECT * FROM productcolor";
+  $op5 = mysqli_query($conn,$sql5);
+//fetch product sizes
+$sql6= "SELECT * FROM productsizes";
+  $op6 = mysqli_query($conn,$sql6);
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
 
       $productId=CleanInputs(Sanitize($_POST["product_Id"],1));  
+      $productcolor=CleanInputs(Sanitize($_POST["color_id"],1));  
+      $productsize=CleanInputs(Sanitize($_POST["size_id"],1));  
       $productPrice=CleanInputs(Sanitize($_POST["productPrice"],1));  
       $productQuntity=CleanInputs(Sanitize($_POST["productQuntity"],1));  
       $product_Description =CleanInputs(Sanitize($_POST["product_Description"],2));  
       $product_Specificaton=CleanInputs(Sanitize($_POST["product_Specificaton"],2));  
-      $Review_id =CleanInputs(Sanitize($_POST["Review_id"],1));  
+  
       $unitsInStock =CleanInputs(Sanitize($_POST["unitsInStock"],1));  
       $Discount =CleanInputs(Sanitize($_POST["Discount"],1));  
       $productAvailablity =CleanInputs(Sanitize($_POST["productAvailablity"],2));
@@ -84,13 +92,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
    if(!Validator($productQuntity,3)){
       $errorMessages['productQuantity']="product Quantity   must be Integer Number";
    }
-//Validate Review Id 
-   if(!Validator($Review_id,1)){
-      $errorMessages['ReviewId']="Review Id  field Required";
-   }
-   if(!Validator($Review_id,3)){
-      $errorMessages['ReviewId']="Review Id   must be Integer Number";
-   }
+
 //Validate units Of Stock
    if(!Validator($unitsInStock,1)){
       $errorMessages['unitsofstock']="units of stock  field Required";
@@ -105,12 +107,26 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
    if(!Validator($Discount,3)){
       $errorMessages['Discount']="Discount   must be Integer Number";
    }
+//Validate color Id
+   if(!Validator($productcolor,1)){
+      $errorMessages['productcolorId']="Product Color Id  field Required";
+   }
+   if(!Validator($productcolor,3)){
+      $errorMessages['productcolorId']="Product Color Id   must be Integer Number";
+   }
+//Validate size Id
+   if(!Validator($productsize,1)){
+      $errorMessages['productsizeId']="Product Size Id  field Required";
+   }
+   if(!Validator($productsize,3)){
+      $errorMessages['productsizeId']="Product Size Id   must be Integer Number";
+   }
 
  if(count($errorMessages) > 0){
     $_SESSION['errors']=$errorMessages;
 
  }else{
-       $sql4 =  "INSERT INTO `productdetails`( `product_Id`, `productPrice`, `productQuntity`, `product_Description`, `product_Specificaton`, `Review_id`, `unitsInStock`, `Discount`, `productAvailablity`, `discountAvailablity`) VALUES ('$productId','$productPrice','$productQuntity','$product_Description','$product_Specificaton','$Review_id','$unitsInStock','$Discount','$productAvailablity','$discountAvailablity')";
+       $sql4 =  "INSERT INTO `productdetails`( `product_Id`,`color_id`,`size_id`, `productPrice`, `productQuntity`, `product_Description`, `product_Specificaton`, `unitsInStock`, `Discount`, `productAvailablity`, `discountAvailablity`) VALUES ('$productId','$productcolor','$productsize','$productPrice','$productQuntity','$product_Description','$product_Specificaton','$unitsInStock','$Discount','$productAvailablity','$discountAvailablity')";
 
 
       $op4 = mysqli_query($conn,$sql4);
@@ -192,6 +208,26 @@ include '../sidNave.php';
                               <?php } ?>
                         </select>  
                     </div>
+                   <div class="form-group">
+                         <label for="exampleInput"> Product Sizes</label>
+                          <select name="size_id" class="form-control"> 
+                                 <?php 
+                                    while($data6 = mysqli_fetch_assoc($op6)){
+                                 ?>
+                           <option value="<?php echo $data6['id_size'];?>"><?php echo $data6['S'].','.$data6['M'].','.$data6['L'].','.$data6['XL'];?></option>
+                              <?php } ?>
+                        </select>  
+                    </div>
+                   <div class="form-group">
+                         <label for="exampleInput"> Product Colors</label>
+                          <select name="color_id" class="form-control"> 
+                                 <?php 
+                                    while($data5 = mysqli_fetch_assoc($op5)){
+                                 ?>
+                           <option value="<?php echo $data5['id'];?>"><?php echo $data5['firstcolor'].','.$data5['secondcolor'].','.$data5['thirdcolor'];?></option>
+                              <?php } ?>
+                        </select>  
+                    </div>
 
                   <div class="form-group">
                      <label for="exampleInputEmail1">Enter Product Price</label>
@@ -217,17 +253,7 @@ include '../sidNave.php';
                          placeholder="Enter product Specificaton">
                   </div>
                   
-                   <div class="form-group">
-                         <label for="exampleInput"> Enter Reviewer Name </label>
-                          <select name="Review_id" class="form-control"> 
-                                 <?php 
-                                    while($data3 = mysqli_fetch_assoc($op3)){
-                                 ?>
-                           <option value="<?php echo $data3['id_review'];?>"><?php echo $data3['reviewerName'];?></option>
-                              <?php } ?>
-                        </select>  
-                    </div>
-                    
+                 
                  <div class="form-group">
                      <label for="exampleInputEmail1">Enter unitsInStock </label>
                      <input type="text" name="unitsInStock" class="form-control" id="exampleInputName" aria-describedby=""

@@ -27,13 +27,17 @@ include '../helpers/dbconnection.php';
        
         
         $productId = CleanInputs(Sanitize($_POST["product_id"],1)); 
-         $firstimageName     = $_FILES['firstimage']['name'];
-         $secondimageName     = $_FILES['secondimage']['name'];
-         $thirdimageName     = $_FILES['thirdimage']['name'];
-          $image   = $_POST['OldImage'];
-          $finalImage = $image;
+        
+          $image1  = $_POST['OldImage1'];
+          $finalImage1 = $image1;
+
+          $image2  = $_POST['OldImage2'];
+          $finalImage2 = $image2;
+
+          $image3  = $_POST['OldImage3'];
+          $finalImage3 = $image3;
          
-  
+            $id = CleanInputs(Sanitize($_POST['id'],1));
     
 
   $errorMessages=array();
@@ -44,93 +48,179 @@ include '../helpers/dbconnection.php';
    if(!Validator($productId,3)){
       $errorMessages['productId']="product Id  must be Integer Number";
    }
-//Validate firstimage
-  $nameArray = explode('.',$firstimageName);
-  $FileExtensionimage1 = strtolower($nameArray[1]);
+  //Validate images Id 
+   if(!Validator($id,1)){
+      $errorMessages['imageid']="Image Id  field Required";
+   }
+   if(!Validator($id,3)){
+      $errorMessages['imageid']="Image Id  must be Integer Number";
+   }
+    //Validate ProductFirstImage
    
-     if(!Validator($firstimageName,1)){
+    $imageName1     = $_FILES['firstimage']['name'];
+
+   if(Validator($imageName1,1)){
+
+      $nameArray = explode('.',$imageName1);
+      $FileExtension1 = strtolower($nameArray[1]);
       
-      $errorMessages['firstimage'] = "first image Field Required";
+      $newName1 = rand().time().'.'.$FileExtension1;
 
-    }
+ 
+   if(!Validator($imageName1,1)){
+    
+    $errorMessages['firstimage'] = "first image Field Required";
 
+  }
+   if(!Validator($FileExtension1,5)){
+    
+    $errorMessages['imageExtension1'] = "Invalid Image1 Extension";
 
-    if(!Validator($FileExtensionimage1,5)){
-      
-      $errorMessages['Extensionimage1'] = "Invalid Image1 Extension";
-
-    }
-//validate second image
-
-  $nameArray = explode('.',$secondimageName);
-  $FileExtensionimage2 = strtolower($nameArray[1]);
+        }
+      }
+    //Validate ProductsecondImage
    
-     if(!Validator($secondimageName,1)){
+    $imageName2    = $_FILES['secondimage']['name'];
+
+   if(Validator($imageName2,1)){
+
+      $nameArray = explode('.',$imageName2);
+      $FileExtension2 = strtolower($nameArray[1]);
       
-      $errorMessages['secondimage'] = "second image Field Required";
+      $newName2 = rand().time().'.'.$FileExtension2;
 
-    }
+ 
+   if(!Validator($imageName2,1)){
+    
+    $errorMessages['secondimage'] = "second image Field Required";
 
+  }
+   if(!Validator($FileExtension2,5)){
+    
+    $errorMessages['imageExtension2'] = "Invalid Image2 Extension";
 
-    if(!Validator($FileExtensionimage2,5)){
-      
-      $errorMessages['Extensionimage2'] = "Invalid Image2 Extension";
-
-    }
-//Validate third image
-  $nameArray = explode('.',$thirdimageName);
-  $FileExtensionimage3 = strtolower($nameArray[1]);
+        }
+      }
+    //Validate ProductThirdImage
    
-     if(!Validator($thirdimageName,1)){
+    $imageName3    = $_FILES['thirdimage']['name'];
+
+   if(Validator($imageName3,1)){
+
+      $nameArray = explode('.',$imageName3);
+      $FileExtension3= strtolower($nameArray[1]);
       
-      $errorMessages['thirdimage'] = "third image Field Required";
+      $newName3 = rand().time().'.'.$FileExtension3;
 
-    }
+ 
+   if(!Validator($imageName3,1)){
+    
+    $errorMessages['thirdimage'] = "third image Field Required";
 
+  }
+   if(!Validator($FileExtension3,5)){
+    
+    $errorMessages['imageExtension3'] = "Invalid Image3 Extension";
 
-    if(!Validator($FileExtensionimage3,5)){
-      
-      $errorMessages['Extensionimage3'] = "Invalid Image3 Extension";
+        }
+      }
 
-    }
 
 //end of validations
 
 
      if(count($errorMessages) == 0){
-          //add image1 to include folder
-      $tmp_path1= $_FILES['firstimage']['tmp_name'];
-       $FinalNameimage1 = rand().time().'.'.$FileExtensionimage1;
- 
-       $disFolder = './uploads/';
+
+    //add image1 to include folder
+       if(Validator($imageName1,1)){
+       
+
+        $fileTmp1     = $_FILES['firstimage']['tmp_name'];
+        $uplodeFolder = './uploads/';
+        $desPath1    = $uplodeFolder.$newName1;
+
+
+        
+        if(move_uploaded_file($fileTmp1,$desPath1)){
+          // 
          
-       $disPath  = $disFolder.$FinalNameimage1;
-     //add image2 to include folder
-      $tmp_path2= $_FILES['secondimage']['tmp_name'];
-       $FinalNameimage2 = rand().time().'.'.$FileExtensionimage2;
- 
-       $disFolder = './uploads/';
-         
-       $disPath  = $disFolder.$FinalNameimage2;
-    //add image3 to include folder
-      $tmp_path3= $_FILES['thirdimage']['tmp_name'];
-       $FinalNameimage3 = rand().time().'.'.$FileExtensionimage3;
- 
-       $disFolder = './uploads/';
-         
-       $disPath  = $disFolder.$FinalNameimage3;
- 
- 
- 
-     if(move_uploaded_file($tmp_path1,$disPath) && move_uploaded_file($tmp_path2,$disPath) && move_uploaded_file($tmp_path3,$disPath) )
-       {
+           $finalImage1 = $newName1;
       
-         $sql="UPDATE `productimges` SET `product_id`='$productId',`firstimage`='$firstimageName',`secondimage`='$secondimageName',`thirdimage`='$thirdimageName' WHERE `id`=". $id;
+
+          if(file_exists('./uploads/'.$image1)){
+             
+             unlink('./uploads/'.$image1);
+          }
+
+        }else{
+
+          $errorMessages['imageMove1'] = "Error in Upload Image1 Try Again";
+
+          }
+
+      }
+    //add image2 to include folder
+       if(Validator($imageName2,1)){
+       
+
+        $fileTmp2    = $_FILES['secondimage']['tmp_name'];
+        $uplodeFolder = './uploads/';
+        $desPath2   = $uplodeFolder.$newName2;
+
+
+        
+        if(move_uploaded_file($fileTmp2,$desPath2)){
+          // 
+         
+           $finalImage2 = $newName2;
+      
+
+          if(file_exists('./uploads/'.$image2)){
+             
+             unlink('./uploads/'.$image2);
+          }
+
+        }else{
+
+          $errorMessages['imageMove2'] = "Error in Upload Image2 Try Again";
+
+          }
+
+      }
+    //add image3 to include folder
+       if(Validator($imageName3,1)){
+       
+
+        $fileTmp3   = $_FILES['thirdimage']['tmp_name'];
+        $uplodeFolder = './uploads/';
+        $desPath3  = $uplodeFolder.$newName3;
+
+
+        
+        if(move_uploaded_file($fileTmp3,$desPath3)){
+          // 
+         
+           $finalImage3= $newName3;
+      
+
+          if(file_exists('./uploads/'.$image3)){
+             
+             unlink('./uploads/'.$image3);
+          }
+
+        }else{
+
+          $errorMessages['imageMove3'] = "Error in Upload Image3 Try Again";
+
+          }
+
+      }
+ 
+ 
+      $sql="UPDATE `productimges` SET `product_id`='$productId',`firstimage`='$finalImage1',`secondimage`='$finalImage2',`thirdimage`='$finalImage3' WHERE `id`=". $id;
 
          $op = mysqli_query($conn,$sql);
-        //  echo mysqli_error($conn);
-        //  exit();
-
+        
        if($op){
 
             $errorMessages['Result'] = "Data updated.";
@@ -139,25 +229,29 @@ include '../helpers/dbconnection.php';
             $errorMessages['Result']  = "Error Try Again.";
      
          }
-        }else{
-             $errorMessages['Result'] = "Error In Uploading";
-        }
-        $_SESSION['errors'] = $errorMessages;
-       
-        header('Location: index.php');
+             $_SESSION['errors'] = $errorMessages;
+               header('Location: index.php');
 
+      
      }else{
 
-       $_SESSION['errors'] = $errorMessages;
+         $_SESSION['errors'] = $errorMessages;
+            header('Location: index.php');
+
    }
 
   }
 
    # Fetch productimages
-   $sql  ="SELECT * FROM `productimages` WHERE `id`= $id";
+   $sql  ="SELECT * FROM `productimges` WHERE `id`= $id";
    $op   = mysqli_query($conn,$sql);
    $FData = mysqli_fetch_assoc($op);
-   #fetch productdetails
+
+   #fetch productName
+ 
+     $sql1 = "SELECT `product`.`productname` ,`productdetails`.* from `productdetails` join `product` on `productdetails`.`product_Id` = `product`.`id`";
+
+     $op1  = mysqli_query($conn,$sql1);
   
     include '../header.php';
 ?>
@@ -199,7 +293,7 @@ include '../helpers/dbconnection.php';
                              }else{
                         ?>
                         
-                        <li class="breadcrumb-item active">Edit Color </li>
+                        <li class="breadcrumb-item active">Edit Product Images </li>
                         <?php } ?>
                         
                         
@@ -211,30 +305,52 @@ include '../helpers/dbconnection.php';
 <div class="container">
 
  <form  method="post"  action="edit.php?id=<?php echo $FData['id'];?>"  enctype ="multipart/form-data">
-  
-               <div class="form-group">
-                     <label for="exampleInputEmail1">Enter First image</label>
-                     <input type="file" name="firstimage"   class="form-control" id="exampleInputName" aria-describedby=""
-                         placeholder="Enter First image ">
-                     <br>
-
-                     <img src='./uploads/<?php echo $FetchedData['firstimage'];?>'  width="70px" >
-
-                    <input type="hidden" name = "OldImage1" value="<?php echo $FetchedData['firstimage'];?>">
-                 </div>
-
+               
                  <div class="form-group">
-                     <label for="exampleInputEmail1">Enter Second Image</label>
-                     <input type="file" name="secondimage" value="<?php echo $FData['secondimage']; ?>"  class="form-control" id="exampleInputName" aria-describedby=""
-                         placeholder="Enter Second image">
+                            <label for="exampleInput"> Product Name</label>
+                            <select name="product_id" class="form-control"> 
+                                 <?php 
+                                     while($data = mysqli_fetch_assoc($op1)){
+                                  ?>
+                              <option value="<?php echo $data['id'];?>"    <?php if($data['id'] == $FData['product_id'] ){ echo 'selected';}?>    >
+                              <?php echo $data['productname'];?></option>
+                                   <?php } ?>
+                            </select>  
                   </div>
 
-                  <div class="form-group">
-                     <label for="exampleInputEmail1">Enter Third Image</label>
-                     <input type="file" name="thirdimage" value="<?php echo $FData['thirdimage']; ?>"  class="form-control" id="exampleInputName" aria-describedby=""
-                         placeholder="Enter Third image">
+
+                   <div class="form-group">
+                        <label for="exampleInputEmail1">Upload first Image</label>
+                         <br>
+                        <input type="file" name="firstimage"  >
+                        <br>
+
+                      <img src='./uploads/<?php echo $FData['firstimage'];?>'  width="70px" >
+
+                      <input type="hidden" name = "OldImage1" value="<?php echo $FData['firstimage'];?>">
                   </div>
 
+                   <div class="form-group">
+                        <label for="exampleInputEmail1">Upload second Image</label>
+                         <br>
+                        <input type="file" name="secondimage"  >
+                        <br>
+
+                      <img src='./uploads/<?php echo $FData['secondimage'];?>'  width="70px" >
+
+                      <input type="hidden" name = "OldImage2" value="<?php echo $FData['secondimage'];?>">
+                  </div>
+
+                   <div class="form-group">
+                        <label for="exampleInputEmail1">Upload Third Image</label>
+                         <br>
+                        <input type="file" name="thirdimage"  >
+                        <br>
+
+                      <img src='./uploads/<?php echo $FData['thirdimage'];?>'  width="70px" >
+
+                      <input type="hidden" name = "OldImage3" value="<?php echo $FData['thirdimage'];?>">
+                  </div>
                    
  
                       <input type="hidden" name="id" value="<?php echo $FData['id'];?>">

@@ -30,7 +30,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
    $nameArray = explode('.',$brandImage);
    $FileExtension = strtolower($nameArray[1]);
    
-     if(!Validator($brandName,1)){
+     if(!Validator($brandImage,1)){
       
       $errorMessages['BrandImage'] = " Brand image Field Required";
 

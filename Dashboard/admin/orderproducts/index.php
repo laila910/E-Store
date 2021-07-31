@@ -70,8 +70,7 @@ include '../sidNave.php';
                                                 <th>Total Price </th>
                                                
                                               
-                                                <th>Action</th>
-                                          
+                                             
                                             </tr>
                                         </thead>
                                   
@@ -90,12 +89,7 @@ include '../sidNave.php';
                                                 <td><?php echo $result['totalprice'];?></td>
                                                
                                               
-                                                <td>
-
-                                                <a href='../orderdetails/index.php' class='btn btn-danger m-r-1em'> orderdetails</a>
-                                                <a href='../productdetails/index.php' class='btn btn-primary m-r-1em'> product details</a> 
-                                               
-                                                </td>
+                                                
                                   
                                         </tr>
                             <?php } ?>             

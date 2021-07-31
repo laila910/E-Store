@@ -31,7 +31,7 @@
                         <div class="sidebar-slider normal-slider">
                                
                            <?php 
-                           $sql = "SELECT `productdetails`.*,`product`.`productname` FROM `productdetails` join `product` on `productdetails`.`product_Id`=`product`.`id`";
+                           $sql = "SELECT `productdetails`.*,`product`.`productname`,`productimges`.`firstimage`,`productimges`.`secondimage`,`productimges`.`thirdimage` FROM `productdetails` join `product` on `productdetails`.`product_Id`=`product`.`id` join `productimges` on `productdetails`.`id` =`productimges`.`product_id`  WHERE `featured`='true'";
                            $op =mysqli_query($conn,$sql);
                              
                                 while($data = mysqli_fetch_assoc($op)){
@@ -42,7 +42,7 @@
 
                             <div class="product-item">
                                 <div class="product-title">
-                                    <a href="#"><?php echo $data['productname'];  ?></a>
+                                    <a href="product-detail.php"><?php echo $data['productname'];  ?></a>
                                     <div class="ratting">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
@@ -52,8 +52,8 @@
                                     </div>
                                 </div>
                                 <div class="product-image">
-                                    <a href="product-detail.html">
-                                        <img src="img/product-10.jpg" alt="Product Image">
+                                    <a href="product-detail.php">
+                                        <img src="admin\productimages\uploads\<?php echo $data['firstimage'];?>" alt="Product Image">
                                     </a>
                                     <div class="product-action">
                                         <a href="#"><i class="fa fa-cart-plus"></i></a>

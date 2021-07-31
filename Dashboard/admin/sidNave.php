@@ -10,7 +10,7 @@
                         <div class="sb-sidenav-menu-heading">Interface</div>
                            <?php 
                                
-                               $sidArray = ['users','usersgroup','customers','suppliers','manager','brand','categories','product','productDetails','productimages','productcolor','productcolorcheck','productReview','productSizes','productsizecheck','addtocard','whishlist','orders','orderdetails','orderproducts','ordershipper','paymentmethod'];
+                               $sidArray = ['users','usersgroup','customers','suppliers','manager','brand','categories','product','productDetails','productimages','productcolor','productReview','productSizes','addtocard','whishlist','orders','orderdetails','orderproducts','ordershipper','paymentmethod'];
 
                               foreach($sidArray as $key => $data){
                             ?>
@@ -21,7 +21,7 @@
                         </a>
                         <div class="collapse" id="collapseLayouts<?php echo $key;?>" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="<?php echo  url($data.'/create.php');?>">Add </a>
+                                    <a class="nav-link" href="<?php echo  url($data.'/create.php');?>"> Add </a>
                                     <a class="nav-link" href="<?php echo  url($data.'/index.php');?>">Display </a>
                                 </nav>
                             </div>
