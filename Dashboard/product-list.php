@@ -3,10 +3,11 @@
   
 
 
-include 'helpers/functions.php';
 
-include 'helpers/checkLogin.php';
-include 'helpers/dbconnection.php';
+include './admin/helpers/functions.php';
+
+include './admin/helpers/checkLogin.php';
+include './admin/helpers/dbconnection.php';
 
 include 'header.php';
 

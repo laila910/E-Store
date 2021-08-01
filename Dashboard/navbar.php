@@ -33,7 +33,7 @@
                         <a href="cart.php" class="nav-item nav-link">Cart</a>
                         <a href="checkout.php" class="nav-item nav-link">Checkout</a>
                         <a href="my-account.php" class="nav-item nav-link"> 
-                            <?php  if(isset($_SESSION['User'])){
+                            <?php  if(isset($_SESSION['users'])){
 
                                 echo 'My Account';
                                 }?></a>
@@ -41,7 +41,7 @@
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
                             <div class="dropdown-menu">
                                 <a href="wishlist.php" class="dropdown-item">Wishlist</a>
-                                <a href="login.php" class="dropdown-item"><?php if(!isset($_SESSION['User'])){?>Login & Register <?php }?></a>
+                                <a href="login.php" class="dropdown-item"><?php if(!isset($_SESSION['users'])){?>Login & Register <?php }?></a>
                                 <a href="contact.php" class="dropdown-item">Contact Us</a>
                             </div>
                         </div>
@@ -49,14 +49,14 @@
                     <div class="navbar-nav ml-auto">
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><?php 
-                                if(!isset($_SESSION['User'])){
+                                if(!isset($_SESSION['users'])){
 
                                 echo "SignIn/Register";
-                                }else{echo $_SESSION['User']['firstName'];} ?>
+                                }else{echo $_SESSION['users']['firstName'];} ?>
                             <div class="dropdown-menu">
-                                <?php if(!isset($_SESSION['User'])){?>
+                                <?php if(!isset($_SESSION['users'])){?>
                                 <a href="login.php" class="dropdown-item">Login</a>
-                                <a href="signup.php" class="dropdown-item">Register</a>
+                                <a href="icludes/signup.inc.php" class="dropdown-item">Register</a>
                                 <?php }else{?>
                                 <a href="logout.php" class="dropdown-item">LogOut</a><?php }?>
                             </div>

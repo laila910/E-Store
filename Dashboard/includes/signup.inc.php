@@ -1,116 +1,136 @@
 <?php
 session_start();
-include 'helpers/functions.php';
 
-include 'helpers/checkLogin.php';
-include 'helpers/dbconnection.php';
+include '../help/fun.php';
 
-include 'header.php';
+include '../help/logincheck.php';
+include '../help/db.php';
 
-include 'navbar.php';
+include '../header.php';
+
+include '../navbar.php';
  
+if($_SERVER['REQUEST_METHOD'] == "GET"){
+   
+     $FirstName =Clean(Sanitized($_POST["firstName"],2));  
+      $LastName =Clean(Sanitized($_POST["lastName"],2));  
+      $Email =CleanInputs($_POST["email"]); 
+      $MobileNo =Clean($_POST["mobileNo"]);   
+      $Password =Clean(Sanitized($_POST["password"],5));  
+      $passwordRepeat =Clean(Sanitized($_POST["passwordrepeat"],5));  
+
+   $errorMessages = [];
+
+  //validate first Name
+   if(!Validate($FirstName,1)){
+      $errorMessages['firstName']="First Name field Required";
+   }
     
+  if(!Validate($FirstName,2,4)){
+    $errorMessages['firstNameLength'] = "First Name length must be > 4 ";
+
+  }
+  //validate last Name
+    if(!Validate($LastName,1)){
+      $errorMessages['lastName']="last Name field Required";
+   }
+    
+  if(!Validate($LastName,2,4)){
+    $errorMessages['lastNameLength'] = "Last Name length must be > 4 ";
+
+  }
+  //validate email
+   if(! Validate($Email,1)){
+         $errorMessages['email'] = 'error Email Required!';
+           
+        }else{
+                 
+            if(!Validate($Email,4)){
+                 $s_email = Sanitize($Email,1);
+                   if(!Validator($s_email,4)){
+                        $errorMessages['email'] = 'error your Email is not valid! ';
+                        
+            
+                    }
+             }
+            }
+          
+//MobileNo
+ if(!Validate($MobileNo,1)){
+      $errorMessages['mobileNo']="MobileNo field Required";
+   }
+    
+  if(!Validate($MobileNo,2,11)){
+    $errorMessages['mobileNo'] = "MobileNo length must be > 11 ";
+
+  }
+  //validate password
+    if(!Validate($Password,1)){
+      $errorMessages['Password']="password field Required";
+   }
+    
+  if(!Validate($Password,2,5)){
+    $errorMessages['Password'] = "password length must be > 5";
+
+  }
+  //validate password repeat
+    if(!Validate($passwordRepeat,1)){
+      $errorMessages['PasswordRepeat']="PasswordRepeat field Required";
+   }
+    
+  if(!Validate($passwordRepeat,2,5)){
+    $errorMessages['PasswordRepeat'] = "passwordRepeat length must be > 5";
+
+  }
+
  
-
-function CleanInputs($input)
-{ 
-    $input=trim($input);
-    $input=stripcslashes($input);
-    $input=htmlspecialchars($input);
-    return $input; 
-}
-if(isset($_POST['signup-submit'])){
-       require "dbh.inc.php";
-       $firstName=mysqli_real_escape_string($conn, CleanInputs($_POST['firstName']));
-       $lastName=mysqli_real_escape_string($conn, CleanInputs($_POST['lastName']));
-       $email=mysqli_real_escape_string($conn,CleanInputs($_POST['email']));
-       $mobileNo=mysqli_real_escape_string($conn,CleanInputs($_POST['mobileNo']));
-       $password=mysqli_real_escape_string($conn,CleanInputs($_POST['password']));
-       $passwordRepeat=mysqli_real_escape_string($conn,CleanInputs($_POST['Repeat-password']));
-
-    if(empty($firstName)||empty($lastName)||empty($email)||empty($mobileNo)||empty($password)||empty($password)){
-        header("Location: ../signup.php?error=emptyfields&firstName=".$firstName."&lastName=".$lastName."&email=".$email."&mobileNo=".$mobileNo);
-        exit();
-    }elseif(!filter_var($email,FILTER_VALIDATE_EMAIL)){
-                 $s_email = filter_var($email,FILTER_SANITIZE_EMAIL);
-                   if(!filter_var($s_email,FILTER_VALIDATE_EMAIL)){
-                        header("Location: ../signup.php?error=InvalidEmail&firstName=".$firstName."&lastName=".$lastName);
-                        exit();
-                    } 
-     }elseif(!filter_var($email,FILTER_VALIDATE_EMAIL)&&!preg_match("/^[a-zA-Z0-9]*$/",$firstName)&&!preg_match("/^[a-zA-Z0-9]*$/",$lasttName)&&!filter_var($mobileNo, FILTER_VALIDATE_INT)){
-              header("Location: ../signup.php?error=invalidemailfirstNamelastNameMobileNo");
-              exit();
-     }elseif($password !== $passwordRepeat){
-
-              header("Location: ../signup.php?error=passwordcheck&firstName=".$firstName."&lastName=".$lastName."&email=".$email);
-              exit();
-     }elseif(!preg_match("/^[a-zA-Z]*$/",$firstName)&&!preg_match("/^[a-zA-Z]*$/",$lastName)){
+   if(count($errorMessages)==0){
+     
+          $sql= "SELECT * FROM `users` WHERE `email`='$Email'"; 
+          $op =mysqli_query($conn,$sql);
          
-               header("Location: ../signup.php?error=InvalidfirstNamelastName&email=".$email ."&mobileNo=".$mobileNo);
-               exit();
-     }else{ //check if the user enter email is already exist in the database 
-          $sql= "SELECT uidUsers FROM users WHERE email=?;"; 
-          $stmt=mysqli_stmt_init($conn); //if the connection to the database is opened
-          if(! mysqli_stmt_prepare($stmt,$sql)){ //check if the connection is  open between my query sql statment and the database
-               header("Location: ../signup.php?error=sqlerror");
-               exit();
-          }else{
-              mysqli_stmt_bind_param($stmt,'s',$email); //send the email that the user is already enter it to the database to check
-              mysqli_stmt_execute($stmt);//open the connection 
-              mysqli_stmt_store_result($stmt);//the result of the select statment from the database
-              $resultcheck = mysqli_stmt_num_rows($stmt);//check the number of rows of the result 
-              if($resultcheck > 0 ){
-                   header("Location: ../signup.php?error=usertaken&firstName".$firstName."&lastName=".$lastName."&mobileNo=".$mobileNo);
+          if(mysqli_num_rows($op) >0)
+              { 
+                  
+                  header("Location: ../login.php?UserAlreadyToken");
                    exit();
               }else{
-                  $sql = "INSERT INTO users (firstName,lastName,email,mobileNo,password) VALUES (?,?,?,?,?); ";
-                    $stmt=mysqli_stmt_init($conn); //if the connection to the database is opened
-                    if(! mysqli_stmt_prepare($stmt,$sql)){ //check if the connection is  open between my query sql statment and the database
-                         header("Location: ../signup.php?error=sqlerror");
-                         exit();
-                    }else{
-                        
-                         mysqli_stmt_bind_param($stmt,'sssss',$firstName,$lastName,$email,$mobileNo,$password); 
-                         mysqli_stmt_execute($stmt);
-                         header("Location: ../index.php?signup=success");
-                         exit();
-                   
-                    }
-              }  
+                   $sql = "INSERT INTO `users` (`firstName`,`lastName`,`email`,`mobileNo`,`password`) VALUES ('$FirstName','$LastName','$Email','$MobileNo','$Password'); ";
+
+                   $op = mysqli_query($conn,$sql);
+
+                    header("Location: ../login.php?SignUpSuccess");
+
+
+              }
+        
+             
+           
+              
+                 
+                
+          }else{
+                 $_SESSION['errors']=$errorMessages;
+               header('Location: login.php');
           }
    }
-   mysqli_stmt_close($stmt);
-   mysqli_close($conn);
-    if(isset($_GET['error'])){
-        if($_GET['error']=="emptyfields"){
-            echo'<p> Fill in all fields!</p>';
-        }elseif($_GET['error']=="invalidemailfirstNamelastNameMobileNo"){
-            echo'<p>Invalid Entered Data </p>';
 
-        }elseif($_GET['error']=="InvalidfirstNamelastName"){
-            echo'<p>Invalid Names</p>';
+  
+     if(isset($_SESSION['errors'])){
+                                   
+                                      foreach($_SESSION['errors'] as $data){
 
-        }elseif($_GET['error']=="InvalidEmail"){
-            echo'<p>Invalid E-mail </p>';
-
-        }elseif($_GET['error']=="passwordcheck"){
-            echo'<p>Your Passwords are not match!</p>';
-
-        }elseif($_GET['error']=="usertaken"){
-            echo'<p>Username is already taken! </p>';
-
-        }
-    } elseif(isset($_GET['signup'])){
-          if($_GET['signup']=="success"){
-           echo'<p>You are sign-up! </p>';
-    }}
-
-}
-else{
-     header("Location: ../signup.php");
-     exit();
-}
+                                        echo '* '.$data.'<br>';
+                                      }
+                                     unset($_SESSION['errors']);
+                                          
+                                    }
+                                
+                                
  
 
 
+?>
+<?php
+include '../footer.php';
 ?>

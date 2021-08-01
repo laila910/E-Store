@@ -14,6 +14,7 @@
   }
 
 
+
 # Validate Inputs .... 
 function Validator($input,$flag,$length=3){
 
@@ -76,12 +77,15 @@ function Sanitize($input,$flag){
     return $sanitize_var;
 }
 
+
+
  function url($dis){
 
   return   $txt = "http://".$_SERVER['HTTP_HOST']."/E-Store/Dashboard/admin/".$dis;
 
 
  }
+ 
 
 
 

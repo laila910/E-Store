@@ -1,9 +1,10 @@
-<?php
+<?php 
+
+
  session_start();
- 
 
 
- function CleanInputs($input){
+ function Clean($input){
 
     $input = trim($input);
     $input = stripcslashes($input);
@@ -13,8 +14,9 @@
   }
 
 
+
 # Validate Inputs .... 
-function Validator($input,$flag,$length=3){
+function Validate($input,$flag,$length=3){
 
     $status = true;
     switch ($flag) {
@@ -58,7 +60,7 @@ function Validator($input,$flag,$length=3){
 
 
 # SANITIZE INPUTS ... 
-function Sanitize($input,$flag){
+function Sanitized($input,$flag){
 
     $sanitize_var = $input;
 
@@ -76,10 +78,17 @@ function Sanitize($input,$flag){
 }
 
 
- function url($dis){
+
+ function urll($dis){
 
   return   $txt = "http://".$_SERVER['HTTP_HOST']."/E-Store/Dashboard/".$dis;
 
 
  }
+ 
+
+
+
+
+
 ?>

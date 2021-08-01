@@ -1,60 +1,59 @@
 <?php
 
-  
+    include './help/fun.php';
+    include './help/db.php';
+    include 'header.php';
 
 
-include './helpers/functions.php';
+
+    if($_SERVER['REQUEST_METHOD'] == "POST"){
+
+     
+      $email    = Clean($_POST['email']);
+      $password = $_POST['password'];
+
+      $errorMessages = [];
+      # Validate Inputs .... 
 
 
-include './helpers/dbconnection.php';
-
-include 'header.php';
-
-include 'navbar.php';
-
-if($_SERVER['REQUEST_METHOD'] == "POST"){
- 
-  $Email= CleanInputs($_POST['email']);
-  $password=$_POST['password'];
-
-   $errorMessages = [];
-  //validate Email
-  if(!Validator($email,1)){
+      if(!Validate($email,1)){
    
          $errorMessages['emailRequired'] = "Email field Required";
       }
 
-     if(!Validator($email,4)){
+     if(!Validate($email,4)){
 
         $errorMessages['email'] = "Invalid Email";
      }      
 
-  //validate Password   
-     if(!Validator($password,1)){
+     
+     if(!Validate($password,1)){
    
         $errorMessages['passwordRequired'] = "Password field Required";
      }
 
 
-     if(!Validator($password,2)){
+     if(!Validate($password,2)){
    
         $errorMessages['passwordLength'] = "Password length must be >= 6";
      }
-if(count($errorMessages) == 0 ){
 
-    
+
+
+      if(count($errorMessages) == 0 ){
+
+      // Login Lodgic 
         // $password = sha1($password);  
         $sql = "SELECT * FROM `users` where `email` ='$email' and `password` = '$password'";
         
         $op  =  mysqli_query($conn,$sql);
 
-      
 
         if(mysqli_num_rows($op) == 1){
         
          $data = mysqli_fetch_assoc($op);
 
-         $_SESSION['User'] = $data;
+         $_SESSION['users'] = $data;
 
          header("Location: index.php");
         }else{
@@ -65,55 +64,83 @@ if(count($errorMessages) == 0 ){
 
       }
 
-if(count($errorMessages) > 0){
+        if(count($errorMessages) > 0){
 
         $_SESSION['errors'] = $errorMessages;
-           if(isset($_SESSION['errors'])){
-                                   
-            foreach($_SESSION['errors'] as $data){
 
-                echo '* '.$data.'<br>';
-            }
-                   unset($_SESSION['errors']);
-                                          
-            }
+        }
       
 
     }
 
-        }
-          
-// echo mysqli_connect_error($conn);
-//       exit();
 
-
-?>
- 
-
-
-        
-       
-
-
-<!-- Login Start -->
-  <?php 
-  if(!isset($_SESSION['User'])){ ?>
-    
-      
-       <div class="login">
+ include 'navbar.php'; ?>
+        <!-- Login Start -->
+        <div class="login">
             <div class="container-fluid">
-                <div class="row">
+                <?php 
+                                    # Display Error Messages ... 
+
+                                  
+
+
+                                    if(isset($_SESSION['errors'])){
+                                   
+                                      foreach($_SESSION['errors'] as $data){
+
+                                        echo '* '.$data.'<br>';
+                                      }
+                                     unset($_SESSION['errors']);
+                                          
+                                    }
+                                
+                                
+                                ?>
                 
-                  <div class="col-lg-6">
-                        <div class="login-form" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+                <div class="row">
+                      <div class="col-lg-6">
+                     <form action="./includes/signup.inc.php" method="get">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>E-mail </label>
-                                    <input class="form-control" type="email" name="email" placeholder="E-Mail">
+                                    <label>First Name</label>
+                                    <input class="form-control" type="text" placeholder="First Name" name="firstName">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Last Name"</label>
+                                    <input class="form-control" type="text" placeholder="Last Name" name="lastName">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>E-mail</label>
+                                    <input class="form-control" type="text" placeholder="E-mail" name="email">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Mobile No</label>
+                                    <input class="form-control" type="text" placeholder="Mobile No" name="mobileNo">
                                 </div>
                                 <div class="col-md-6">
                                     <label>Password</label>
-                                    <input class="form-control" type="password" name="password" placeholder="Password">
+                                    <input class="form-control" type="text" placeholder="Password" name="password">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Retype Password</label>
+                                    <input class="form-control" type="text" placeholder="Password" name="Repeat-password">
+                                </div>
+                                <div class="col-md-12">
+                                    <button class="btn">Sign-Up</button>
+                                </div>
+                            </div>
+                        </form>
+                                </div>
+                    <div class="col-lg-6">
+                        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>E-mail </label>
+                                    <input class="form-control" type="text" placeholder="E-mail / Username" name="email">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Password</label>
+                                    <input class="form-control" type="text" placeholder="Password" name="password">
                                 </div>
                                 <div class="col-md-12">
                                     <div class="custom-control custom-checkbox">
@@ -122,72 +149,17 @@ if(count($errorMessages) > 0){
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                   <input class="btn btn-primary" type="submit" value="login" >
-                                    
+                                    <button class="btn">Login</button>
                                 </div>
                             </div>
-                        </div>
-                       
-                    </div>
-                    <div class="col-lg-6">    
-                        <div class="register-form" method="post" action="includes/signup.inc.php">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>First Name</label>
-                                    <input name="firstName" class="form-control" type="text" placeholder="First Name">
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Last Name"</label>
-                                    <input class="form-control" name="lastName" type="text" placeholder="Last Name">
-                                </div>
-                                <div class="col-md-6">
-                                    <label>E-mail</label>
-                                    <input class="form-control" name="email"type="text" placeholder="E-mail">
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Mobile No</label>
-                                    <input class="form-control" name="mobileNo" type="text" placeholder="Mobile No">
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Password</label>
-                                    <input class="form-control" name="password"type="text" placeholder="Password">
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Retype Password</label>
-                                    <input class="form-control" name="Repeat-password"type="text" placeholder="Password">
-                                </div>
-                                <div class="col-md-12">
-                                    <button class="btn">Submit</button>
-                                </div>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
 
+
             </div>
         </div>
-        <?php }else{ ?>
-            
-           <div class="login">
-            <div class="container-fluid">
-                <div class="row">
-                  <div class="col-lg-12">
-                        <div class="login-form" method="post" action="includes/logout.php" enctype="multipart/form-data" >
-                            <div class="row">
-                              <div class="col-md-12">
-                                    <button type="button" class="btn " name="logout-submit" >LogOut</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-       <?php }
-        ?>
-    <!-- Login End -->
+        <!-- Login End -->
+   <?php include 'footer.php';      
 
-
-    
-
+ ?>

@@ -1,10 +1,13 @@
 <?php
 
-include './helpers/functions.php';
-include './helpers/checkLogin.php';
-include './helpers/dbconnection.php';
+  
 
+
+ include './help/fun.php';
+include './help/logincheck.php';
+include './help/db.php';
 include 'header.php';
+
 
 include 'navbar.php';
 

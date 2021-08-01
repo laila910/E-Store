@@ -1,5 +1,6 @@
 <?php
-include './helpers/functions.php';
+
+ include './helpers/functions.php';
 include './helpers/checkLogin.php';
 include 'header.php';
 ?>

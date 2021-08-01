@@ -83,7 +83,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
 
  if(count($errorMessages) == 0){
-     $Password = sha1($Password);
+    //  $Password = sha1($Password);
        $sql2 =  "INSERT INTO users(firstName,lastName,email,mobileNo,password,group_id) VALUES ('$FirstName','$LastName','$Email','$MobileNo','$Password','$GroupId')";
 
       $op2  = mysqli_query($conn,$sql2);
