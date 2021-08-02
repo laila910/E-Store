@@ -79,13 +79,13 @@ include 'navbar.php';
                     <div class="header-img">
                         <div class="img-item">
                             <img src="img/category-1.jpg" />
-                            <a class="img-text" href="">
+                            <a class="img-text" href="#">
                                 <p>Providing everything a woman desires in fashion and beauty</p>
                             </a>
                         </div>
                         <div class="img-item">
                             <img src="img/fashiondesign.jpg" />
-                            <a class="img-text" href="">
+                            <a class="img-text" href="#">
                                 <p>Providing everything for Accessories of Women</p>
                             </a>
                         </div>
@@ -233,10 +233,12 @@ include 'navbar.php';
            
             <div class="row align-items-center product-slider product-slider-4">
               <?php 
-               $sql ="SELECT `productdetails`.*,`product`.`productname`,`productimges`.`firstimage`,`productimges`.`secondimage`,`productimges`.`thirdimage` FROM `productdetails` join `product` on `productdetails`.`product_Id`=`product`.`id` join `productimges` on `productdetails`.`id` =`productimges`.`product_id` WHERE `featured`='true'";
+               $sql ="SELECT `productdetails`.*,`product`.`productname`,`productimges`.`firstimage`,`productimges`.`secondimage`,`productimges`.`thirdimage` FROM `productdetails` join `product` on `productdetails`.`product_Id`=`product`.`id` join `productimges` on `productdetails`.`id` =`productimges`.`product_id` WHERE `featured`='true' ORDER BY `productdetails`.`id` desc";
                $op = mysqli_query($conn,$sql);
+           
+    
                while($data=mysqli_fetch_assoc($op)){
-                  
+                   
                   ?>
 
                        
@@ -246,7 +248,7 @@ include 'navbar.php';
                 <div class="col-lg-3">
                     <div class="product-item">
                         <div class="product-title">
-                            <a href="#"><?php echo $data['productname']; ?> </a>
+                            <a href="product-detail?id=<?php echo $data['id'];?>"><?php echo $data['productname']; ?> </a>
                             <div class="ratting">
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
@@ -260,14 +262,14 @@ include 'navbar.php';
                                 <img src="admin\productimages\uploads\<?php echo $data['firstimage'];?>" alt="Product Image">
                             </a>
                             <div class="product-action">
-                                <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                <a href="#"><i class="fa fa-heart"></i></a>
-                                <a href="#"><i class="fa fa-search"></i></a>
+                                <a href="cart.php?id=<?php echo $data['id'];?>"><i class="fa fa-cart-plus"></i></a>
+                                <a href="wishlist.php?id=<?php echo $data['id']; ?>"><i class="fa fa-heart"></i></a>
+                                <a href="product-detail.php?id=<?php echo $data['id'];?>"><i class="fa fa-search"></i></a>
                             </div>
                         </div>
                         <div class="product-price">
                             <h3><span>EGP</span><?php echo $data['productPrice']; ?></h3>
-                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                            <a class="btn" href="cart.php?id=<?php echo $data['id'];?>"><i class="fa fa-shopping-cart"></i>Buy Now</a>
                         </div>
                     </div>
                 </div>

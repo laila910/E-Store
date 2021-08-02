@@ -1,17 +1,36 @@
 <?php
 
 
-include './admin/helpers/functions.php';
 
-include './admin/helpers/checkLogin.php';
-include './admin/helpers/dbconnection.php';
-
+ include './help/fun.php';
+include './help/logincheck.php';
+include './help/db.php';
 include 'header.php';
-
 include 'navbar.php';
 
-//  echo mysqli_error($conn);
-//  exit();
+ 
+    
+   $id = '';
+   if($_SERVER['REQUEST_METHOD'] == "GET"){
+        $id  = Validate(Sanitized($_GET['id'],1),3);
+       $quantity=  Validate(Sanitized($_GET['quantity'],1),3);
+       
+ 
+        
+        
+     
+       
+
+    
+     $carditem=$id;
+     $quan=$quantity;
+     $customerid=$_SESSION['users']['id'];
+     
+
+  $sql2=  "INSERT INTO `addtocard`( `customerId`, `carditem`,`quantity`) VALUES ('$customerid','$carditem','$quan')";
+  $op2=mysqli_query($conn,$sql2);
+   }
+
 ?>
 
    
@@ -35,28 +54,33 @@ include 'navbar.php';
                                 </thead>
                                 <tbody class="align-middle">
                                      <?php 
-                                $sql = "SELECT `productdetails`.* ,`product`.`productname` ,`productimges`.`firstimage` FROM `productdetails` join `product` on `productdetails`.`product_Id` = `product`.`id` join `productimges` on `productdetails`.`id`=`productimges`.`product_id` ";
+                                $sql = "SELECT `addtocard`.*,`productdetails`.`productPrice`,`productdetails`.`id` as `prodetId`,`product`.`productname` ,`productimges`.`firstimage` FROM `addtocard` join `productdetails` on `addtocard`.`carditem`=`productdetails`.`id` join `product` on `productdetails`.`product_Id` = `product`.`id` join `productimges` on `productdetails`.`id`=`productimges`.`product_id` ORDER BY `addtocard`.`id` desc";
                                 $op  = mysqli_query($conn,$sql); 
+                                
                                 while($data = mysqli_fetch_assoc($op)){
                              
                              ?>     
                                     <tr>
                                         <td>
                                             <div class="img">
-                                                <a href="#"><img src="admin/productimages/uploads/<?php echo $data['firstimage'] ?>" alt="Image"></a>
+                                                <a href="product-detail.php?id=<?php echo $data['prodetId']; ?>"><img src="admin/productimages/uploads/<?php echo $data['firstimage'] ?>" alt="Image"></a>
                                                 <p><?php echo $data['productname'];  ?> </p>
                                             </div>
                                         </td>
                                         <td><?php echo $data['productPrice']; ?></td>
                                         <td>
                                             <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="<?php  echo $data['productQuntity']; ?> ">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                                <a href=""> <button class="btn-minus"><i class="fa fa-minus"></i></button></a>
+                                                <input type="text" value="<?php  echo $data['quantity']; ?> ">
+                                                 <a href=""><button class="btn-plus"><i class="fa fa-plus"></i></button></a>
                                             </div>
                                         </td>
-                                        <td><?php  $total = $data['productPrice'] * $data['productQuntity'];static $subtotal=0; $subtotal+=$total; echo $total.' '.'EGP';?></td>
-                                        <td><button><i class="fa fa-trash"></i></button></td>
+                                        <td><?php $total = $data['productPrice'] * $data['quantity'];static $subtotal=0; 
+                                           $subtotal+=$total; 
+                                        echo $total.' '.'EGP';?></td>
+
+
+                                        <td><a href="delete.php?id=<?php echo $data['id'];?>&table=<?php echo 'addtocard';?>&page=<?php echo 'cart';?>"><button><i class="fa fa-trash"></i></button></a></td>
                                     </tr>
                                    
                                      <?php } ?>
