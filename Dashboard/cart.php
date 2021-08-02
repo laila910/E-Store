@@ -16,12 +16,6 @@ include 'navbar.php';
        $quantity=  Validate(Sanitized($_GET['quantity'],1),3);
        
  
-        
-        
-     
-       
-
-    
      $carditem=$id;
      $quan=$quantity;
      $customerid=$_SESSION['users']['id'];
