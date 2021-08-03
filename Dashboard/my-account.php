@@ -79,11 +79,36 @@ include 'navbar.php';
                                     </table>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="payment-tab" role="tabpanel" aria-labelledby="payment-nav">
-                                <h4>Payment Method</h4>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum quam ac mi viverra dictum. In efficitur ipsum diam, at dignissim lorem tempor in. Vivamus tempor hendrerit finibus. Nulla tristique viverra nisl, sit amet bibendum ante suscipit non. Praesent in faucibus tellus, sed gravida lacus. Vivamus eu diam eros. Aliquam et sapien eget arcu rhoncus scelerisque.
-                                </p> 
+                            <div class="col-lg-4">
+                            <div class="checkout-payment">
+                                <div class="payment-methods">
+                                    <h1>Payment Methods</h1>
+
+                               
+                  
+                                    </div>
+
+
+                                    <div class="payment-method">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" class="custom-control-input" id="payment-3" name="payment">
+                                            <label class="custom-control-label" for="payment-3">Cash On delivery</label>
+                                        </div>
+                                           <button type="submit" class="btn btn-primary">Submit</button>
+                                       </div>
+
+
+                                    </div>
+                              
+                                </div>
+                      </div>
+                            
+
+                           
+                                   
+                          
+                                            
+                               
                             </div>
                             <div class="tab-pane fade" id="address-tab" role="tabpanel" aria-labelledby="address-nav">
                                 <h4>Address</h4>

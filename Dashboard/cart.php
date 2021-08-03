@@ -101,8 +101,9 @@ if(isset($_GET['id'])){
                                         <h2>Grand Total<span><?php $grandTotal= $subtotal + 70; echo $grandTotal; ?> </span></h2>
                                     </div>
                                     <div class="cart-btn">
+
                                         <a class="btn btn-primary btn-lg" href="updatecard.php" role="button">Update Card</a>
-                                       <a class="btn btn-primary btn-lg" href="checkout.php?session=<?php echo 'yes';?>&id=<?php echo $id;?>"role="button">CheckOut</a>
+                                       <a class="btn btn-primary btn-lg" href="checkout.php?session=<?php echo 'true';?>"role="button">CheckOut</a>
                                       
                                     </div>
                                 </div>

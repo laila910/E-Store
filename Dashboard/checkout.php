@@ -9,20 +9,21 @@ include './admin/helpers/dbconnection.php';
 include 'header.php';
 
 include 'navbar.php';
-if(isset($_GET['id'])){
-       $id = $_GET['id'];
-       $session=$_GET['session'];
-
-     
+  
+if(isset($_GET['session'])){
+    $session=$_GET['session'];
+    $customerid=$_SESSION['users']['id'];
 }
 
+
 ?>
-      
+ 
         
         <!-- Checkout Start -->
         <div class="checkout">
             <div class="container-fluid"> 
                 <div class="row">
+                
                     <div class="col-lg-8">
                         <div class="checkout-inner">
                             <div class="billing-address">
@@ -30,44 +31,45 @@ if(isset($_GET['id'])){
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label>First Name</label>
-                                        <input class="form-control" type="text" placeholder="First Name">
+                                        <input class="form-control" type="text" name="firstName" value="<?php if($_SESSION['users']['firstName']){echo $_SESSION['users']['firstName'];}?>" placeholder="First Name">
                                     </div>
                                     <div class="col-md-6">
                                         <label>Last Name"</label>
-                                        <input class="form-control" type="text" placeholder="Last Name">
+                                        <input class="form-control" type="text" name="lastName" value="<?php if($_SESSION['users']['lastName']){echo $_SESSION['users']['lastName'];}?>"placeholder="Last Name">
                                     </div>
                                     <div class="col-md-6">
                                         <label>E-mail</label>
-                                        <input class="form-control" type="text" placeholder="E-mail">
+                                        <input class="form-control" type="email" name="email" value="<?php if($_SESSION['users']['email']){echo $_SESSION['users']['email'];}?>" placeholder="E-mail">
                                     </div>
                                     <div class="col-md-6">
                                         <label>Mobile No</label>
-                                        <input class="form-control" type="text" placeholder="Mobile No">
+                                        <input class="form-control" type="text"  name="mobileNo" value="<?php if($_SESSION['users']['mobileNo']){echo $_SESSION['users']['mobileNo'];}?>" placeholder="Mobile No">
                                     </div>
                                     <div class="col-md-12">
                                         <label>Address</label>
-                                        <input class="form-control" type="text" placeholder="Address">
+                                        <input class="form-control" type="text" name="address" placeholder="Address">
                                     </div>
                                     <div class="col-md-6">
                                         <label>Country</label>
-                                        <select class="custom-select">
+                                        <select class="custom-select"name="country">
                                             <option selected>United States</option>
                                             <option>Afghanistan</option>
                                             <option>Albania</option>
                                             <option>Algeria</option>
+                                            <option>Egypt</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
                                         <label>City</label>
-                                        <input class="form-control" type="text" placeholder="City">
+                                        <input class="form-control" type="text" name="city"placeholder="City">
                                     </div>
                                     <div class="col-md-6">
                                         <label>State</label>
-                                        <input class="form-control" type="text" placeholder="State">
+                                        <input class="form-control" type="text"name="state" placeholder="State">
                                     </div>
                                     <div class="col-md-6">
                                         <label>ZIP Code</label>
-                                        <input class="form-control" type="text" placeholder="ZIP Code">
+                                        <input class="form-control" type="text" name="zipCode"placeholder="ZIP Code">
                                     </div>
                                     <div class="col-md-12">
                                         <div class="custom-control custom-checkbox">
@@ -132,93 +134,139 @@ if(isset($_GET['id'])){
                             </div>
                         </div>
                     </div>
+                   </form>
+                     
                     <div class="col-lg-4">
+                      
                         <div class="checkout-inner">
                             <div class="checkout-summary">
-                              
+                                <h1>Cart details</h1>
                                  <?php 
-                               $sql="SELECT `productdetails`.*, `product`.`productname`,`productdetails`.`productPrice`FROM `productdetails`.`product_Id`=`product`.`id` WHERE `id`=$id"; 
-                                $op =mysqli_query($op);
-                           
-                                $data=mysqli_fetch_assoc($op);
+                                 if(isset($_GET['session'])){
+                               $sql="SELECT `addtocard`.*, `product`.`productname`,`productdetails`.`productPrice`FROM `productdetails` join `product`on `productdetails`.`product_Id`=`product`.`id` join `addtocard` on `addtocard`.`carditem`=`productdetails`.`id` "; 
+                                $op =mysqli_query($conn,$sql);
+                                 $i=0;
+                              
                                ?>
-                                <h1>Cart Total</h1>
-                                <p>Product Name<span><?php echo $data['productname'];?></span></p>
-                                <p class="sub-total">Sub Total<span><?php echo $data['productPrice'];?></span></p>
+                               <table class="table table-dark">
+                                    <thead>
+                                      <tr>
+                                       <th scope="col">Product Name </th>
+                                       <th scope="col">Product Price</th>
+                                       <th scope="col">Quantity</th>
+                                       <th scope="col">Total</th>
+                                      </tr>
+                                    </thead>
+                                     <tbody>
+                            <?php   while($data=mysqli_fetch_assoc($op)){ ?>
+                                     <tr>
+                                      <th scope="row"><?php echo $data['productname'];?></th>
+                                      <td><?php static $totalp=0; $totalp+=$data['productPrice'];echo $data['productPrice'].'EGP';?></td>
+                                       <td><?php echo $data['quantity']; ?></td>
+                                       <td><?php echo $data['productPrice']*$data['quantity'].'EGP'; ?></td>
+                                        </tr>
+                                   <?php } }?>
+                                    </tbody>
+                                </table>
+                              
+                            
+                                <p class="sub-total">sub total <span>
+                                <?php  echo $totalp;?></span></p> 
                                 <p class="ship-cost">Shipping Cost<span>EGP 70</span></p>
-                                <h2>Grand Total<span>EGP <?php echo $data['productPrice'];?>
+                                <h2>Grand Total<span>EGP <?php  echo $totalp+70;?>
                                 </span></h2>
-                                <?php ?>
+                               
                             </div>
 
                             <div class="checkout-payment">
                                 <div class="payment-methods">
                                     <h1>Payment Methods</h1>
+                                   
+                                    <?php if($_SERVER['REQUEST_METHOD']=='POST'){
+                                        $paymenttype=$_POST['payment'];
+                                        $sql="INSERT INTO `paymentmethod`( `paymentType`, `paymentAllowed`) VALUES ('$paymenttype','yes')";
+                                        $op=mysqli_query($conn,$sql);
+                                        $creditcardtypeid=$_POST['creditcardtypeid'];
+                                        $cardExpMon=$_POST['cardExpMon'];
+                                        $cardExpYr =$_Post['cardExpYr'];
+                                        $cvc=$_POST['cvc'];
+
+                                        
+                                    } ?>
                                     <div class="payment-method">
                                         <div class="custom-control custom-radio">
+                                         
                                             <input type="radio" class="custom-control-input" id="payment-1" name="payment">
                                             <label class="custom-control-label" for="payment-1">Paypal</label>
+                                           
                                         </div>
                                         <div class="payment-content" id="payment-1-show">
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt orci ac eros volutpat maximus lacinia quis diam.
-                                            </p>
+                                            
+                                               
+                                                  <div class="mb-3">
+                                                     <label for="exampleInputEmail1" class="form-label">Card Number</label>
+                                                     <input type="text" class="form-control" name="creditcardtypeid" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                                  
+                                                   </div>
+                                                   <div class="mb-3">
+                                                        <label for="exampleInputPassword1" class="form-label">EXP Month/Year</label>
+                                                        <select class="form-select" id="validationCustom04" name="cardExpMon" required>
+                                                          <option selected  value="1">1</option>
+                                                          <option value="2">2</option>
+                                                          <option value="3">3</option>
+                                                          <option value="4">4</option>
+                                                          <option value="5">5</option>
+                                                          <option value="6">6</option>
+                                                          <option value="7">7</option>
+                                                          <option value="8">8</option>
+                                                          <option value="9">9</option>
+                                                          <option value="10">10</option>
+                                                          <option value="11">11</option>
+                                                          <option value="12">12</option>
+                                                         </select>
+                                                     
+                                                        <select class="form-select" id="validationCustom04" name="cardExpYr" required>
+                                                          <option  selected value="2010">2010</option>
+                                                          <option value="2011">2011</option>
+                                                          <option value="2012">2012</option>
+                                                          <option value="2013">2013</option>
+                                                          <option value="2014">2014</option>
+                                                          <option value="2015">2015</option>
+                                                          <option value="2016">2016</option>
+                                                          <option value="2017">2017</option>
+                                                          <option value="2018">2018</option>
+                                                          <option value="2019">2019</option>
+                                                          <option value="2020">2020</option>
+                                                          <option value="2021">2021</option>
+                                                         
+                                                         </select>
+                                                          
+                                                     
+                                                        </div>
+                                                        <div class="mb-3">
+                                                        <label for="exampleInputEmail1" class="form-label">CVC</label>
+                                                             <input type="text" class="form-control" name="cvc" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                                        </div>
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                               
+                                           
                                         </div>
                                     </div>
-                                    <div class="payment-method">
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input" id="payment-2" name="payment">
-                                            <label class="custom-control-label" for="payment-2">Payoneer</label>
-                                        </div>
-                                        <div class="payment-content" id="payment-2-show">
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt orci ac eros volutpat maximus lacinia quis diam.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="payment-method">
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input" id="payment-3" name="payment">
-                                            <label class="custom-control-label" for="payment-3">Check Payment</label>
-                                        </div>
-                                        <div class="payment-content" id="payment-3-show">
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt orci ac eros volutpat maximus lacinia quis diam.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="payment-method">
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input" id="payment-4" name="payment">
-                                            <label class="custom-control-label" for="payment-4">Direct Bank Transfer</label>
-                                        </div>
-                                        <div class="payment-content" id="payment-4-show">
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt orci ac eros volutpat maximus lacinia quis diam.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="payment-method">
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input" id="payment-5" name="payment">
-                                            <label class="custom-control-label" for="payment-5">Cash on Delivery</label>
-                                        </div>
-                                        <div class="payment-content" id="payment-5-show">
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt orci ac eros volutpat maximus lacinia quis diam.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+                                  
+                                
                                 <div class="checkout-btn">
                                     <button>Place Order</button>
                                 </div>
+                               
                             </div>
                         </div>
+                             
                     </div>
+                    
                 </div>
             </div>
         </div>
+
         <!-- Checkout End -->
         
         <!-- Footer Start -->
