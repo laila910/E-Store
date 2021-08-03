@@ -9,6 +9,12 @@ include './admin/helpers/dbconnection.php';
 include 'header.php';
 
 include 'navbar.php';
+if(isset($_GET['id'])){
+       $id = $_GET['id'];
+       $session=$_GET['session'];
+
+     
+}
 
 ?>
       
@@ -129,11 +135,20 @@ include 'navbar.php';
                     <div class="col-lg-4">
                         <div class="checkout-inner">
                             <div class="checkout-summary">
+                              
+                                 <?php 
+                               $sql="SELECT `productdetails`.*, `product`.`productname`,`productdetails`.`productPrice`FROM `productdetails`.`product_Id`=`product`.`id` WHERE `id`=$id"; 
+                                $op =mysqli_query($op);
+                           
+                                $data=mysqli_fetch_assoc($op);
+                               ?>
                                 <h1>Cart Total</h1>
-                                <p>Product Name<span>$99</span></p>
-                                <p class="sub-total">Sub Total<span>$99</span></p>
-                                <p class="ship-cost">Shipping Cost<span>$1</span></p>
-                                <h2>Grand Total<span>$100</span></h2>
+                                <p>Product Name<span><?php echo $data['productname'];?></span></p>
+                                <p class="sub-total">Sub Total<span><?php echo $data['productPrice'];?></span></p>
+                                <p class="ship-cost">Shipping Cost<span>EGP 70</span></p>
+                                <h2>Grand Total<span>EGP <?php echo $data['productPrice'];?>
+                                </span></h2>
+                                <?php ?>
                             </div>
 
                             <div class="checkout-payment">

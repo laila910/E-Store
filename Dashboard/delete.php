@@ -7,32 +7,43 @@ include './help/logincheck.php';
 include './help/db.php';
 include './header.php';
 
-include './navbar.php';
  
-  
+if($_SERVER['REQUEST_METHOD'] == "GET"){
 
- if($_SERVER['REQUEST_METHOD'] == "GET"){
 
-  
+ // LOGIC .... 
+     $errorMessages = [];
      $id  = Sanitized($_GET['id'],1);
-     $tablename=$_GET['table'];
-     $page=$_GET['page'];
-
+    
       if(!Validate($id,3)){
 
-       echo "Invalid ID";
+       $errorMessages['id'] = "Invalid ID";
 
     
-      }
-       
-        $sql = "DELETE * FROM `$tablename` where `id` =".$id;
+      }else{
+
+        // DB Opretaion ... 
+        $sql = "DELETE * FROM `whishlist` where `id` =".$id;
 
         $op = mysqli_query($conn,$sql);
+   
 
-         
-         header("Location: ". $page .".php");
-
+        if($op){
+            $errorMessages['Result'] = "deleted done";
+        }else{
+            
+        $errorMessages['Result'] = "error in delete operation";
+        }
+     
       }
+
+     $_SESSION['errors'] =  $errorMessages;
+    
+     header("Location: index.php");
+
+ }
+
+
 
   
 

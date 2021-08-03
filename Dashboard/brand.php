@@ -8,11 +8,13 @@ include './admin/helpers/functions.php';
 
 include './admin/helpers/checkLogin.php';
 include './admin/helpers/dbconnection.php';
+
 include 'header.php';
 
 include 'navbar.php';
 
-
+ $br='';
+ $brand= $_GET['brand'];
 
 ?>
  
@@ -68,21 +70,21 @@ include 'navbar.php';
                         </div>
 
                          <?php 
-                            mysqli_select_db($conn,'pagination');
+                           mysqli_select_db($conn,'pagination');
                             $results_per_page=6;
-                             $sql = "SELECT `productdetails`.*,`product`.`productname`,`productimges`.`firstimage`,`productimges`.`secondimage`,`productimges`.`thirdimage`,`categoreis`.`categoryname` ,`productdetails`.`productMadeDate` FROM `productdetails` join `product` on `productdetails`.`product_Id`=`product`.`id` join `productimges` on `productdetails`.`id` =`productimges`.`product_id` join `categoreis` on `product`.`product_cat_id`=`categoreis`.`id` ORDER BY `productdetails`.`productMadeDate` desc";
+                             $sql = "SELECT `productdetails`.*,`product`.`productname`,`productimges`.`firstimage` FROM `productdetails` join `product` on `productdetails`.`product_Id`=`product`.`id` join `productimges` on `productdetails`.`id` =`productimges`.`product_id` join `brand` on `brand`.`brand_Id`=`product`.`product_cat_id` where `brandName`='$brand' ORDER BY `productdetails`.`productMadeDate` desc  ";
                             $op =mysqli_query($conn,$sql);
-                           
                             $number_of_results=mysqli_num_rows($op);
                             
-                            if(!isset($_GET['page'])){
+                           
+                             if(!isset($_GET['page'])){
                               $page=1;
                             }else{
                                 $page =$_GET['page'];
                             }
-                            $this_page_first_result = ($page-1)*$results_per_page;
-                             $sql = "SELECT `productdetails`.*,`product`.`productname`,`productimges`.`firstimage`,`productimges`.`secondimage`,`productimges`.`thirdimage`,`categoreis`.`categoryname` ,`productdetails`.`productMadeDate` FROM `productdetails` join `product` on `productdetails`.`product_Id`=`product`.`id` join `productimges` on `productdetails`.`id` =`productimges`.`product_id` join `categoreis` on `product`.`product_cat_id`=`categoreis`.`id` ORDER BY `productdetails`.`productMadeDate` desc LIMIT " .$this_page_first_result.','.$results_per_page;
-                               $op =mysqli_query($conn,$sql);
+                              $this_page_first_result = ($page-1)*$results_per_page;
+                               $sql = "SELECT `productdetails`.*,`product`.`productname`,`productimges`.`firstimage` FROM `productdetails` join `product` on `productdetails`.`product_Id`=`product`.`id` join `productimges` on `productdetails`.`id` =`productimges`.`product_id` join `brand` on `brand`.`brand_Id`=`product`.`product_brand_id`  where `brandName`='$brand'  ORDER BY `productdetails`.`productMadeDate` desc LIMIT " .$this_page_first_result.','.$results_per_page;
+                                 $op =mysqli_query($conn,$sql);
                                
                                 while($data = mysqli_fetch_assoc($op)){
                              
@@ -92,7 +94,7 @@ include 'navbar.php';
                         <div class="col-md-4">
                             <div class="product-item">
                                 <div class="product-title">
-                                    <a href="#"><?php echo $data['productname']; ?></a>
+                                    <a href="product-detail.php"><?php echo $data['productname']; ?></a>
                                     <div class="ratting">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
@@ -123,16 +125,16 @@ include 'navbar.php';
 
 
                     </div>
-                    <?php  $number_f_pages=ceil($number_of_results/$results_per_page); ?>
+                       <?php  $number_f_pages=ceil($number_of_results/$results_per_page); ?>
                     <!-- Pagination Start -->
                     <div class="col-md-12">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-center">
-                                <?php for($page=1;$page<=$number_f_pages;$page++){?>
+                                  <?php for($page=1;$page<=$number_f_pages;$page++){?>
                                 <li class="page-item ">
-                                    <a class="page-link" href='newarrivals.php?page=<?php echo $page;?>'><?php echo $page;?></a>
+                                    <a class="page-link" href='product-list.php?page=<?php echo $page;?>'><?php echo $page;?></a>
                                 </li>
-                                <?php }?>
+                                   <?php }?>
                             </ul>
                         </nav>
                     </div>
@@ -145,7 +147,7 @@ include 'navbar.php';
     </div>
     <!-- Product List End -->
 
-    <!-- Brand Start -->
+     <!-- Brand Start -->
     <div class="brand">
         <div class="container-fluid">
             <div class="brand-slider">

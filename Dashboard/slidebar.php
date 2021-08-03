@@ -79,7 +79,7 @@
                         <h2 class="title">Our Brands</h2>
                         <ul>
                              <?php 
-                           $sql = "SELECT `brand`.* FROM `brand` ";
+                           $sql = "SELECT `brand`.* FROM `brand`  ";
                            $op =mysqli_query($conn,$sql);
                              
                                 while($data = mysqli_fetch_assoc($op)){
@@ -87,7 +87,8 @@
                              ?>  
                         
 
-                            <li><a href="#"><?php echo $data['brandName']; ?> </a><span></span></li>
+                            <li><a href="brand.php?brand=<?php echo $data['brandName'];?>"><?php echo $data['brandName']; ?> </a>
+                            <span></span></li>
                            
                                    <?php } ?>
                           

@@ -79,21 +79,28 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="search">
-                        <input type="text" placeholder="Search">
-                        <button><i class="fa fa-search"></i></button>
-                    </div>
+                    <form class="search" method="get" action="results.php" enctype="multipart/form-data" >
+                        <input type="text" name="user_query" placeholder="Search a product">
+                        <button type="submit" name="search" value="Search"><i class="fa fa-search"></i></button>
+                    </form>
                 </div>
                 <div class="col-md-3">
                     <div class="user">
                         <a href="wishlist.php" class="btn wishlist">
                             <i class="fa fa-heart"></i>
-                            <span>(0)</span>
+                            <span><?php $sql="SELECT * From Whishlist";
+                            $op=mysqli_query($conn,$sql);
+                            $rows=mysqli_num_rows($op);
+                            echo $rows;?></span>
                         </a>
-                        <a href="cart.html" class="btn cart">
-                            <i class="fa fa-shopping-cart"></i>
-                            <span>(0)</span>
-                        </a>
+
+                       
+                         <a href="cart.php" class="btn cart"><i class="fa fa-shopping-cart"></i><span><?php $sql="SELECT * From addtocard";
+                            $op=mysqli_query($conn,$sql);
+                            $rows=mysqli_num_rows($op);
+                            echo $rows;?></span> </a>
+                             
+                       
                     </div>
                 </div>
             </div>
@@ -101,16 +108,4 @@
     </div>
     <!-- Bottom Bar End -->
     
-        <!-- Breadcrumb Start -->
-        <div class="breadcrumb-wrap">
-            <div class="container-fluid">
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                    <li class="breadcrumb-item"><a href="login.php">Login & Register</a></li>
-                    <li class="breadcrumb-item active"><a href="product-list.php">Products</a></li>
-                   
-                  
-                </ul>
-            </div>
-        </div>
-        <!-- Breadcrumb End -->
+       

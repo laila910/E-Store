@@ -71,10 +71,10 @@ include 'navbar.php';
                          <?php 
                            mysqli_select_db($conn,'pagination');
                             $results_per_page=6;
-                             $sql = "SELECT `productdetails`.*,`product`.`productname`,`productimges`.`firstimage` FROM `productdetails` join `product` on `productdetails`.`product_Id`=`product`.`id` join `productimges` on `productdetails`.`id` =`productimges`.`product_id` ORDER BY `productdetails`.`productMadeDate` desc  ";
+                             $sql = "SELECT `productdetails`.*,`product`.`productname`,`productimges`.`firstimage` FROM `productdetails` join `product` on `productdetails`.`product_Id`=`product`.`id` join `productimges` on `productdetails`.`id` =`productimges`.`product_id` ORDER BY `productdetails`.`id` desc  ";
                             $op =mysqli_query($conn,$sql);
                             $number_of_results=mysqli_num_rows($op);
-                           
+                        
                              if(!isset($_GET['page'])){
                               $page=1;
                             }else{
@@ -149,11 +149,12 @@ include 'navbar.php';
     <div class="brand">
         <div class="container-fluid">
             <div class="brand-slider">
-                <?php $sql="SELECT * FROM brand";
+                <?php $sql ="SELECT * FROM brand";
                 $op=mysqli_query($conn,$sql);
                 while($data=mysqli_fetch_assoc($op)){ ?>
-                <div class="brand-item"><img src="admin/brand/uploads/<?php echo $data['brandImage'];?>" alt=""></div>
-                <?php }?>
+                <div class="brand-item"><a href="brand.php?brand=<?php echo $data['brandName'];?>"><img src="./admin/brand/uploads/<?php echo $data['brandImage']; ?>" alt=""></a></div>
+              
+                <?php } ?>
             </div>
         </div>
     </div>

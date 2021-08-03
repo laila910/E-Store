@@ -1,46 +1,22 @@
 <?php 
 
-//   include '../helpers/functions.php';
-// include '../helpers/checkLogin.php';
-// include '../helpers/checkPrem.php';
-// include '../helpers/dbconnection.php';
+ include './help/fun.php';
+include './help/logincheck.php';
+include './help/db.php';
 
 
 
+        // DB Opretaion ... 
+        $sql = "DELETE * FROM `addtocard` ";
 
-//  if($_SERVER['REQUEST_METHOD'] == "GET"){
+        $op = mysqli_query($conn,$sql);
 
-//    // LOGIC .... 
-//      $errorMessages = [];
-//      $id  = Sanitize($_GET['id'],1);
-    
-//       if(!Validator($id,3)){
-
-//        $errorMessages['id'] = "Invalid ID";
+      
 
     
-//       }else{
+     header("Location: index.php");
 
-//         // DB Opretaion ... 
-//         $sql = "DELETE FROM `product` where `id` =".$id;
-
-//         $op = mysqli_query($conn,$sql);
-
-//         if($op){
-//             $errorMessages['Result'] = "deleted done";
-//         }else{
-            
-//         $errorMessages['Result'] = "error in delete operation";
-//         }
-     
-//       }
-
-//      $_SESSION['errors'] =  $errorMessages;
-    
-//      header("Location: index.php");
-
-//  }
-
+ 
 
 
 ?>
