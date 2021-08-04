@@ -1,8 +1,8 @@
 <?php 
 
-  include '../helpers/functions.php';
-include '../helpers/checkLogin.php';
-include '../helpers/checkPrem.php';
+  include '../help/functions.php';
+include '../help/checkLogin.php';
+include '../help/checkPrem.php';
 include '../helpers/dbconnection.php';
 
 

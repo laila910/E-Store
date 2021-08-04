@@ -249,13 +249,7 @@ include 'navbar.php';
                     <div class="product-item">
                         <div class="product-title">
                             <a href="product-detail?id=<?php echo $data['id'];?>"><?php echo $data['productname']; ?> </a>
-                            <div class="ratting">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
+                            
                         </div>
                         <div class="product-image">
                             <a href="product-detail.html">
@@ -265,16 +259,16 @@ include 'navbar.php';
                             
                                <button class="btn" type="Submit" name="submitcard" onclick="window.location.href='cart.php?id=<?php echo $data['id'];?>&quantity=<?php echo 1;?>'"> <i class="fa fa-cart-plus"></i></button>
                                
-                                <button class="btn" type="Submit" name="submitwhishlist" onclick="window.location.href='wishlist.php?id=<?php  echo $data['id']; ?>'"><i class="fa fa-heart"></i></button>
+                                <button class="btn" type="Submit" name="submitwhishlist" onclick="window.location.href='wishlist.php?id=<?php  echo $data['id'];?>'"><i class="fa fa-heart"></i></button>
 
-                                <button class="btn"  type="Submit" name="submitproductdetails" onclick="window.location.href='product-detail.php?id=<?php echo $data['id'];?>?>'"><i class="fa fa-search"></i></button>
+                                <button class="btn"  type="Submit" name="submitproductdetails" onclick="window.location.href='product-detail.php?id=<?php echo $data['id'];?>'"><i class="fa fa-search"></i></button>
                              
                             </div>
                         </div>
                         <div class="product-price">
                         
                             <h3><span>EGP</span><?php echo $data['productPrice']; ?></h3>
-                            <button class="btn" type="Submit" name="submitwhishlist" onclick="window.location.href='wishlist.php?id=<?php  echo $data['id']; ?>'"><i class="fa fa-shopping-cart"></i>Buy Now</button>
+                            <button class="btn" type="Submit" name="submitwhishlist" onclick="window.location.href='cart.php?id=<?php echo $data['id'];?>&quantity=<?php echo 1;?>'"><i class="fa fa-shopping-cart"></i>Buy Now</button>
                        
                         </div>
                     </div>
@@ -344,7 +338,7 @@ include 'navbar.php';
                             </div>
                         </div>
                         <div class="product-price">
-                            <h3><span>$</span><?php echo $data['productPrice']; ?></h3>
+                            <h3><span>EGP</span><?php echo $data['productPrice']; ?></h3>
                             <a class="btn" href="cart.php?id=<?php echo $data['id'];?>"><i class="fa fa-shopping-cart"></i>Buy Now</a>
                         </div>
                     </div>

@@ -93,27 +93,21 @@ include 'navbar.php';
                             <div class="product-item">
                                 <div class="product-title">
                                     <a href="product-detail.php"><?php echo $data['productname']; ?></a>
-                                    <div class="ratting">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
+                                    
                                 </div>
                                 <div class="product-image">
                                     <a href="product-detail.php">
                                         <img src="admin\productimages\uploads\<?php echo $data['firstimage'];?>" alt="Product Image">
                                     </a>
                                     <div class="product-action">
-                                        <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                        <a href="#"><i class="fa fa-heart"></i></a>
-                                        <a href="#"><i class="fa fa-search"></i></a>
+                                        <a href="cart.php?id=<?php echo $data['id'];?>&quantity=<?php echo 1;?>"><i class="fa fa-cart-plus"></i></a>
+                                        <a href="wishlist.php?id=<?php  echo $data['id'];?>"><i class="fa fa-heart"></i></a>
+                                        <a href="product-detail.php?id=<?php echo $data['id'];?>"><i class="fa fa-search"></i></a>
                                     </div>
                                 </div>
                                 <div class="product-price">
                                     <h3><span>EGP</span><?php echo $data['productPrice']; ?></h3>
-                                    <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                    <a class="btn" href="cart.php?id=<?php echo $data['id'];?>&quantity=<?php echo 1;?>"><i class="fa fa-shopping-cart"></i>Buy Now</a>
                                 </div>
                             </div>
                         </div>

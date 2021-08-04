@@ -18,6 +18,7 @@ if(isset($_GET['id'])){
 
   $sql2=  "INSERT INTO `whishlist`( `productid`,`customerid`) VALUES ('$productid','$customerid')";
   $op2=mysqli_query($conn,$sql2);
+  
 }
    
 ?>
