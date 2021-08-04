@@ -76,7 +76,7 @@ if (isset($_GET['id'])) {
                                             echo $total . ' ' . 'EGP'; ?></td>
 
 
-                                        <td><a href="delete.php?id=<?php echo $data['id']; ?>"><button><i class="fa fa-trash"></i></button></a></td>
+                                        <td><a href="deletec.php?Id=<?php echo $data['id']; ?>"><button><i class="fa fa-trash"></i></button></a></td>
                                     </tr>
 
                                 <?php } ?>

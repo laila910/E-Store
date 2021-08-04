@@ -90,7 +90,9 @@
             $requiredd = $data5['requireddate'];
             $salesx = $data5['salestax'];
             $totalPrice = $data5['salestax'] + $totalprice;
-            $sql6 = "INSERT INTO `savedorderforcustomer`(`orderNo`,`productName`, `firstImage`, `productPrice`, `shipDate`, `deliveredDate`, `SalesTax`, `Total Price`) VALUES ('$ordernumber','$productname','$productimage','$productprice','$shipdate','$requiredd','$salesx','$totalPrice')";
+            $userId = $_SESSION['users']['id'];
+
+            $sql6 = "INSERT INTO `savedorderforcustomer`(`userid`,`orderNo`,`productName`, `firstImage`, `productPrice`, `shipDate`, `deliveredDate`, `SalesTax`, `Total Price`) VALUES ('$userId','$ordernumber','$productname','$productimage','$productprice','$shipdate','$requiredd','$salesx','$totalPrice')";
             $op6 = mysqli_query($conn, $sql6);
           } ?>
        </tbody>
