@@ -9,52 +9,52 @@ include './header.php';
 
 include './navbar.php';
 
- 
-    
-  
-if(isset($_GET['id'])){
-   
-    $id  =Sanitized($_GET['id'],1);
- $quantity=  Sanitized($_GET['quantity'],1);
-       
- 
-     $carditem=$id;
-     $quan=$quantity;
-     $customerid=$_SESSION['users']['id'];
-     
 
-  $sql2=  "INSERT INTO `addtocard`( `customerId`, `carditem`,`quantity`) VALUES ('$customerid','$carditem','$quan')";
-  $op2=mysqli_query($conn,$sql2);
+
+
+if (isset($_GET['id'])) {
+
+    $id  = Sanitized($_GET['id'], 1);
+    $quantity =  Sanitized($_GET['quantity'], 1);
+
+
+    $carditem = $id;
+    $quan = $quantity;
+    $customerid = $_SESSION['users']['id'];
+
+
+    $sql2 =  "INSERT INTO `addtocard`( `customerId`, `carditem`,`quantity`) VALUES ('$customerid','$carditem','$quan')";
+    $op2 = mysqli_query($conn, $sql2);
 }
 ?>
 
-   
 
-    <!-- Cart Start -->
-    <div class="cart-page">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="cart-page-inner">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>Product</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
-                                        <th>Remove</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="align-middle">
-                                     <?php 
+
+<!-- Cart Start -->
+<div class="cart-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="cart-page-inner">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody class="align-middle">
+                                <?php
                                 $sql = "SELECT `addtocard`.*,`productdetails`.`productPrice`,`productdetails`.`id` as `prodetId`,`product`.`productname` ,`productimges`.`firstimage` FROM `addtocard` join `productdetails` on `addtocard`.`carditem`=`productdetails`.`id` join `product` on `productdetails`.`product_Id` = `product`.`id` join `productimges` on `productdetails`.`id`=`productimges`.`product_id` ORDER BY `addtocard`.`id` desc";
-                                $op  = mysqli_query($conn,$sql); 
-                                
-                                while($data = mysqli_fetch_assoc($op)){
-                             
-                             ?>     
+                                $op  = mysqli_query($conn, $sql);
+
+                                while ($data = mysqli_fetch_assoc($op)) {
+
+                                ?>
                                     <tr>
                                         <td>
                                             <div class="img">
@@ -66,47 +66,55 @@ if(isset($_GET['id'])){
                                         <td>
                                             <div class="qty">
                                                 <a href=""> <button class="btn-minus"><i class="fa fa-minus"></i></button></a>
-                                                <input type="text" value="<?php  echo $data['quantity']; ?> ">
-                                                 <a href=""><button class="btn-plus"><i class="fa fa-plus"></i></button></a>
+                                                <input type="text" value="<?php echo $data['quantity']; ?> ">
+                                                <a href=""><button class="btn-plus"><i class="fa fa-plus"></i></button></a>
                                             </div>
                                         </td>
-                                        <td><?php $total = $data['productPrice'] * $data['quantity'];static $subtotal=0; 
-                                           $subtotal+=$total; 
-                                        echo $total.' '.'EGP';?></td>
+                                        <td><?php $total = $data['productPrice'] * $data['quantity'];
+                                            static $subtotal = 0;
+                                            $subtotal += $total;
+                                            echo $total . ' ' . 'EGP'; ?></td>
 
 
-                                        <td><a href="delete.php?id=<?php echo $data['id'];?>"><button><i class="fa fa-trash"></i></button></a></td>
+                                        <td><a href="delete.php?id=<?php echo $data['id']; ?>"><button><i class="fa fa-trash"></i></button></a></td>
                                     </tr>
-                                   
-                                     <?php } ?>
-                                </tbody>
-                            </table>
-                        </div>
+
+                                <?php } ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="cart-page-inner">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="coupon">
-                                    <input type="text" placeholder="Coupon Code">
-                                    <button>Apply Code</button>
-                                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="cart-page-inner">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="coupon">
+                                <input type="text" placeholder="Coupon Code">
+                                <button>Apply Code</button>
                             </div>
-                            <div class="col-md-12">
-                                <div class="cart-summary">
-                                    <div class="cart-content">
-                                        <h1>Cart Summary</h1>
-                                        <p>Sub Total<span><?php echo $subtotal.' '.'EGP'; ?></span></p>
-                                        <p>Shipping Cost<span><?php echo '70 EGP' ; ?> </span></p>
-                                        <h2>Grand Total<span><?php $grandTotal= $subtotal + 70; echo $grandTotal; ?> </span></h2>
-                                    </div>
-                                    <div class="cart-btn">
+                        </div>
+                        <div class="col-md-12">
+                            <div class="cart-summary">
+                                <div class="cart-content">
+                                    <h1>Cart Summary</h1>
+                                    <p>Sub Total<span><?php echo $subtotal . ' ' . 'EGP'; ?></span></p>
+                                    <p>Shipping Cost<span><?php echo '70 EGP'; ?> </span></p>
+                                    <h2>Grand Total<span><?php $grandTotal = $subtotal + 70;
+                                                            echo $grandTotal; ?> </span></h2>
+                                </div>
+                                <div class="cart-btn">
+                                    <?php $sql3 = "SELECT * FROM `addtocard` ORDER BY `addtocard`.`id` desc LIMIT 1";
+                                    $op3 = mysqli_query($conn, $sql3);
+                                    $data3 = mysqli_fetch_assoc($op3);
 
-                                        <a class="btn btn-primary btn-lg" href="updatecard.php" role="button">Update Card</a>
-                                       <a class="btn btn-primary btn-lg" href="checkout.php?session=<?php echo 'true';?>"role="button">CheckOut</a>
-                                      
-                                    </div>
+                                    $id = $data3['id'];
+
+                                    ?>
+                                    <a class="btn btn-primary btn-lg" href="updatecard.php" role="button">Update Card</a>
+                                    <a class="btn btn-primary btn-lg" href="checkout.php?session=<?php echo 'true'; ?>&id=<?php
+                                                                                                                            echo $data3['id']; ?>" role="button">CheckOut</a>
+
                                 </div>
                             </div>
                         </div>
@@ -115,7 +123,8 @@ if(isset($_GET['id'])){
             </div>
         </div>
     </div>
-    <!-- Cart End -->
+</div>
+<!-- Cart End -->
 
 <?php include 'footer.php';
 ?>
