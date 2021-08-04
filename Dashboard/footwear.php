@@ -2,17 +2,13 @@
 
   
 
+include './help/fun.php';
 
+include './help/logincheck.php';
+include './help/db.php';
+include './header.php';
 
-include './admin/helpers/functions.php';
-
-include './admin/helpers/checkLogin.php';
-include './admin/helpers/dbconnection.php';
-
-include 'header.php';
-
-include 'navbar.php';
-
+include './navbar.php';
 
 
 ?>

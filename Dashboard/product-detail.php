@@ -1,7 +1,6 @@
 
  <?php
 
-
 include './help/fun.php';
 
 include './help/logincheck.php';

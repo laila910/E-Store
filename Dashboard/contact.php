@@ -1,14 +1,13 @@
 <?php
 
 
-include './admin/helpers/functions.php';
+include './help/fun.php';
 
-include './admin/helpers/checkLogin.php';
-include './admin/helpers/dbconnection.php';
+include './help/logincheck.php';
+include './help/db.php';
+include './header.php';
 
-include 'header.php';
-
-include 'navbar.php';
+include './navbar.php';
   if($_SERVER['REQUEST_METHOD']=='POST'){
                                 $subject=$_POST['Subject'];
                                 $message=$_POST['message'];

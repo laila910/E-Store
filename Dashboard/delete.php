@@ -1,11 +1,11 @@
 <?php
 
-
 include './help/fun.php';
 
 include './help/logincheck.php';
 include './help/db.php';
-include './header.php';
+
+
 
  
 if($_SERVER['REQUEST_METHOD'] == "GET"){
