@@ -42,7 +42,8 @@ if (isset($_GET['id'])) {
                             </thead>
                             <tbody class="align-middle">
                                 <?php
-                                $sql = "SELECT `whishlist`.*,`product`.`productname` ,`productdetails`.`productPrice` ,`productimges`.`firstimage` FROM `whishlist`join`productdetails`on `whishlist`.`productid`=`productdetails`.`id` join `product` on `productdetails`.`product_Id` =`product`.`id` join `productimges` on `productdetails`.`id` = `productimges`.`product_id` ORDER BY `whishlist`.`id` desc";
+                                $customerid = $_SESSION['users']['id'];
+                                $sql = "SELECT `whishlist`.*,`product`.`productname` ,`productdetails`.`productPrice` ,`productimges`.`firstimage` FROM `whishlist`join`productdetails`on `whishlist`.`productid`=`productdetails`.`id` join `product` on `productdetails`.`product_Id` =`product`.`id` join `productimges` on `productdetails`.`id` = `productimges`.`product_id` WHERE `whishlist`.`customerid`='$customerid' ORDER BY `whishlist`.`id` desc ";
 
                                 $op  = mysqli_query($conn, $sql);
 

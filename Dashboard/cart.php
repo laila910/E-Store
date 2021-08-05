@@ -49,7 +49,8 @@ if (isset($_GET['id'])) {
                             </thead>
                             <tbody class="align-middle">
                                 <?php
-                                $sql = "SELECT `addtocard`.*,`productdetails`.`productPrice`,`productdetails`.`id` as `prodetId`,`product`.`productname` ,`productimges`.`firstimage` FROM `addtocard` join `productdetails` on `addtocard`.`carditem`=`productdetails`.`id` join `product` on `productdetails`.`product_Id` = `product`.`id` join `productimges` on `productdetails`.`id`=`productimges`.`product_id` ORDER BY `addtocard`.`id` desc";
+                                $customerid = $_SESSION['users']['id'];
+                                $sql = "SELECT `addtocard`.*,`productdetails`.`productPrice`,`productdetails`.`id` as `prodetId`,`product`.`productname` ,`productimges`.`firstimage` FROM `addtocard` join `productdetails` on `addtocard`.`carditem`=`productdetails`.`id` join `product` on `productdetails`.`product_Id` = `product`.`id` join `productimges` on `productdetails`.`id`=`productimges`.`product_id` WHERE `addtocard`.`customerId`='$customerid' ORDER BY `addtocard`.`id` desc";
                                 $op  = mysqli_query($conn, $sql);
 
                                 while ($data = mysqli_fetch_assoc($op)) {
@@ -98,10 +99,17 @@ if (isset($_GET['id'])) {
                             <div class="cart-summary">
                                 <div class="cart-content">
                                     <h1>Cart Summary</h1>
-                                    <p>Sub Total<span><?php echo $subtotal . ' ' . 'EGP'; ?></span></p>
+                                    <p>Sub Total<span><?php if ($subtotal = '') {
+                                                        } else {
+                                                            echo $subtotal . ' ' . 'EGP';
+                                                        } ?></span></p>
                                     <p>Shipping Cost<span><?php echo '70 EGP'; ?> </span></p>
-                                    <h2>Grand Total<span><?php $grandTotal = $subtotal + 70;
-                                                            echo $grandTotal; ?> </span></h2>
+                                    <h2>Grand Total<span><?php
+
+
+                                                            $grandTotal = $subtotal + 70;
+                                                            echo $grandTotal;
+                                                            ?> </span></h2>
                                 </div>
                                 <div class="cart-btn">
                                     <?php $sql3 = "SELECT * FROM `addtocard` ORDER BY `addtocard`.`id` desc LIMIT 1";
