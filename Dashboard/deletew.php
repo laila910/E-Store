@@ -28,6 +28,7 @@ if (isset($_GET['Id'])) {
 
     if ($op) {
       $errorMessages['Result'] = "deleted done";
+      header("Location: index.php");
     } else {
 
       $errorMessages['Result'] = "error in delete operation";

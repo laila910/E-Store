@@ -99,10 +99,10 @@ if (isset($_GET['id'])) {
                             <div class="cart-summary">
                                 <div class="cart-content">
                                     <h1>Cart Summary</h1>
-                                    <p>Sub Total<span><?php if ($subtotal = '') {
-                                                        } else {
-                                                            echo $subtotal . ' ' . 'EGP';
-                                                        } ?></span></p>
+                                    <p>Sub Total<span><?php
+
+                                                        echo $subtotal . ' ' . 'EGP';
+                                                        ?></span></p>
                                     <p>Shipping Cost<span><?php echo '70 EGP'; ?> </span></p>
                                     <h2>Grand Total<span><?php
 
