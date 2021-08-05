@@ -1,14 +1,12 @@
 <?php
-session_start();
+
 
 include '../help/fun.php';
 
 include '../help/logincheck.php';
 include '../help/db.php';
 
-include '../header.php';
 
-include '../navbar.php';
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
@@ -90,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
       $op = mysqli_query($conn, $sql);
 
-      header("Location: ../login.php?SignUpSuccess");
+      header("Location: ../login.php?SignUpSuccessYouNeedToLoginNow");
     }
   } else {
     $_SESSION['errors'] = $errorMessages;
@@ -107,9 +105,3 @@ if (isset($_SESSION['errors'])) {
   }
   unset($_SESSION['errors']);
 }
-
-
-?>
-<?php
-include '../footer.php';
-?>
