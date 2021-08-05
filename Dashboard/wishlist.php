@@ -64,9 +64,15 @@ if (isset($_GET['id'])) {
                                         <td><?php echo $data['productPrice']; ?></td>
                                         <td>
                                             <div class="qty">
-                                                <a href="#"><button class="btn-minus"><i class="fa fa-minus"></i></button></a>
-                                                <input type="text" value="<?php echo $data['quantity']; ?>">
-                                                <a href="#"><button class="btn-plus"><i class="fa fa-plus"></i></button></a>
+
+                                                <form method="post" action="editQ.php">
+
+                                                    <input type="number" name="quantity" value="<?php echo $data['quantity']; ?>">
+                                                    <input type="hidden" name="id" value="<?php echo $data['id']; ?>">
+
+                                                    <button style="margin-bottom:10px;" type="submit" class="btn"></button>
+                                                </form>
+
                                             </div>
                                         </td>
                                         <td><a href="cart.php?id=<?php echo $data['productid']; ?>&quantity=<?php echo $data['quantity']; ?>"><button class="btn-cart">Add TO Card</button></a></td>

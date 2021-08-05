@@ -89,17 +89,25 @@
                         <div class="user">
                             <a href="wishlist.php" class="btn wishlist">
                                 <i class="fa fa-heart"></i>
-                                <span><?php $sql = "SELECT * From Whishlist";
-                                        $op = mysqli_query($conn, $sql);
-                                        $rows = mysqli_num_rows($op);
-                                        echo $rows; ?></span>
+                                <span><?php if (isset($_SESSION['users']['id'])) {
+                                            $sql = "SELECT * From whishlist WHERE `whishlist`.`customerid`=" . $_SESSION['users']['id'];
+                                            $op = mysqli_query($conn, $sql);
+                                            $rows = mysqli_num_rows($op);
+                                            echo $rows;
+                                        } else {
+                                            echo '0';
+                                        } ?></span>
                             </a>
 
 
-                            <a href="cart.php" class="btn cart"><i class="fa fa-shopping-cart"></i><span><?php $sql = "SELECT * From addtocard";
-                                                                                                            $op = mysqli_query($conn, $sql);
-                                                                                                            $rows = mysqli_num_rows($op);
-                                                                                                            echo $rows; ?></span> </a>
+                            <a href="cart.php" class="btn cart"><i class="fa fa-shopping-cart"></i><span><?php if (isset($_SESSION['users']['id'])) {
+                                                                                                                $sql = "SELECT * From `addtocard` WHERE `addtocard`.`customerId`=" . $_SESSION['users']['id'];
+                                                                                                                $op = mysqli_query($conn, $sql);
+                                                                                                                $rows = mysqli_num_rows($op);
+                                                                                                                echo $rows;
+                                                                                                            } else {
+                                                                                                                echo '0';
+                                                                                                            } ?></span> </a>
 
 
                         </div>
