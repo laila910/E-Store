@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 05, 2021 at 05:05 AM
+-- Generation Time: Aug 05, 2021 at 12:40 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -42,7 +42,8 @@ CREATE TABLE `addtocard` (
 --
 
 INSERT INTO `addtocard` (`id`, `customerId`, `carditem`, `created_at`, `modified_at`, `quantity`, `session`) VALUES
-(125, 4, 21, '2021-08-05 01:22:56', '2021-08-05 01:22:56', 1, 'no');
+(125, 4, 21, '2021-08-05 01:22:56', '2021-08-05 01:22:56', 1, 'no'),
+(133, 12, 30, '2021-08-05 11:34:21', '2021-08-05 11:34:21', 1, 'no');
 
 -- --------------------------------------------------------
 
@@ -326,7 +327,11 @@ INSERT INTO `product` (`id`, `productname`, `product_cat_id`, `product_brand_id`
 (70, 'Chunky Sole Nubuck Lace-Up Sneakers', 1, 7, 'New', 'false'),
 (71, 'Faux-Leather Stone Detail Ballerina Shoes', 1, 8, 'New', 'false'),
 (72, 'Faux-Leather Ribbon Detail Flat Ballerina', 1, 7, 'New', 'false'),
-(73, 'Mini Focus Casual Watch For Women Analog Metal - MF0224L.03', 3, 6, 'New', 'true');
+(73, 'Mini Focus Casual Watch For Women Analog Metal - MF0224L.03', 3, 6, 'New', 'true'),
+(74, 'Pure Natural Pearl Jewelry Set', 4, 8, 'New', 'true'),
+(75, 'set of chain and bracelet for women', 4, 6, 'New', 'true'),
+(76, 'Bag For Women,Black - Shoulder Bags', 5, 7, 'New', 'true'),
+(77, 'heart shaped woman bag', 5, 5, 'New', 'true');
 
 -- --------------------------------------------------------
 
@@ -359,7 +364,11 @@ INSERT INTO `productcolor` (`id`, `firstcolor`, `secondcolor`, `thirdcolor`) VAL
 (12, 'Nude', ' Camel', 'Black'),
 (13, 'Nude', ' Camel', 'Black'),
 (14, 'Nude', ' Red', 'Navy'),
-(15, 'Metal Silver', ' Null', 'Null');
+(15, 'Metal Silver', ' Null', 'Null'),
+(16, 'Silver', ' Null', 'Null'),
+(17, 'Silver', ' Null', 'Null'),
+(18, 'Black', ' Null', 'Null'),
+(19, 'Beige', ' cashmere', 'Grey');
 
 -- --------------------------------------------------------
 
@@ -403,7 +412,11 @@ INSERT INTO `productdetails` (`id`, `product_Id`, `color_id`, `size_id`, `produc
 (29, 72, 14, 13, 339, 1, 'Ballerina shoes Round toe Stitched ribbon detail Flat design Gold metal detail Patent cap toe', 'Package thickness15.4 centimeters Package weight in KGs394 grams MaterialFaux Leather Country of originCN', 322, 49, 'true', 'true', '2021-07-31 19:55:14'),
 (30, 73, 15, 14, 390, 200, 'Movement Type : Quartz Dial Case Diameter Size : 34 millimeters Targeted Group : Women Brand : Mini Focus Band Material : Metal Watch Shape : Round', 'Package thickness11 centimeters Package weight in KGs228 grams Watch ShapeRound Dial Case Diameter Size34 millimeters Movement TypeQuartz', 345, 50, 'true', 'false', '2021-08-05 01:55:04'),
 (31, 73, 15, 14, 350, 200, 'Dial Case Diameter Size : 34 millimeters Targeted Group : Women Brand : Mini Focus Band Material : Metal Watch Shape : Round', 'Manufacturer NumberMF0224L.03 Package thickness11 centimeters Package weight in KGs228 grams Watch ShapeRound Dial Case Diameter Size34 millimeters Movement TypeQuartz', 345, 100, 'true', 'false', '2021-08-05 02:02:50'),
-(32, 73, 15, 14, 350, 200, 'Movement Type : Quartz Dial Case Diameter Size : 34 millimeters Targeted Group : Women Brand : Mini Focus Band Material : Metal Watch Shape : Round', 'Manufacturer NumberMF0224L.03 Package thickness11 centimeters Package weight in KGs228 grams Watch ShapeRound Dial Case Diameter Size34 millimeters', 345, 100, 'true', 'false', '2021-08-05 02:06:03');
+(32, 73, 15, 14, 350, 200, 'Movement Type : Quartz Dial Case Diameter Size : 34 millimeters Targeted Group : Women Brand : Mini Focus Band Material : Metal Watch Shape : Round', 'Manufacturer NumberMF0224L.03 Package thickness11 centimeters Package weight in KGs228 grams Watch ShapeRound Dial Case Diameter Size34 millimeters', 345, 100, 'true', 'false', '2021-08-05 02:06:03'),
+(33, 74, 16, 15, 1779, 1, 'Jewelry Set Type : Ring, Earring &amp; Necklace Material Type : Mixed Stone Type : Natural Pearl', 'Manufacturer Number2725514172835 Jewelry Set TypeRing, Earring &amp; Necklace Material TypeMixed Stone TypeNatural Pearl', 345, 200, 'true', 'true', '2021-08-05 11:44:07'),
+(34, 75, 17, 16, 850, 1, 'Jewelry Set Type : Necklace &amp; Bracelets Number of Pieces : 2 Stone Type : Without Stones', 'Manufacturer Number20 Package thickness5.8 centimeters Package weight in KGs100 grams Jewelry Set TypeNecklace &amp; Bracelets Material TypeAlloy Stone TypeWithout Stone', 870, 200, 'true', 'false', '2021-08-05 11:52:58'),
+(35, 76, 18, 17, 650, 1, 'Targeted Group : Women Handbag Type : Shoulder Bags Material : Leather Color Family : Black', 'ColorBlack MaterialLeather Handbag TypeShoulder Bags Targeted GroupWomen', 987, 100, 'true', 'false', '2021-08-05 11:57:09'),
+(36, 77, 19, 18, 799, 1, 'Targeted Group : Women Handbag Type : Shoulder Bags Material : Fur Color Family : Multi Color', 'MaterialFur Handbag TypeShoulder Bags Targeted GroupWomen', 469, 100, 'true', 'false', '2021-08-05 12:00:47');
 
 -- --------------------------------------------------------
 
@@ -436,7 +449,11 @@ INSERT INTO `productimges` (`id`, `product_id`, `firstimage`, `secondimage`, `th
 (20, 26, '12547127201627753412.jpg', '7709748401627753412.jpg', '19079576781627753412.jpg'),
 (21, 27, '2247261961627753686.jpg', '14285976311627753686.jpg', '21123510811627753686.jpg'),
 (23, 29, '9023477711627754162.jpg', '11374680511627754162.jpg', '11500181871627754162.jpg'),
-(24, 30, '11426077451628121699.jpg', '16813672381628121699.jpg', '');
+(24, 30, '11426077451628121699.jpg', '16813672381628121699.jpg', ''),
+(25, 33, '8939945321628156675.jpg', '12862096621628156675.jpg', ''),
+(26, 34, '16775001628157200.jpg', '', ''),
+(27, 35, '16940576671628157467.jpg', '3497339361628157467.jpg', '1824526601628157467.jpg'),
+(28, 36, '9124209191628157751.jpg', '13151248421628157751.jpg', '2838460741628157751.jpg');
 
 -- --------------------------------------------------------
 
@@ -539,7 +556,11 @@ INSERT INTO `productsizes` (`id_size`, `S`, `M`, `L`, `XL`) VALUES
 (11, 'S', 'M', 'L', 'XL'),
 (12, 'S', 'M', 'L', 'XL'),
 (13, 'S', 'NULL', 'L', 'XL'),
-(14, 'S', 'NULL', 'Null', 'Null');
+(14, 'S', 'NULL', 'Null', 'Null'),
+(15, 'S', 'NULL', 'L', 'XL'),
+(16, 'S', 'NULL', 'Null', 'Null'),
+(17, 'S', 'M', 'Null', 'Null'),
+(18, 'S', 'NULL', 'Null', 'Null');
 
 -- --------------------------------------------------------
 
@@ -579,7 +600,6 @@ CREATE TABLE `suppliers` (
   `userid` int(11) NOT NULL,
   `companyname` varchar(250) NOT NULL,
   `firstaddress` text NOT NULL,
-  `secondaddress` text NOT NULL,
   `city` varchar(100) NOT NULL,
   `state` varchar(100) NOT NULL,
   `zipCode` int(11) NOT NULL,
@@ -587,9 +607,7 @@ CREATE TABLE `suppliers` (
   `URL` varchar(250) NOT NULL,
   `paymentmethods` varchar(250) NOT NULL,
   `discount` int(11) NOT NULL,
-  `notes` text NOT NULL,
-  `discountavailable` bit(1) NOT NULL,
-  `logoimage` varchar(250) NOT NULL,
+  `discountavailable` varchar(50) NOT NULL DEFAULT 'no',
   `currentorder` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -666,7 +684,8 @@ CREATE TABLE `whishlist` (
 --
 
 INSERT INTO `whishlist` (`id`, `productid`, `quantity`, `customerid`, `addtocard`) VALUES
-(177, 25, 1, 4, 'no');
+(177, 25, 1, 4, 'no'),
+(180, 33, 1, 12, 'no');
 
 --
 -- Indexes for dumped tables
@@ -831,7 +850,7 @@ ALTER TABLE `whishlist`
 -- AUTO_INCREMENT for table `addtocard`
 --
 ALTER TABLE `addtocard`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT for table `brand`
@@ -891,37 +910,37 @@ ALTER TABLE `ordershipper`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT for table `productcolor`
 --
 ALTER TABLE `productcolor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `productdetails`
 --
 ALTER TABLE `productdetails`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `productimges`
 --
 ALTER TABLE `productimges`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `productreview`
 --
 ALTER TABLE `productreview`
-  MODIFY `id_review` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_review` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `productsizes`
 --
 ALTER TABLE `productsizes`
-  MODIFY `id_size` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_size` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `savedorderforcustomer`
@@ -939,7 +958,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `usersgroup`
@@ -951,7 +970,7 @@ ALTER TABLE `usersgroup`
 -- AUTO_INCREMENT for table `whishlist`
 --
 ALTER TABLE `whishlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=180;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
 
 --
 -- Constraints for dumped tables
