@@ -7,7 +7,8 @@ include '../helpers/dbconnection.php';
 
 
 
-$sql = "SELECT `orderproducts`.*,`orderdetailes`.`totalprice` ,`product`.`productname` FROM `orderproducts` join `orderdetailes` on `orderproducts`.`orderdetails_id` = `orderdetailes`.`id` join `productdetails` on `orderproducts`.`productdetails_id`=`productdetails`.`id` join `product` on `productdetails`.`product_Id`=`product`.`id` ";
+
+$sql = "SELECT `contact`.*,`users`.`firstName`,`users`.`lastName` FROM `contact` join `users` on `contact`.`userId`=`users`.`id` ";
 
 $op  = mysqli_query($conn, $sql);
 
@@ -48,7 +49,7 @@ include '../header.php';
                         ?>
 
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Product details data </li>
+                            <li class="breadcrumb-item active">Categories Data</li>
                         <?php } ?>
 
 
@@ -66,8 +67,9 @@ include '../header.php';
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Product Name </th>
-                                            <th>Total Price </th>
+                                            <th>Customer Name </th>
+                                            <th>Subject </th>
+                                            <th>Message</th>
 
                                         </tr>
                                     </thead>
@@ -83,10 +85,9 @@ include '../header.php';
                                         ?>
                                             <tr>
                                                 <td><?php echo $result['id']; ?></td>
-                                                <td><?php echo $result['productname']; ?></td>
-                                                <td><?php echo $result['totalprice']; ?></td>
-
-
+                                                <td><?php echo $result['firstName'] . ' ' . $result['lastName']; ?></td>
+                                                <td><?php echo $result['subject']; ?></td>
+                                                <td><?php echo $result['message']; ?></td>
 
 
                                             </tr>

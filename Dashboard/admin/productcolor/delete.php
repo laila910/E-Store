@@ -41,7 +41,3 @@ include '../helpers/dbconnection.php';
      header("Location: index.php");
 
  }
-
-
-
-?>
