@@ -404,7 +404,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                   </tr>
                 </thead>
                 <tbody>
-                  <?php $sql9 = "SELECT * FROM `savedorderforcustomer`";
+                  <?php $sql9 = "SELECT * FROM `savedorderforcustomer` WHERE `userid`=" . $_SESSION['users']['id'];
                   $op9 = mysqli_query($conn, $sql9);
 
                   while ($data = mysqli_fetch_assoc($op9)) { ?>
@@ -428,7 +428,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           </div>
           <div class="tab-pane fade" id="account-tab" role="tabpanel" aria-labelledby="account-nav">
             <h4>personal Informtion</h4>
-            <div class="row">
+            <div class="table-responsive">
               <table class="table table-striped">
                 <thead>
                   <tr>

@@ -52,7 +52,9 @@ if (isset($_GET['id'])) {
                                 $customerid = $_SESSION['users']['id'];
                                 $sql = "SELECT `addtocard`.*,`productdetails`.`productPrice`,`productdetails`.`id` as `prodetId`,`product`.`productname` ,`productimges`.`firstimage` FROM `addtocard` join `productdetails` on `addtocard`.`carditem`=`productdetails`.`id` join `product` on `productdetails`.`product_Id` = `product`.`id` join `productimges` on `productdetails`.`id`=`productimges`.`product_id` WHERE `addtocard`.`customerId`='$customerid' ORDER BY `addtocard`.`id` desc";
                                 $op  = mysqli_query($conn, $sql);
-
+                                $rows = mysqli_num_rows($op);
+                                $subtotal = 0;
+                                $grandTotal = 0;
                                 while ($data = mysqli_fetch_assoc($op)) {
 
                                 ?>
@@ -80,7 +82,9 @@ if (isset($_GET['id'])) {
                                         <td><a href="deletec.php?Id=<?php echo $data['id']; ?>"><button><i class="fa fa-trash"></i></button></a></td>
                                     </tr>
 
-                                <?php } ?>
+                                <?php }
+
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -99,9 +103,12 @@ if (isset($_GET['id'])) {
                             <div class="cart-summary">
                                 <div class="cart-content">
                                     <h1>Cart Summary</h1>
-                                    <p>Sub Total<span><?php
-
-                                                        echo $subtotal . ' ' . 'EGP';
+                                    <p>Sub Total<span><?php if ($rows < 0) {
+                                                            $subtotal = Null;
+                                                            echo 'EGP';
+                                                        } else {
+                                                            echo $subtotal . ' ' . 'EGP';
+                                                        }
                                                         ?></span></p>
                                     <p>Shipping Cost<span><?php echo '70 EGP'; ?> </span></p>
                                     <h2>Grand Total<span><?php
@@ -120,8 +127,10 @@ if (isset($_GET['id'])) {
 
                                     ?>
                                     <a class="btn btn-primary btn-lg" href="updatecard.php" role="button">Update Card</a>
-                                    <a class="btn btn-primary btn-lg" href="checkout.php?session=<?php echo 'true'; ?>&id=<?php
-                                                                                                                            echo $data3['id']; ?>" role="button">CheckOut</a>
+
+                                    <!-- <a class="btn btn-primary btn-lg" href="" role="button">CheckOut</a> -->
+                                    <button class="btn" type="Submit" name="submitcheck" onclick="window.location.href='checkout.php?session=<?php echo 'true'; ?>&id=<?php echo $data3['id']; ?>'">CheckOut</button>
+
 
                                 </div>
                             </div>
