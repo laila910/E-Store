@@ -80,8 +80,8 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <form class="search" method="get" action="results.php" enctype="multipart/form-data">
-                            <input type="text" name="user_query" placeholder="Search a product">
+                        <form class="search" method="Post" action="search.php" enctype="multipart/form-data">
+                            <input type="text" name="Key" placeholder="Search a product">
                             <button type="submit" name="search" value="Search"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
