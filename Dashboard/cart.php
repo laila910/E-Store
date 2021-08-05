@@ -129,7 +129,7 @@ if (isset($_GET['id'])) {
                                     <a class="btn btn-primary btn-lg" href="updatecard.php" role="button">Update Card</a>
 
                                     <!-- <a class="btn btn-primary btn-lg" href="" role="button">CheckOut</a> -->
-                                    <button class="btn" type="Submit" name="submitcheck" onclick="window.location.href='checkout.php?session=<?php echo 'true'; ?>&id=<?php echo $data3['id']; ?>'">CheckOut</button>
+                                    <button class="btn" type="Submit" name="submitcheck" onclick="window.location.href='checkout.php?session=<?php echo 'true'; ?>&id=<?php echo $data3['id']; ?>'"> Checkout</button>
 
 
                                 </div>

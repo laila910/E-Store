@@ -69,6 +69,8 @@ if (isset($_GET['id'])) {
                             <p class="ship-cost">Shipping Cost<span>EGP 70</span></p>
                             <h2>Grand Total<span>EGP <?php if (isset($_GET['id'])) {
                                                             echo $totalp + 70;
+                                                        } else {
+                                                            echo '70';
                                                         } ?>
                                 </span></h2>
 
