@@ -42,6 +42,7 @@ if (isset($_GET['id'])) {
                             </thead>
                             <tbody class="align-middle">
                                 <?php
+
                                 $customerid = $_SESSION['users']['id'];
                                 $sql = "SELECT `whishlist`.*,`product`.`productname` ,`productdetails`.`productPrice` ,`productimges`.`firstimage` FROM `whishlist`join`productdetails`on `whishlist`.`productid`=`productdetails`.`id` join `product` on `productdetails`.`product_Id` =`product`.`id` join `productimges` on `productdetails`.`id` = `productimges`.`product_id` WHERE `whishlist`.`customerid`='$customerid' ORDER BY `whishlist`.`id` desc ";
 
@@ -65,13 +66,9 @@ if (isset($_GET['id'])) {
                                         <td>
                                             <div class="qty">
 
-                                                <form method="post" action="editQ.php">
-
-                                                    <input type="number" name="quantity" value="<?php echo $data['quantity']; ?>">
-                                                    <input type="hidden" name="id" value="<?php echo $data['id']; ?>">
-
-                                                    <button style="margin-bottom:10px;" type="submit" class="btn"></button>
-                                                </form>
+                                                <a href=""> <button class="btn-minus"><i class="fa fa-minus"></i></button></a>
+                                                <input type="text" value="<?php echo $data['quantity']; ?> ">
+                                                <a href=""><button class="btn-plus"><i class="fa fa-plus"></i></button></a>
 
                                             </div>
                                         </td>
@@ -80,7 +77,8 @@ if (isset($_GET['id'])) {
 
                                         <td><button class="btn" type="Submit" name="submitdelete" onclick="window.location.href='deletew.php?Id=<?php echo $data['id']; ?>'"><i class="fa fa-trash"></i></button></td>
                                     </tr>
-                                <?php }  ?>
+                                <?php }
+                                ?>
                             </tbody>
                         </table>
                     </div>
