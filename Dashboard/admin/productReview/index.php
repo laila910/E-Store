@@ -8,7 +8,7 @@ include '../helpers/dbconnection.php';
 
 
 
-$sql = "SELECT `productreview`.*,`product`.`productname` FROM `productreview` join `productdetails` on `productreview`.`productreview `=`productdetails`.`id` join `product` on `productdetails`.`product_Id`=`product`.`id`  ";
+$sql = "SELECT `productreview`.*,`product`.`productname` FROM `productreview` join `productdetails` on `productreview`.`productreview `=`productdetails`.`id` join `product` on `productdetails`.`product_Id`=`product`.`id` ORDER BY `productreview`.`id_review` desc  ";
 
 $op  = mysqli_query($conn, $sql);
 

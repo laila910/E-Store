@@ -7,7 +7,7 @@ include '../helpers/dbconnection.php';
 
 
 
-$sql = "SELECT `orderproducts`.*,`orderdetailes`.`totalprice` ,`product`.`productname` FROM `orderproducts` join `orderdetailes` on `orderproducts`.`orderdetails_id` = `orderdetailes`.`id` join `productdetails` on `orderproducts`.`productdetails_id`=`productdetails`.`id` join `product` on `productdetails`.`product_Id`=`product`.`id` ";
+$sql = "SELECT `orderproducts`.*,`orderdetailes`.`totalprice` ,`product`.`productname` FROM `orderproducts` join `orderdetailes` on `orderproducts`.`orderdetails_id` = `orderdetailes`.`id` join `productdetails` on `orderproducts`.`productdetails_id`=`productdetails`.`id` join `product` on `productdetails`.`product_Id`=`product`.`id` ORDER BY `orderproducts`.`id` desc  ";
 
 $op  = mysqli_query($conn, $sql);
 

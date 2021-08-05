@@ -7,7 +7,7 @@ include '../helpers/dbconnection.php';
 
 
 
-$sql = "SELECT `orders`.*,`users`.`firstName`, `ordershipper`.`companyname` FROM `orders` join `addtocard` on `orders`.`card_id` = `addtocard`.`id` join `users` on `addtocard`.`customerId`=`users`.`id` join `ordershipper` on `ordershipper`.`id`=`orders`.`shipperId` ";
+$sql = "SELECT `orders`.*,`users`.`firstName`, `ordershipper`.`companyname` FROM `orders` join `addtocard` on `orders`.`card_id` = `addtocard`.`id` join `users` on `addtocard`.`customerId`=`users`.`id` join `ordershipper` on `ordershipper`.`id`=`orders`.`shipperId` ORDER BY `orders`.`id` desc ";
 
 $op  = mysqli_query($conn, $sql);
 

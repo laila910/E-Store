@@ -5,7 +5,7 @@ include '../helpers/checkPrem.php';
 include '../helpers/dbconnection.php';
 
 
-$sql = "SELECT `product`.*,`product`.`id` as `product_id`,`brand`.`brandName`, `categoreis`.categoryname  FROM `product` join `categoreis` on `product`.`product_cat_id` = `categoreis`.`id` join `brand` on `product`.`product_brand_id`=`brand`.`brand_Id` ";
+$sql = "SELECT `product`.*,`product`.`id` as `product_id`,`brand`.`brandName`, `categoreis`.categoryname  FROM `product` join `categoreis` on `product`.`product_cat_id` = `categoreis`.`id` join `brand` on `product`.`product_brand_id`=`brand`.`brand_Id` ORDER BY `product`.`id` desc  ";
 
 $op  = mysqli_query($conn, $sql);
 

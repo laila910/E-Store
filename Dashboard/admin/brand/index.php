@@ -8,104 +8,104 @@ include '../helpers/dbconnection.php';
 
 
 
-  $sql="SELECT * FROM `brand` ";
- 
-  $op  = mysqli_query($conn,$sql); 
- 
+$sql = "SELECT * FROM `brand` ORDER BY `brand`.`brand_Id` desc ";
+
+$op  = mysqli_query($conn, $sql);
+
 
 
 include '../header.php';
 ?>
 
 <body class="sb-nav-fixed">
-   <?php
+    <?php
 
-include '../nav.php';
-?>
+    include '../nav.php';
+    ?>
     <div id="layoutSidenav">
-<?php
+        <?php
 
-include '../sidNave.php';
-?>
+        include '../sidNave.php';
+        ?>
         <div id="layoutSidenav_content">
             <main>
-               <div class="container-fluid">
-                        <h1 class="mt-4">Tables</h1>
-                        <ol class="breadcrumb mb-4">
+                <div class="container-fluid">
+                    <h1 class="mt-4">Tables</h1>
+                    <ol class="breadcrumb mb-4">
 
 
-                        <?php 
-                        
+                        <?php
 
-                        if(isset($_SESSION['errors'])){
 
-                           foreach($_SESSION['errors'] as $key =>  $value){
+                        if (isset($_SESSION['errors'])) {
 
-                            echo '* '.$key.' : '.$value.'<br>';
-                           }
+                            foreach ($_SESSION['errors'] as $key =>  $value) {
 
-                             unset($_SESSION['errors']);
-                         }else{
-                    ?>
-                    
+                                echo '* ' . $key . ' : ' . $value . '<br>';
+                            }
+
+                            unset($_SESSION['errors']);
+                        } else {
+                        ?>
+
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
                             <li class="breadcrumb-item active">Brands Data</li>
-                    <?php } ?>
-               
-                        
-                        
-                        </ol>
-    
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table mr-1"></i>
-                                Brands Table
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Brand Name </th>
-                                                <th>Brand Image </th>
-                                             
-                                                <th>Action</th>
-                                          
-                                            </tr>
-                                        </thead>
-                                  
-                                    
-                                        <tbody>
-                                       
-                             <?php 
-                           
-                                while($result = mysqli_fetch_assoc($op)){
-                                   
-                             
-                             ?>           
+                        <?php } ?>
+
+
+
+                    </ol>
+
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table mr-1"></i>
+                            Brands Table
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
                                         <tr>
-                                                <td><?php echo $result['brand_Id'];?></td>
-                                                <td><?php echo $result['brandName'];?></td>
-                                                <td><img src="./uploads/<?php echo $result['brandImage'];?>" width="50px" height="50px"> </td>
-                                              
-                                              
+                                            <th>#</th>
+                                            <th>Brand Name </th>
+                                            <th>Brand Image </th>
+
+                                            <th>Action</th>
+
+                                        </tr>
+                                    </thead>
+
+
+                                    <tbody>
+
+                                        <?php
+
+                                        while ($result = mysqli_fetch_assoc($op)) {
+
+
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $result['brand_Id']; ?></td>
+                                                <td><?php echo $result['brandName']; ?></td>
+                                                <td><img src="./uploads/<?php echo $result['brandImage']; ?>" width="50px" height="50px"> </td>
+
+
                                                 <td>
 
-                                                <a href='delete.php?id=<?php echo $result['brand_Id'];?>' class='btn btn-danger m-r-1em'>Delete</a>
-                                                <a href='edit.php?id=<?php echo $result['brand_Id'];?>' class='btn btn-primary m-r-1em'>Edit</a> 
-                                               
+                                                    <a href='delete.php?id=<?php echo $result['brand_Id']; ?>' class='btn btn-danger m-r-1em'>Delete</a>
+                                                    <a href='edit.php?id=<?php echo $result['brand_Id']; ?>' class='btn btn-primary m-r-1em'>Edit</a>
+
                                                 </td>
-                                  
-                                        </tr>
-                            <?php } ?>             
-                                        </tbody>
-                                    </table>
-                                </div>
+
+                                            </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
+                </div>
             </main>
- <?php
-include '../footer.php';
- ?>
+            <?php
+            include '../footer.php';
+            ?>

@@ -6,7 +6,7 @@ include '../helpers/dbconnection.php';
 
 
 
-$sql = "SELECT `product`.`productname`,`productdetails`.*  ,`productcolor`.`firstcolor`,`productcolor`.`secondcolor`,`productcolor`.`thirdcolor`,`productsizes`.`S`,`productsizes`.`M`,`productsizes`.`L`,`productsizes`.`XL` FROM `productdetails` join `product` on `productdetails`.`product_Id` = `product`.`id` join  `productcolor` on `productdetails`.`color_id` =`productcolor`.`id`join `productsizes` on `productdetails`.`size_id`=`productsizes`.`id_size` ";
+$sql = "SELECT `product`.`productname`,`productdetails`.*  ,`productcolor`.`firstcolor`,`productcolor`.`secondcolor`,`productcolor`.`thirdcolor`,`productsizes`.`S`,`productsizes`.`M`,`productsizes`.`L`,`productsizes`.`XL` FROM `productdetails` join `product` on `productdetails`.`product_Id` = `product`.`id` join  `productcolor` on `productdetails`.`color_id` =`productcolor`.`id`join `productsizes` on `productdetails`.`size_id`=`productsizes`.`id_size` ORDER BY `productdetails`.`id` desc ";
 
 $op  = mysqli_query($conn, $sql);
 

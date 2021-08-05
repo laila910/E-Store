@@ -8,7 +8,7 @@ include '../helpers/dbconnection.php';
 
 
 
-$sql = "SELECT `manager`.* ,`suppliers`.`companyname`,`product`.`productname`,`users`.`firstname`,`users`.`lastName` FROM `manager` join `suppliers` on `manager`.`supplierid` = `suppliers`.`id` join `product` on `product`.`id`=`manager`.`product_id` join `users` on `users`.`id`=`manager`.`userid` ";
+$sql = "SELECT `manager`.* ,`suppliers`.`companyname`,`product`.`productname`,`users`.`firstname`,`users`.`lastName` FROM `manager` join `suppliers` on `manager`.`supplierid` = `suppliers`.`id` join `product` on `product`.`id`=`manager`.`product_id` join `users` on `users`.`id`=`manager`.`userid` ORDER BY `manager`.`id_manager` desc  ";
 
 $op  = mysqli_query($conn, $sql);
 

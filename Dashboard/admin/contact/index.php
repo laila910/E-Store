@@ -8,7 +8,7 @@ include '../helpers/dbconnection.php';
 
 
 
-$sql = "SELECT `contact`.*,`users`.`firstName`,`users`.`lastName` FROM `contact` join `users` on `contact`.`userId`=`users`.`id` ";
+$sql = "SELECT `contact`.*,`users`.`firstName`,`users`.`lastName` FROM `contact` join `users` on `contact`.`userId`=`users`.`id` ORDER BY `contact`.`id` desc  ";
 
 $op  = mysqli_query($conn, $sql);
 

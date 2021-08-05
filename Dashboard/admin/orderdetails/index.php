@@ -7,7 +7,7 @@ include '../helpers/dbconnection.php';
 
 
 
-$sql = "SELECT `orderdetailes`.*, `orders`.`id` as `order_id` FROM `orders` join `orderdetailes` on `orderdetailes`.`ordernumber` = `orders`.`id`";
+$sql = "SELECT `orderdetailes`.*, `orders`.`id` as `order_id` FROM `orders` join `orderdetailes` on `orderdetailes`.`ordernumber` = `orders`.`id` ORDER BY `orderdetailes`.`id` desc ";
 // here ,remeber to change quantity from here to orders 
 $op  = mysqli_query($conn, $sql);
 
